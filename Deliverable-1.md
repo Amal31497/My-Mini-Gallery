@@ -36,19 +36,9 @@
     
     Others...
 
-## Who will be responsible for each part of the app.
-
-    Hanh - Front End (React, Bootstrap, Styling)
-    Greg - Back End (React, MVC)
-    Jasur - AWS, Mongo/Mongoose
-    Jenni - Front End (React, Bootstrap, Styling)
-    Amal - Artwork API, Email API, Back End (MVC)
-
 ## Who will be responsible for each part of Deliverables #1.
 
     1. Why intended application is valuable
-    
-    Overview of the intended application and WHY you feel it's valuable?
 
     The overall intention of the application is to provide a space for artists to share their artwork. If it's drawings, paintings, designs, sculptures, or whatever form it might take, this website will help them get it in front of an audience and show it to others. Anything they create that is worth sharing can be done so with our application.
 
@@ -56,16 +46,24 @@
 
     The final use case, and potentially the most valuable, will be for artists to use our application to venture into the professional world. By making an account and populating it with one's work, an artist can build up a portfolio and hopefully use it to promote themselves, build a following, sell their creations, and maybe even land a studio job. 
 
-    2. Wireframe - Hanh
+    2. Wireframe
 
-    3. Breakdown of Roles by group member - Done
+    3. Breakdown of Roles by group member
 
-    4. Schedule of completion of tasks - Team
+        Hanh - Front End (React, Bootstrap, Styling)
+        Greg - Back End (React, MVC)
+        Jasur - AWS, Mongo/Mongoose
+        Jenni - Front End (React, Bootstrap, Styling)
+        Amal - Artwork API, Email API, Back End (MVC)
 
-    5. Kanban board - Amal
+    4. Schedule of completion of tasks (Refer to Kanban Board)
+
+    5. Kanban board
+[Project Kanban Board Link](https://github.com/Amal31497/My-Mini-Gallery/projects/1?fullscreen=true)
 
 ## Appendix:
 
-    Email-API - https://postmarkapp.com/email-api, https://nodemailer.com/about/
+*Further Research Needed (Email APIs):*<br>
+ [Postmark](https://postmarkapp.com/email-api), [Nodemailer](https://nodemailer.com/about/)
 
 Application Diagram ![Application Diagram](./assets/screenshots/application-diagram.png)
