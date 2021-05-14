@@ -66,6 +66,6 @@
 
 ## Appendix:
 
-    ### Email-API - https://postmarkapp.com/email-api, https://nodemailer.com/about/
+    Email-API - https://postmarkapp.com/email-api, https://nodemailer.com/about/
 
-    ### Application Diagram ![Application Diagram](./assets/screenshots/application-diagram.png)
+Application Diagram ![Application Diagram](./assets/screenshots/application-diagram.png)
