@@ -47,6 +47,7 @@
     The final use case, and potentially the most valuable, will be for artists to use our application to venture into the professional world. By making an account and populating it with one's work, an artist can build up a portfolio and hopefully use it to promote themselves, build a following, sell their creations, and maybe even land a studio job. 
 
     2. Wireframe
+    *See Appendix*
 
     3. Breakdown of Roles by group member
 
@@ -66,4 +67,32 @@
 *Further Research Needed (Email APIs):*<br>
  [Postmark](https://postmarkapp.com/email-api), [Nodemailer](https://nodemailer.com/about/)
 
-Application Diagram ![Application Diagram](./assets/screenshots/application-diagram.png)
+### Application Diagram 
+![Application Diagram](../assets/screenshots/application-diagram.png)
+
+### Wireframes:
+<br>
+
+### __Home__
+![Home](../assets/wireframes/HomePage.jpg)
+<hr>
+
+### __Sign-up__
+![SignUp](../assets/wireframes/SignUp.jpg)
+<hr>
+
+### __Log-in__
+![LogIn](../assets/wireframes/LogIn.jpg)
+<hr>
+
+### __Browse-art__
+![Browse-art](../assets/wireframes/BrowseArt.jpg)
+<hr>
+
+### __Home (Logged-in)__
+![Home (Logged-in)](../assets/wireframes/HomeLoggedIn.jpg)
+
+
+
+### Team:
+**Greg Harris | Jasur Amirov | Hanh Le | Jenni Detmering | Amal Janabayev | Faiz Azeem**
