@@ -4,14 +4,14 @@ const artController = require("../../controllers/artControllers");
 // Matches with "/api/posts"
 router
     .route("/")
-    .get(artController.findAll)
-    .post(artController.create);
+    .get(artController.findAllArt)
+    .post(artController.createArt);
 
 // Matches with "/api/posts/:id"
 router
     .route("/:id")
-    .get(artController.findById)
-    .put(artController.update)
-    .delete(artController.remove);
+    .get(artController.findArtById)
+    .put(artController.updateArt)
+    .delete(artController.removeArt);
 
 module.exports = router;
