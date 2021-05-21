@@ -11,7 +11,7 @@ router
 router
     .route("/:id")
     .get(artController.findById)
-    // .put(artController.update)
-    // .delete(artController.remove);
+    .put(artController.update)
+    .delete(artController.remove);
 
 module.exports = router;
