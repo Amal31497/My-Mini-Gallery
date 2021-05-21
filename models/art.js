@@ -7,7 +7,8 @@ const artSchema = new Schema({
     description: { type: Text, required: true },
     comments: { ref: Comments },
     imgSrc: { type: String, required: true },
-    genre: { type: String, require: true }
+    genre: { type: String, require: true },
+    date: { type: Date }
 });
 
 const Art = mongoose.model("Art", artSchema);
