@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import './Signup.css';
-import FormSignup from './FormSignup';
-import FormSuccess from './FormSuccess';
+import './Login.css';
+import FormLogin from './FormLogin';
+import Home from "../Home";
 
-const Signup = () => {
+const Login = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function submitForm() {
     setIsSubmitted(true);
   }
   return (
-    <div className='formBackground'>
+    <div className="formBackground2">
       <div className="container">
         <div className="form-container">
           {!isSubmitted ? (
-            <FormSignup submitForm={submitForm} />
+            <FormLogin submitForm={submitForm} />
           ) : (
-            <FormSuccess />
+            <Home />
           )}
         </div>
       </div>
@@ -24,4 +24,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
