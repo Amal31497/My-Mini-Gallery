@@ -18,22 +18,22 @@ export const Footer = () => {
                     </div>
 
                     <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Jasur} alt="Jasur Amirov" /></a>
+                        <a href="https://github.com/jamirov"><img className="profilePic" src={Jasur} alt="Jasur Amirov" /></a>
                         <p>Jasur Amirov</p>
                     </div>
 
                     <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Jenni} alt="Jenny Detmering" /></a>
+                        <a href="https://github.com/kodiakshuksan"><img className="profilePic" src={Jenni} alt="Jenny Detmering" /></a>
                         <p>Jenny Detmering</p>
                     </div>
 
                     <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Greg} alt="Greg Harris" /></a>
+                        <a href="https://github.com/GregHarris90"><img className="profilePic" src={Greg} alt="Greg Harris" /></a>
                         <p>Greg Harris</p>
                     </div>
 
                     <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Hanh} alt="Hanh Le" /></a>
+                        <a href="https://github.com/hanhle1989"><img className="profilePic" src={Hanh} alt="Hanh Le" /></a>
                         <p>Hanh Le</p>
                     </div>
 

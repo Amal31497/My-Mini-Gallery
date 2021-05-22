@@ -7,7 +7,7 @@ import Profile from "./pages/Profile";
 import Post from "./pages/Post";
 import Genre from "./pages/Genre";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Signup from "./pages/signup/Signup";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
