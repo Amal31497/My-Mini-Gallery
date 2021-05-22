@@ -53,7 +53,7 @@
 
         Hanh - Front End (React, Bootstrap, Styling)
         Greg - Back End (React, MVC)
-        Jasur - AWS, Mongo/Mongoose
+        Jasur & Faiz - AWS, Mongo/Mongoose
         Jenni - Front End (React, Bootstrap, Styling)
         Amal - Artwork API, Email API, Back End (MVC)
 
