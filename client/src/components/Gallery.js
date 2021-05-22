@@ -1,64 +1,83 @@
-import React, {useState} from 'react';
+import React from 'react';
+import Gallery from 'react-photo-gallery';
 import img1 from '../img/img1.jpg';
 import img2 from '../img/img2.jpg';
 import img3 from '../img/img3.jpg';
 import img4 from '../img/img4.jpg';
 import img5 from '../img/img5.jpg';
+import img6 from '../img/img6.jpg';
+import img7 from '../img/img7.JPG';
+import img8 from '../img/img8.jpg';
+import img9 from '../img/img9.JPG';
 import './gallery.css';
-import CloseIcon from '@material-ui/icons/Close';
+
+let photos = [
+    {
+        src: img1,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img2,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img3,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img4,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img5,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img6,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img7,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img8,
+        width: 1,
+        height: 1
+    },
+    {
+        
+        src: img9,
+        width: 1,
+        height: 1
+    }
+];
 
 
-const Gallery = () => {
-
-    let data = [
-        {
-            id: 1,
-            imgSrc: img1,
-        },
-        {
-            id: 2,
-            imgSrc: img2,
-        },
-        {
-            id: 3,
-            imgSrc: img3,
-        },
-        {
-            id: 4,
-            imgSrc: img4,
-        },
-        {
-            id: 5,
-            imgSrc: img5,
-        }
-]
-        const [model, setModel] = useState(false);
-        const [tempimgSrc, setTempImgSrc] = useState('')
-
-        const getImg = (imgSrc) =>{
-            setTempImgSrc(imgSrc);
-            setModel(true)
-        }
-        return (
-            <>
-                <div className={model? "model open" : "model"}>
-                    <img src={tempimgSrc} alt="cat" />
-                    <CloseIcon onClick={()=> setModel(false )}/>
-                </div>
+const gallery2 = () => {
+    
+    
             
-                <div className="gallery">
-                    {data.map((item, index) =>{
-                        return(
-                            <div className="pics" key={index} onClick={() => getImg(item.imgSrc)}>
-                                <img src={item.imgSrc} style={{width: '100%'}} alt="dog" />
-                            </div>
-                        )
 
-                    })}
-
-                </div>
-            </>
+    return (
+        <div className="gallery">
+            <Gallery photos={photos} />
+        </div>
     )
 }
 
-export default Gallery
+export default gallery2
