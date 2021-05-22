@@ -12,7 +12,7 @@ const FormSignup = ({ submitForm }) => {
   return (
     <div className='form-content-right'>
       <form onSubmit={handleSubmit} className='form' noValidate>
-        <h1> WELCOME TO YOUR ONLINE ART COMMUNITY</h1>
+        <h1> Welcome To Your Online Art Community!</h1>
         <div className='form-inputs'>
           <label className='form-label'>Username</label>
           <input

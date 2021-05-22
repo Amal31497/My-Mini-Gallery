@@ -12,7 +12,7 @@ const Signup = () => {
   return (
     <div className='formBackground'>
       <div className="container">
-        <div className='form-container'>
+        <div className="col-12 form-container">
           {!isSubmitted ? (
             <FormSignup submitForm={submitForm} />
           ) : (
