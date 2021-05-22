@@ -1,6 +1,6 @@
-.formBackground{
+.formBackground2{
   position: relative;
-  background: url(./assets/signup.jpg) no-repeat;
+  background: url(../assets/login.jpg) no-repeat;
   background-size: cover;
   background-position: center;
   height: 90vh;
@@ -24,18 +24,6 @@
 
 .form-content-left { 
   position: relative;
-}
-
-.form-success {
-  margin-top: 20vh;
-  font-weight: bold;
-  font-size: 50px;
-  color: #fff;
-}
-
-.form-success-2{
-  color: white;
-  width: 100vh;
 }
 
 .form {
@@ -100,18 +88,4 @@
   cursor: pointer;
   background: rgb(32, 32, 32);
   transition: all 0.4s ease-out;
-}
-
-.form-input-login {
-  font-size: 0.8rem;
-  margin-top: 10px;
-  color: #fff;
-  width: 80%;
-  text-align: center;
-}
-
-.form-input-login a {
-  text-decoration: none;
-  color: #27cdff;
-  font-weight: 600;
 }
