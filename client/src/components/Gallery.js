@@ -80,4 +80,4 @@ const gallery2 = () => {
     )
 }
 
-export default gallery2
+export default gallery2;
