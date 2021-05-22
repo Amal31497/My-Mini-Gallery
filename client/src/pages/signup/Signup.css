@@ -1,0 +1,131 @@
+.formBackground{
+  position: relative;
+  background: url(./assets/signup.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+}
+
+.form-container {
+  margin:600px auto;
+  width: 850px;
+  position: absolute;
+}
+
+.close-btn {
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  font-size: 1.5rem;
+  z-index: 1;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-content-left { 
+  position: relative;
+}
+
+.form-success {
+  font-weight: bold;
+  font-size: 50px;
+  color: #fff;
+}
+
+.form-success-2{
+  color: white;
+}
+
+.form-content-right {
+  margin-top: -130px;
+  position: relative;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form h1 {
+  font-size: 3rem;
+  text-align: start;
+  width: 80%;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-weight: bold;
+}
+
+.form-inputs {
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.form-inputs p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #f00e0e;
+}
+
+.form-label {
+  display: inline-block;
+  font-size: 16px;;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.form-input {
+  display: block;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  outline: none;
+  border-radius: 2px;
+  height: 40px;
+  width: 100%;
+  border: none;
+}
+
+.form-input::placeholder {
+  color: #595959;
+  font-size: 16px;
+}
+
+.form-input-btn {
+  width: 80%;
+  height: 50px;
+  margin-top: 10px;
+  padding: 7px 20px;
+  border-radius: 2px;
+  background: black;
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-input-btn:hover {
+  cursor: pointer;
+  background: rgb(32, 32, 32);
+  transition: all 0.4s ease-out;
+}
+
+.form-input-login {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: #fff;
+  width: 80%;
+  text-align: center;
+}
+
+.form-input-login a {
+  text-decoration: none;
+  color: #27cdff;
+  font-weight: 600;
+}
