@@ -5,7 +5,14 @@ const userController = require("../../controllers/userControllers");
 router
     .route("/")
     .get(userController.findAllUsers)
+    // user signup!
     .post(userController.createUser);
+
+// Matches with "/api/login"
+router
+    .route("/login")
+    // user login!
+    .post(userController.loginUser);
 
 // Matches with "/api/user/:id"
 router

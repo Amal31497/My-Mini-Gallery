@@ -25,13 +25,49 @@ module.exports = {
             req.session.save(() => {
                 req.session.user_id = userData._id;
                 req.session.logged_in = true;
-                res.status(200).json(userData);
+                res.status(200).json({
+                    user_id: userData._id,
+                    firstName: userData.firstName
+                });
             });
 
         } catch (error) {
             res.status(422).json(error);
         }
     },
+    loginUser: async (req, res) => {
+        try {
+            
+            const userData = await db.User.findOne({ email: req.body.email });
+
+            if(!userData) {
+                res.status(400).json({ message:"Incorrect email or password, please try again!"});
+                return;
+            }
+
+            const validPassword = await bcrypt.compare(
+                req.body.password,
+                userData.password
+            )
+
+            if(!validPassword) {
+                res.status(400).json({ message:"Incorrect email or password, please try again!"});
+                return;
+            }
+
+            req.session.save(() => {
+                req.session.user_id = userData._id;
+                req.session.logged_in = true;
+            });
+            // add additional user data such as art, email, etc!
+            res.json({ user: {firstName: userData.firstName, user_id: userData._id}, message: "You are successfully logged in!"});
+
+        } catch (error) {
+            
+        }
+
+    },
+
     updateUser: function (req, res) {
         db.User
             .findOneAndUpdate({ _id: req.params.id }, req.body)
