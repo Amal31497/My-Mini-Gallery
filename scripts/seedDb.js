@@ -16,7 +16,7 @@ const userSeed = [
                 title: "Cats",
                 description: "Cool fancy art",
                 imgSrc: "image2321",
-                genre: "Painting",
+                tags: [{title:"Painting"}, {title:"Colors"}, {title:"Soft"}],
                 date: new Date(),
                 comments: [
                     {
@@ -31,7 +31,7 @@ const userSeed = [
                 title: "Dogs",
                 description: "Cool dog art picture",
                 imgSrc: "image333412",
-                genre: "Photo",
+                tags: [{title:"Photo"}, {title:"High resolution"}, {title:"Nature"}],
                 date: new Date(),
                 comments: [
                     {
@@ -55,7 +55,7 @@ const userSeed = [
                 title:"Bats",
                 description:"Nice bat drawing",
                 imgSrc: "image33441",
-                genre: "Drawing",
+                tags: [{title:"Drawing"}, {title:"Oil"}],
                 date: new Date(),
                 comments: [
                     {

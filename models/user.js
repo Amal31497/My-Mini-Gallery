@@ -13,13 +13,16 @@ const commentSchema = new Schema({
     date: { type: Date }
 })
 
+const tagSchema = new Schema({
+    title: { type: String, required: true }
+})
 
 const artSchema = new Schema({
     _id: { type: Number, required: true },
     title: { type: String, require: true },
     description: { type: String, required: true },
     imgSrc: { type: String, required: true },
-    genre: { type: String, require: true },
+    tags: [tagSchema],
     date: { type: Date },
     comments: [commentSchema]
 });
@@ -50,5 +53,6 @@ const userSchema = new Schema({
 const User = mongoose.model("User", userSchema);
 const Art = mongoose.model("Art", artSchema)
 const Comment = mongoose.model("Comment", commentSchema)
+const Tag = mongoose.model("Tag", tagSchema)
 
-module.exports = { User,Art,Comment };
+module.exports = { User,Art,Comment,Tag };
