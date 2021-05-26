@@ -3,22 +3,6 @@ const db = require("../models");
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery");
 
-
-const artSeed = [
-    {
-        description: "Cool fancy art",
-        imgSrc: "image2321",
-        genre: "Painting",
-        // date: new Date(Date.now()),
-        comments: [
-            {
-                content: "Cool Post!",
-                // date: new Date(Date.now())
-            }
-        ]
-    }
-]
-
 const userSeed = [
     {
         firstName: "Amal",
@@ -26,23 +10,64 @@ const userSeed = [
         email: "amalj2426@gmail.com",
         description: "I love art!",
         password: "password",
-        art: ["60a96e45c4e455d0c8b96c46"]
+        art: [
+            {
+                _id: 1,
+                title: "Cats",
+                description: "Cool fancy art",
+                imgSrc: "image2321",
+                genre: "Painting",
+                date: new Date(),
+                comments: [
+                    {
+                        _id:1,
+                        content: "Great Post!",
+                        date: new Date()
+                    }
+                ]
+            },
+            {
+                _id: 2,
+                title: "Dogs",
+                description: "Cool dog art picture",
+                imgSrc: "image333412",
+                genre: "Photo",
+                date: new Date(),
+                comments: [
+                    {
+                        _id:4,
+                        content: "Cool pic!",
+                        date: new Date()
+                    }
+                ]
+            }
+        ]
     },
     {
         firstName: "Jasur",
-        userName: "Jasur123",
-        email: "jasuramirov@gmail.com",
-        description: "I love good art!",
-        password: "password"
-    },
-    {
-        firstName: "Jenni",
-        userName: "Jenni123",
-        email: "jenni@gmail.com",
-        description: "I love great art!",
-        password: "password"
+        userName: "JasurJasur",
+        email: "jasur@gmail.com",
+        description: "Painting is my thing!",
+        password: "password",
+        art: [
+            {
+                _id:3,
+                title:"Bats",
+                description:"Nice bat drawing",
+                imgSrc: "image33441",
+                genre: "Drawing",
+                date: new Date(),
+                comments: [
+                    {
+                        _id:2,
+                        content: "I love this post!",
+                        date: new Date()
+                    }
+                ]
+            }
+        ]
     }
-];
+]
 
 db.User.remove({})
     .then(() => db.User.insertMany(userSeed))

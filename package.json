@@ -20,7 +20,7 @@
   "homepage": "https://github.com/Amal31497/My-Mini-Gallery#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.12.10",
+    "mongoose": "^5.12.11",
     "router": "^1.3.5"
   }
 }
