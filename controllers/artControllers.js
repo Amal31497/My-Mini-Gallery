@@ -11,6 +11,7 @@ module.exports = {
     findArtById: function (req, res) {
         db.Art
             .findById(req.params.id)
+            .populate('comments')
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
