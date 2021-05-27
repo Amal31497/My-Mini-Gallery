@@ -18,7 +18,7 @@
   right: 3%;
   font-size: 1.5rem;
   z-index: 1;
-  color: #fff;
+  color: black;
   cursor: pointer;
 }
 
@@ -30,7 +30,7 @@
   margin-top: 20vh;
   font-weight: bold;
   font-size: 50px;
-  color: #fff;
+  color: black;
 }
 
 .form-success-2{
@@ -56,6 +56,12 @@
 }
 
 .form-inputs p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #f00e0e;
+}
+
+.custom-select p {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   color: #f00e0e;
