@@ -17,6 +17,10 @@ const tagSchema = new Schema({
     title: { type: String, required: true }
 })
 
+const genreSchema = new Schema({
+    keyword: { type: String, required: true },
+});
+
 const artSchema = new Schema({
     _id: { type: Number, required: true },
     title: { type: String, require: true },
@@ -54,5 +58,6 @@ const User = mongoose.model("User", userSchema);
 const Art = mongoose.model("Art", artSchema)
 const Comment = mongoose.model("Comment", commentSchema)
 const Tag = mongoose.model("Tag", tagSchema)
+const Genre = mongoose.model("Genre", genreSchema)
 
-module.exports = { User,Art,Comment,Tag };
+module.exports = { User,Art,Comment,Tag,Genre };
