@@ -14,6 +14,12 @@ router
     // user login!
     .post(userController.loginUser);
 
+// Matches with "api/logout"
+router
+    .route("/logout")
+    // user logout!
+    .post(userController.logoutUser);
+
 // Matches with "/api/user/:id"
 router
     .route("/:id")
