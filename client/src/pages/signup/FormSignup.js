@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { signup } from '../../utils/API'
 import validate from './validateInfo';
 import useForm from './useForm';
 import './Signup.css';
 
 const FormSignup = ({ submitForm }) => {
+
+  const userNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef()
+
   const { handleChange, handleSubmit, values, errors } = useForm(
     submitForm,
     validate
@@ -22,6 +28,7 @@ const FormSignup = ({ submitForm }) => {
             placeholder='Enter your username'
             value={values.username}
             onChange={handleChange}
+            ref={userNameRef}
           />
           {errors.username && <p>{errors.username}</p>}
         </div>
@@ -34,6 +41,7 @@ const FormSignup = ({ submitForm }) => {
             placeholder='Enter your email'
             value={values.email}
             onChange={handleChange}
+            ref={emailRef}
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
@@ -58,6 +66,7 @@ const FormSignup = ({ submitForm }) => {
             placeholder='Confirm your password'
             value={values.password2}
             onChange={handleChange}
+            ref={passwordRef}
           />
           {errors.password2 && <p>{errors.password2}</p>}
         </div>
