@@ -2,6 +2,7 @@ import React from 'react';
 import validate from './validateInfo';
 import useForm from './useForm';
 import './Post.css';
+import InputFile from '../../components/InputFile';
 
 const FormPost = ({ submitForm }) => {
   const { handleChange, handleSubmit, values, errors } = useForm(
@@ -11,20 +12,8 @@ const FormPost = ({ submitForm }) => {
 
   return (
     <form onSubmit={handleSubmit} className='submit-form' noValidate>
-      <div className="form-group">
-        <label className='form-label2'>Choose a file to upload</label>
-        <div className="col">
-          <input
-            className='form-control'
-            type='file'
-            name='browse'
-            className='artPost'
-
-            //need to validate fileInput//
-            value=''
-            onChange={handleChange}
-          />
-        </div>
+      <div>
+        <InputFile/>
       </div>
 
       <div className='form-inputs'>
