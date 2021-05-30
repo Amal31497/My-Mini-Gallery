@@ -40,7 +40,7 @@ module.exports = {
 
     loginUser: async (req, res) => {
         try {
-            const userData = await db.User.findOne({ email: req.body.email });
+            const userData = await db.User.findOne({ username: req.body.username });
             if (!userData) {
                 res.status(400).json({ message: "Incorrect email or password, please try again!" });
                 return;

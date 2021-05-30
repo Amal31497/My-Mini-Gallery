@@ -1,9 +1,41 @@
 import React, { useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { login } from "../../utils/API";
+import { useArtContext } from '../../utils/GlobalState';
+import { LOGIN } from "../../utils/actions"
 import validate from './validateInfo';
 import useForm from './useForm';
 import './Login.css';
 
 const FormLogin = ({ submitForm }) => {
+
+  const [state, dispatch] = useArtContext();
+  const history = useHistory();
+
+  const usernameRef = useRef();
+  const passwordRef = useRef()
+
+  const handleLogin = (event) => {
+    event.preventDefault()
+    login({
+      username: usernameRef.current.value,
+      password: passwordRef.current.value
+    })
+      .then(response => {
+        console.log(response)
+        dispatch({
+          type: LOGIN,
+          user: response.data
+        });
+
+        history.push("/");
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+
 
   const { handleChange, handleSubmit, values, errors } = useForm(
     submitForm,
@@ -23,6 +55,7 @@ const FormLogin = ({ submitForm }) => {
             placeholder='Enter your username'
             value={values.username}
             onChange={handleChange}
+            ref={usernameRef}
           />
           {errors.username && <p>{errors.username}</p>}
         </div>
@@ -36,11 +69,12 @@ const FormLogin = ({ submitForm }) => {
             placeholder='Enter your password'
             value={values.password}
             onChange={handleChange}
+            ref={passwordRef}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
 
-        <button className='form-input-btn' type='submit'>
+        <button className='form-input-btn' type='submit' onClick={handleLogin}>
           Login
         </button>
         <span className='form-input-login'>
@@ -56,3 +90,5 @@ const FormLogin = ({ submitForm }) => {
 };
 
 export default FormLogin;
+
+
