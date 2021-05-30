@@ -28,7 +28,7 @@ module.exports = {
                 req.session.logged_in = true;
                 res.status(200).json({
                     user_id: userData._id,
-                    usename: userData.usename,
+                    username: userData.usename,
                     email: userData.email
                 });
             });
