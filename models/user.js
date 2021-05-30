@@ -29,8 +29,8 @@ const artSchema = new Schema({
 
 
 const userSchema = new Schema({
-    firstName: { type: String, required: true },
-    userName: { type: String, required: true },
+    firstName: { type: String },
+    username: { type: String, required: true },
     email: {
         type: String,
         trim: true,
@@ -40,7 +40,7 @@ const userSchema = new Schema({
         validate: [validateEmail, 'Please fill a valid email address'],
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    description: { type: String, required: true },
+    description: { type: String },
     password: {
         type: String,
         trim: true,

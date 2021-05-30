@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session)
 
-
+const path = require("path");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
@@ -22,11 +22,9 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24
      }, // stay logged in for 1 day
     store: store,
-    // resave: true,
+    resave: true,
     saveUninitialized: true
 }))
-
-
 
 
 // Define middleware here
@@ -41,8 +39,22 @@ if (process.env.NODE_ENV === "production") {
 // Add routes, both API and view
 app.use(routes);
 
+// Send every request to the React app
+// Define any API routes before this runs
+app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
+
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false
+    }
+);
 
 // Start the API server
 app.listen(PORT, function () {
