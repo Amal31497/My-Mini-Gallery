@@ -26,13 +26,13 @@ function FormSignup( { submitForm } ){
     event.preventDefault();
     
     signup({
+
       username: userNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
       
     }, console.log(userNameRef.current.value))
       .then(res => {
-        
         dispatch({
           type: LOGIN,
           user: res.data
@@ -48,7 +48,7 @@ function FormSignup( { submitForm } ){
 
   return (
     <div className='form-content-right'>
-      <form onSubmit={handleSubmit} className='form' noValidate>
+      <form  onSubmit={handleSubmit} className='form' noValidate>
         <h1> Welcome To Your Online Art Community!</h1>
         <div className='form-inputs'>
           <label className='form-label'>Username</label>
@@ -85,6 +85,7 @@ function FormSignup( { submitForm } ){
             placeholder='Enter your password'
             value={values.password}
             onChange={handleChange}
+            ref={passwordRef}
           />
           {errors.password && <p>{errors.password}</p>}
         </div>
