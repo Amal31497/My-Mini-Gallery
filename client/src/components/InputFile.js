@@ -15,7 +15,7 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-const UploadImageToS3WithReactS3 = () => {
+const InputFile = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
 
@@ -30,13 +30,13 @@ const UploadImageToS3WithReactS3 = () => {
     }
 
     return <div>
-        <div>React S3 File Upload</div>
+        <div>Choose your Art to Upload</div>
         <input type="file" onChange={handleFileInput}/>
-        <button onClick={() => handleUpload(selectedFile)}> Upload to S3</button>
+        <button onClick={() => handleUpload(selectedFile)}> Upload</button>
     </div>
 }
 
-export default UploadImageToS3WithReactS3;
+export default InputFile;
 
 
 
