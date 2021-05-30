@@ -1,10 +1,17 @@
 import React, { useRef } from 'react';
-import { signup } from '../../utils/API'
+import { signup } from '../../utils/API';
+import { useArtContext } from '../../utils/GlobalState';
+import { LOGIN } from "../../utils/actions";
+import { useHistory } from 'react-router-dom';
 import validate from './validateInfo';
 import useForm from './useForm';
 import './Signup.css';
 
-const FormSignup = ({ submitForm }) => {
+function FormSignup( { submitForm } ){
+
+  const [state, dispatch] = useArtContext();
+  const history = useHistory();
+  
 
   const userNameRef = useRef();
   const emailRef = useRef();
@@ -14,6 +21,30 @@ const FormSignup = ({ submitForm }) => {
     submitForm,
     validate
   );
+
+  const handleSignup = (event) => {
+    event.preventDefault();
+    
+    signup({
+      username: userNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value
+      
+    }, console.log(userNameRef.current.value))
+      .then(res => {
+        
+        dispatch({
+          type: LOGIN,
+          user: res.data
+        });
+        
+        // history.push("/");
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
+
 
   return (
     <div className='form-content-right'>
@@ -70,7 +101,7 @@ const FormSignup = ({ submitForm }) => {
           />
           {errors.password2 && <p>{errors.password2}</p>}
         </div>
-        <button className='form-input-btn' type='submit'>
+        <button className='form-input-btn' type='submit' onClick={handleSignup}>
           Sign up
         </button>
         <span className='form-input-login'>

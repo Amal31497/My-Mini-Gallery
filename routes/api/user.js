@@ -27,4 +27,8 @@ router
     .put(userController.updateUser)
     .delete(userController.removeUser);
 
+router
+    .route("/authenticatedUser")
+    .get(userController.authenticateUser)
+
 module.exports = router;

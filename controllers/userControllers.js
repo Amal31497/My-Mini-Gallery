@@ -28,10 +28,12 @@ module.exports = {
                 req.session.logged_in = true;
                 res.status(200).json({
                     user_id: userData._id,
-                    firstName: userData.firstName
+                    usename: userData.usename,
+                    email: userData.email
                 });
             });
         } catch (error) {
+            console.log(error)
             res.status(422).json(error);
         }
     },
@@ -56,7 +58,7 @@ module.exports = {
                 req.session.logged_in = true;
             });
             // add additional user data such as art, email, etc!
-            res.json({ user: { firstName: userData.firstName, user_id: userData._id }, message: "You are successfully logged in!" });
+            res.json({ user: { username: userData.username, user_id: userData._id }, message: "You are successfully logged in!" });
         } catch (error) {
             console.log(error);
             res.status(400).json(error);
@@ -86,5 +88,13 @@ module.exports = {
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+
+    authenticateUser: function (req,res) {
+        if (req.session.logged_in) {
+            res.status(200).json({ user_id: req.session.user_id })
+        } else {
+            res.status(204).end();
+        }
     }
 }
