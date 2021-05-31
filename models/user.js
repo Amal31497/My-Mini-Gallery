@@ -23,10 +23,10 @@ const artSchema = new Schema({
     description: { type: String, required: true },
     imgSrc: { type: String, required: true },
     tags: [tagSchema],
+    // user?
     date: { type: Date },
     comments: [commentSchema]
 });
-
 
 const userSchema = new Schema({
     firstName: { type: String },
@@ -37,8 +37,8 @@ const userSchema = new Schema({
         lowercase: true,
         unique: true,
         required: 'Email address is required',
-        // validate: [validateEmail, 'Please fill a valid email address'],
-        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+        validate: [validateEmail, 'Please fill a valid email address'],
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     description: { type: String },
     password: {
