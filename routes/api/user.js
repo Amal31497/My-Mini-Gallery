@@ -29,6 +29,6 @@ router
 
 router
     .route("/authenticatedUser")
-    .get(userController.authenticateUser)
+    .get(userController.authenticatedUser)
 
 module.exports = router;

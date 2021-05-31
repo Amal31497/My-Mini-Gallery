@@ -82,7 +82,7 @@ const FormLogin = ({ submitForm }) => {
         </span>
         <br></br>
         <span className='form-input-login'>
-          Don't have an account? Signup <a href='#'>here</a>
+          Don't have an account? Signup <a href='/signup'>here</a>
         </span>
       </form>
     </div>

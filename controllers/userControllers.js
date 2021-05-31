@@ -90,7 +90,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
-    authenticateUser: function (req,res) {
+    authenticatedUser: function (req,res) {
         if (req.session.logged_in) {
             res.status(200).json({ user_id: req.session.user_id })
         } else {
