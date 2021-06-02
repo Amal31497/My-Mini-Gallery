@@ -23,7 +23,7 @@ const artSchema = new Schema({
     description: { type: String, required: true },
     imgSrc: { type: String, required: true },
     tags: [tagSchema],
-    user: { type: String, required: true }
+    user: { type: String, required: true },
     date: { type: Date },
     comments: [commentSchema]
 });

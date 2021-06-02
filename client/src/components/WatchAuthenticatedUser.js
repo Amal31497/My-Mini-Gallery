@@ -16,6 +16,7 @@ function WatchAuthenticatedUser() {
                 });
             }
         })
+        .catch(err => console.error(err))
     }, [])
 
     return <></>;

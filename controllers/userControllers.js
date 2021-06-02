@@ -28,7 +28,7 @@ module.exports = {
                 req.session.logged_in = true;
                 res.status(200).json({
                     user_id: userData._id,
-                    username: userData.usename,
+                    username: userData.username,
                     email: userData.email
                 });
             });
@@ -56,9 +56,10 @@ module.exports = {
             req.session.save(() => {
                 req.session.user_id = userData._id;
                 req.session.logged_in = true;
+                res.json({ user: { username: userData.username, user_id: userData._id }, message: "You are successfully logged in!" });
             });
             // add additional user data such as art, email, etc!
-            res.json({ user: { username: userData.username, user_id: userData._id }, message: "You are successfully logged in!" });
+            
         } catch (error) {
             console.log(error);
             res.status(400).json(error);

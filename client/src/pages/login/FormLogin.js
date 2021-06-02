@@ -25,7 +25,7 @@ const FormLogin = ({ submitForm }) => {
         console.log(response)
         dispatch({
           type: LOGIN,
-          user: response.data
+          user: response.data.user
         });
 
         history.push("/");
