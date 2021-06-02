@@ -9,6 +9,7 @@ import './Login.css';
 
 const FormLogin = ({ submitForm }) => {
 
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useArtContext();
   const history = useHistory();
 
@@ -78,7 +79,7 @@ const FormLogin = ({ submitForm }) => {
           Login
         </button>
         <span className='form-input-login'>
-          Forgot your password? Reset your password <a href='#'>here</a>
+          Forgot your password? Reset your password <a href='/'>here</a>
         </span>
         <br></br>
         <span className='form-input-login'>

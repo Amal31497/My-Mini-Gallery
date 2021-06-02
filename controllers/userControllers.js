@@ -56,7 +56,11 @@ module.exports = {
             req.session.save(() => {
                 req.session.user_id = userData._id;
                 req.session.logged_in = true;
-                res.json({ user: { username: userData.username, user_id: userData._id }, message: "You are successfully logged in!" });
+                res.json({ user: { 
+                    username: userData.username, 
+                    user_id: userData._id }, 
+                    message: "You are successfully logged in!" 
+                });
             });
             // add additional user data such as art, email, etc!
             

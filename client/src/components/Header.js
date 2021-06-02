@@ -13,7 +13,7 @@ export const Header = () => {
                 backSpeed={50}
                 loop
                 />
-                <a href="#" className="btn-sign-up">be a part of our community</a>
+                <a href="/" className="btn-sign-up">be a part of our community</a>
             </div>
         </div>
     )

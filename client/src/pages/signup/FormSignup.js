@@ -9,6 +9,7 @@ import './Signup.css';
 
 function FormSignup( { submitForm } ){
 
+  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useArtContext();
   const history = useHistory();
   

@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { LOGOUT } from "../utils/actions";
 import { logout } from "../utils/API"
 import { useArtContext } from "../utils/GlobalState";
@@ -7,7 +7,7 @@ import { useArtContext } from "../utils/GlobalState";
 function LoginOrOut(){
 
     const [state, dispatch] = useArtContext();
-    const history = useHistory();
+    // const history = useHistory();
 
     const handleLogOut = (event) => {
         event.preventDefault();
@@ -35,7 +35,7 @@ function LoginOrOut(){
                 </>
                 :
                 <li className="nav-item">
-                    <a className="nav-link" href="#" onClick={handleLogOut}>Logout</a>
+                    <a className="nav-link" href="/" onClick={handleLogOut}>Logout</a>
                 </li>
             }
         </>
