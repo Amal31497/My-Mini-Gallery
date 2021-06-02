@@ -20,6 +20,11 @@ router
     // user logout!
     .post(userController.logoutUser);
 
+router
+    .route("/authenticatedUser")
+    .get(userController.authenticatedUser)
+
+
 // Matches with "/api/user/:id"
 router
     .route("/:id")
@@ -27,8 +32,6 @@ router
     .put(userController.updateUser)
     .delete(userController.removeUser);
 
-router
-    .route("/authenticatedUser")
-    .get(userController.authenticatedUser)
+
 
 module.exports = router;
