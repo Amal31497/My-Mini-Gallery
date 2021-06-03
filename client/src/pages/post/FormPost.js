@@ -8,6 +8,8 @@ import './Post.css';
 import { uploadFile } from 'react-s3';
 import envVar from "../../envVar"
 
+import reactImageSize from 'react-image-size';
+
 const S3_BUCKET ='miniartworks';
 const REGION ='us-west-2';
 const ACCESS_KEY =envVar.ACCESS_KEY;
@@ -22,6 +24,7 @@ const config = {
 
 
 const FormPost = ({ submitForm }) => {
+
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
         validate
@@ -35,29 +38,27 @@ const FormPost = ({ submitForm }) => {
     const formRef = useRef();
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [readyImage, setReadyImage] = useState("")
-    
+    const [readyImage, setReadyImage] = useState("");
+    const [imgwidth, setWidth] = useState();
+    const [imgheight, setHeight] = useState();
+
     const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]);
+        setSelectedFile(e.target.files[0]); 
     }
 
-    const handleUpload = (file) => {
-        uploadFile(file, config)
-            .then(data => {
-                setReadyImage(data.location)
-            })
-            .catch(err => console.error(err))
-    }
+    const handleArtSubmit =  () => {
+        // event.preventDefault();
+        console.log(readyImage)
 
-    const handleArtSubmit = (event) => {
-        event.preventDefault();
-        
+        // const rejectTimeout = 1000; // ms
+
         const art = {
             src: readyImage,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
-            // genre: genreRef.current.value,
+            width:imgwidth,
+            height:imgheight,
             user: _.user.user_id
         }
         console.log(art)
@@ -80,10 +81,35 @@ const FormPost = ({ submitForm }) => {
         
     }
 
-    const handleFormSubmit = (file,event) => {
-        handleUpload(file)
-        handleArtSubmit(event)
+
+    const handleUpload = (file) => {
+        uploadFile(file, config)
+            .then(data => {
+                setReadyImage(data.location)
+            })
+            .then(() => {
+                reactImageSize(readyImage)
+                .then(({ width, height }) => {
+                    setWidth(width);
+                    setHeight(height);
+                })
+                .catch(errorMessage => {
+                    // if request takes longer than 5 seconds an timeout exception will be thrown
+                    console.error(errorMessage)
+                }) 
+            })
+            .then(() => {
+                handleArtSubmit()
+            })
+            .catch(err => console.error(err))
     }
+
+
+
+    // const handleFormSubmit = (file,event) => {
+    //     handleUpload(file)
+    //     handleArtSubmit(event)
+    // }
 
     return (
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
@@ -153,7 +179,7 @@ const FormPost = ({ submitForm }) => {
                 selectedFile &&
                 <button
                     className='form-input-btn' type='submit'
-                    onClick={(event) => handleFormSubmit(selectedFile,event)}>
+                    onClick={() => handleUpload(selectedFile)}>
                     Submit
                 </button>
             }
@@ -162,3 +188,5 @@ const FormPost = ({ submitForm }) => {
 };
 
 export default FormPost;
+
+
