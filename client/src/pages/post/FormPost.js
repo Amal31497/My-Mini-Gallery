@@ -44,7 +44,6 @@ const FormPost = ({ submitForm }) => {
     const handleUpload = (file) => {
         uploadFile(file, config)
             .then(data => {
-                console.log(data.location)
                 setReadyImage(data.location)
             })
             .catch(err => console.error(err))
@@ -61,7 +60,6 @@ const FormPost = ({ submitForm }) => {
             // genre: genreRef.current.value,
             user: _.user.user_id
         }
-
         console.log(art)
         if(readyImage){
             createArt(art)
@@ -128,12 +126,12 @@ const FormPost = ({ submitForm }) => {
 
             <div className="form-row align-items-center">
                 <div className="col-auto my-1">
-                    <label className="form-label2" for="inlineFormCustomSelect">Choose a Genre for your Artwork</label>
+                    <label className="form-label2" htmlFor="inlineFormCustomSelect">Choose a Genre for your Artwork</label>
                     <div className="col">
                         <select className="custom-select mr-sm-2" id="genreSelects" >
 
                             {/* //need to validate value.genre// */}
-                            <option selected>Choose...</option>
+                            <option defaultValue>Choose...</option>
                             <option value={values.genre}>3D</option>
                             <option value={values.genre}>Anime and Manga</option>
                             <option value={values.genre}>Artisan Craft</option>
