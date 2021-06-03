@@ -8,7 +8,7 @@
     "start": "node server.js",
     "seed": "node scripts/seedDb.js",
     "install": "cd client && npm install",
-    "build": "cd client && npm run build"
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
