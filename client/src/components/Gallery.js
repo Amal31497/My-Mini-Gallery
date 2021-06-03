@@ -4,7 +4,6 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 //import { photos } from "./photos";
 
-
 import img1 from '../img/img1.jpg';
 import img2 from '../img/img2.jpg';
 import img3 from '../img/img3.jpg';
@@ -21,9 +20,9 @@ import img13 from '../img/img13.jpg';
 import img14 from '../img/img14.jpg';
 import img15 from '../img/img15.jpg';
 import img16 from '../img/img16.jpg';
-
 import './gallery.css';
-
+import { useArtContext } from "../utils/GlobalState";
+import uuid from 'react-uuid'
 
 
 
@@ -107,42 +106,59 @@ let photos = [
         src: img16,
         width: 1,
         height: 1
-    },
+    }
 ];
 
 const Gallery2 = () => {
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
-  
+    // eslint-disable-next-line no-unused-vars
+    const [state, _] = useArtContext()
+
+    const images = state.arts.map(art => {
+        return {
+            key:JSON.stringify(uuid()),
+            src:art.src,
+            height:1,
+            width:2
+        }
+    })
+
+
+    console.log(images)
+
     const openLightbox = useCallback((event, { photo, index }) => {
-      setCurrentImage(index);
-      setViewerIsOpen(true);
+        setCurrentImage(index);
+        setViewerIsOpen(true);
     }, []);
-  
+
     const closeLightbox = () => {
-      setCurrentImage(0);
-      setViewerIsOpen(false);
+        setCurrentImage(0);
+        setViewerIsOpen(false);
     };
-  
+
     return (
         <div className="gallery">
-              
-                <Gallery photos={photos} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={photos.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
-            </div>
+
+            <Gallery key={images.key} photos={images} onClick={openLightbox} />
+
+
+
+            <ModalGateway>
+                {viewerIsOpen ? (
+                    <Modal onClose={closeLightbox}>
+                        <Carousel
+                            currentIndex={currentImage}
+                            views={photos.map(x => ({
+                                ...x,
+                                srcset: x.srcSet,
+                                caption: x.title
+                            }))}
+                        />
+                    </Modal>
+                ) : null}
+            </ModalGateway>
+        </div>
     )
 }
 

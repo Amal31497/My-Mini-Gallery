@@ -2,7 +2,8 @@ import React, { createContext, useReducer, useContext } from 'react';
 import {
     LOGIN,
     LOGOUT,
-    CREATE_ART
+    CREATE_ART,
+    GET_ALL_ART
 } from "./actions"
 
 const ArtContext = createContext();
@@ -25,6 +26,11 @@ const reducer = (state,action) => {
             return {
                 ...state,
                 art: [action.art, ...state.arts]
+            }
+        case GET_ALL_ART:
+            return {
+                ...state,
+                arts: action.arts
             }
             default:
                 return state

@@ -22,7 +22,7 @@ export const Navbar = () => {
                     </ul>
                 </div>
 
-            <form class="d-flex navBarSearch">
+            <form className="d-flex navBarSearch">
                 <input className="form-control me-2" type="search" placeholder="Search For An Artist" aria-label="Search" />
                 <button className="btn btn-outline-light" type="submit">Search</button>
             </form>

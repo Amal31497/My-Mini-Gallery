@@ -19,7 +19,7 @@ const genreSchema = new Schema({
 const artSchema = new Schema({
     title: { type: String, require: true },
     description: { type: String, required: true },
-    imgSrc: { type: String, required: true },
+    src: { type: String, required: true },
     tags: [{ type: String, required: true }],
     user: { type: String, required: true },
     date: { type: Date },
