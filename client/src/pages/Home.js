@@ -1,9 +1,33 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../components/Header";
 import Gallery from "../components/Gallery";
 import Particles from 'react-particles-js';
+import {getAllArt} from "../utils/API";
+import {useArtContext} from "../utils/GlobalState";
+import {GET_ALL_ART} from "../utils/actions";
+
 
 function Home() {
+
+    // eslint-disable-next-line no-unused-vars
+    const [state, dispatch] = useArtContext();
+
+    const findArt = () => {
+        getAllArt()
+            .then(response => {
+                dispatch({
+                    type: GET_ALL_ART,
+                    arts: response.data
+                })
+            })
+            .catch(err => console.log(err))
+    }  
+
+    useEffect(() => {
+        findArt()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
+
 
     return (
         <div>

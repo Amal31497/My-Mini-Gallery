@@ -36,6 +36,7 @@ const FormPost = ({ submitForm }) => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [readyImage, setReadyImage] = useState("")
+    
     const handleFileInput = (e) => {
         setSelectedFile(e.target.files[0]);
     }
@@ -53,7 +54,7 @@ const FormPost = ({ submitForm }) => {
         event.preventDefault();
         
         const art = {
-            imgSrc: readyImage,
+            src: readyImage,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
@@ -81,11 +82,9 @@ const FormPost = ({ submitForm }) => {
         
     }
 
-    const handleFormSubmit = async(file,event) => {
+    const handleFormSubmit = (file,event) => {
         handleUpload(file)
-        setTimeout(() => {
-            handleArtSubmit(event)
-        },10000)
+        handleArtSubmit(event)
     }
 
     return (
