@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
 const userSeed = [
     {
         firstName: "Amal",
-        userName: "Amal2401",
+        username: "Amal2401",
         email: "amalj2426@gmail.com",
         description: "I love art!",
         password: "password",
@@ -22,7 +22,7 @@ const userSeed = [
                 _id: 1,
                 title: "Cats",
                 description: "Cool fancy art",
-                imgSrc: "image2321",
+                src: "image2321",
                 tags: [{title:"Painting"}, {title:"Colors"}, {title:"Soft"}],
                 date: new Date(),
                 comments: [
@@ -37,9 +37,10 @@ const userSeed = [
                 _id: 2,
                 title: "Dogs",
                 description: "Cool dog art picture",
-                imgSrc: "image333412",
+                src: "image333412",
                 tags: [{title:"Photo"}, {title:"High resolution"}, {title:"Nature"}],
                 date: new Date(),
+                user: "1",
                 comments: [
                     {
                         _id:4,
@@ -52,7 +53,7 @@ const userSeed = [
     },
     {
         firstName: "Jasur",
-        userName: "JasurJasur",
+        username: "JasurJasur",
         email: "jasur@gmail.com",
         description: "Painting is my thing!",
         password: "password",
@@ -61,9 +62,10 @@ const userSeed = [
                 _id:3,
                 title:"Bats",
                 description:"Nice bat drawing",
-                imgSrc: "image33441",
+                src: "image33441",
                 tags: [{title:"Drawing"}, {title:"Oil"}],
                 date: new Date(),
+                user: "2",
                 comments: [
                     {
                         _id:2,
