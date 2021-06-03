@@ -7,11 +7,12 @@ import useForm from './useForm';
 import './Post.css';
 import { uploadFile } from 'react-s3';
 import envVar from "../../envVar"
+require('dotenv').config();
 
 const S3_BUCKET ='miniartworks';
 const REGION ='us-west-2';
-const ACCESS_KEY =envVar.ACCESS_KEY;
-const SECRET_ACCESS_KEY =envVar.SECRET_ACCESS_KEY;
+const ACCESS_KEY =process.env.ACCESS_KEY;
+const SECRET_ACCESS_KEY =process.env.SECRET_ACCESS_KEY;
 
 const config = {
     bucketName: S3_BUCKET,
