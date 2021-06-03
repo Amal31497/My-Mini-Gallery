@@ -118,6 +118,7 @@ const Gallery2 = () => {
     const images = state.arts.map(art => {
         return {
             key:JSON.stringify(uuid()),
+            title:art.title,
             src:art.src,
             height:1,
             width:2
@@ -149,7 +150,7 @@ const Gallery2 = () => {
                     <Modal onClose={closeLightbox}>
                         <Carousel
                             currentIndex={currentImage}
-                            views={photos.map(x => ({
+                            views={images.map(x => ({
                                 ...x,
                                 srcset: x.srcSet,
                                 caption: x.title
