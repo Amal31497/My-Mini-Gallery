@@ -34,9 +34,14 @@ function LoginOrOut(){
                     </li>
                 </>
                 :
-                <li className="nav-item">
-                    <a className="nav-link" href="/" onClick={handleLogOut}>Logout</a>
-                </li>
+                <>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/" onClick={handleLogOut}>Logout</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/post">Submit Art</a>
+                    </li>
+                </>
             }
         </>
     )

@@ -13,15 +13,13 @@ const commentSchema = new Schema({
 })
 
 const genreSchema = new Schema({
-    keyword: { type: String, required: true },
+    keyword: { type: String },
 });
 
 const artSchema = new Schema({
-    _id: { type: Number, required: true },
     title: { type: String, require: true },
     description: { type: String, required: true },
     imgSrc: { type: String, required: true },
-    genre: [genreSchema],
     tags: [{ type: String, required: true }],
     user: { type: String, required: true },
     date: { type: Date },

@@ -15,11 +15,15 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    createArt: function (req, res) {
-        db.Art
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+    createArt: async function (req, res) {
+        try {
+            const dbModel = await db.Art.create(req.body)
+
+            res.status(200).json(dbModel)
+        } catch (error) {
+            console.error(error);
+            err => res.status(422).json(err)
+        }
     },
     updateArt: function (req, res) {
         db.Art

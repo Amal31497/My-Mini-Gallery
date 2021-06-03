@@ -5,6 +5,7 @@ module.exports = {
     findAllUsers: function (req, res) {
         db.User
             .find(req.query)
+            .populate("art")
             .sort({ date: -1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -83,6 +84,7 @@ module.exports = {
     updateUser: function (req, res) {
         db.User
             .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .populate("art")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

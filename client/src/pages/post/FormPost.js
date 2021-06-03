@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import validate from './validateInfo';
+import { useArtContext } from "../../utils/GlobalState";
+import { CREATE_ART } from "../../utils/actions";
+import { createArt } from "../../utils/API";
 import useForm from './useForm';
 import './Post.css';
 import { uploadFile } from 'react-s3';
@@ -17,27 +20,76 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
+
 const FormPost = ({ submitForm }) => {
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
         validate
     );
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [_,dispatch] = useArtContext()
+    const titleRef = useRef();
+    const descriptionRef = useRef();
+    const tagsRef = useRef();
+    // const genreRef = useRef();
+    const formRef = useRef();
 
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [readyImage, setReadyImage] = useState("")
     const handleFileInput = (e) => {
         setSelectedFile(e.target.files[0]);
     }
 
-    const handleUpload = async (file) => {
+    const handleUpload = (file) => {
         uploadFile(file, config)
-            .then(data => console.log(data.location))
+            .then(data => {
+                console.log(data.location)
+                setReadyImage(data.location)
+            })
             .catch(err => console.error(err))
     }
 
+    const handleArtSubmit = (event) => {
+        event.preventDefault();
+        
+        const art = {
+            imgSrc: readyImage,
+            title: titleRef.current.value,
+            description: descriptionRef.current.value,
+            tags: tagsRef.current.value,
+            // genre: genreRef.current.value,
+            user: _.user.user_id
+        }
+
+        console.log(art)
+        if(readyImage){
+            createArt(art)
+            .then(response => {
+                console.log(response)
+                dispatch({
+                    type: CREATE_ART,
+                    art: response.data
+                })
+                formRef.current.reset();
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        } else {
+            return
+        }
+        
+    }
+
+    const handleFormSubmit = async(file,event) => {
+        handleUpload(file)
+        setTimeout(() => {
+            handleArtSubmit(event)
+        },10000)
+    }
 
     return (
-        <form onSubmit={handleSubmit} className='submit-form' noValidate>
+        <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
                     <div>Choose your Art to Upload</div>
@@ -54,13 +106,14 @@ const FormPost = ({ submitForm }) => {
                     placeholder='Enter a title for your art'
                     value={values.artTitle}
                     onChange={handleChange}
+                    ref={titleRef}
                 />
                 {errors.artTitle && <p>{errors.artTitle}</p>}
             </div>
 
             <div className='form-group'>
                 <label className='form-label2'>Description</label>
-                <textarea className="form-control" id="artDescription" rows="3"></textarea>
+                <textarea className="form-control" id="artDescription" rows="3" ref={descriptionRef}></textarea>
             </div>
 
             <div className='form-inputs'>
@@ -70,6 +123,7 @@ const FormPost = ({ submitForm }) => {
                     type='text'
                     name='tags'
                     placeholder='Enter a maximum of 5 tags, separate with a comma'
+                    ref={tagsRef}
                 />
             </div>
 
@@ -77,7 +131,7 @@ const FormPost = ({ submitForm }) => {
                 <div className="col-auto my-1">
                     <label className="form-label2" for="inlineFormCustomSelect">Choose a Genre for your Artwork</label>
                     <div className="col">
-                        <select className="custom-select mr-sm-2" id="genreSelects">
+                        <select className="custom-select mr-sm-2" id="genreSelects" >
 
                             {/* //need to validate value.genre// */}
                             <option selected>Choose...</option>
@@ -98,12 +152,14 @@ const FormPost = ({ submitForm }) => {
                 </div>
                 {errors.genre && <p>{errors.genre}</p>}
             </div>
-
-            <button
-                className='form-input-btn' type='submit'
-                onClick={() => handleUpload(selectedFile)}>
-                Submit
-        </button>
+            {
+                selectedFile &&
+                <button
+                    className='form-input-btn' type='submit'
+                    onClick={(event) => handleFormSubmit(selectedFile,event)}>
+                    Submit
+                </button>
+            }
         </form>
     );
 };
