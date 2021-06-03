@@ -7,6 +7,9 @@ import Hanh from "../assets/Hanh.jpg";
 import Faiz from "../assets/Faiz.jpg";
 
 export const Footer = () => {
+
+    const currentYear = new Date().getFullYear();
+
     return (
 
         <footer className="mt-auto text-white-50 footer">
@@ -44,7 +47,7 @@ export const Footer = () => {
 
                 </div>
                 <div className="row copyright">
-                    © 2021 My Mini Gallery
+                    © {currentYear} My Mini Gallery
                 </div>
             </footer>
         </footer>
