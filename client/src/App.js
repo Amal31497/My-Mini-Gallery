@@ -8,9 +8,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Pages
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import Post from "./pages/post/Post";
-import Genre from "./pages/Genre";
+import Genre from "./pages/genre/Genre";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 
