@@ -22,9 +22,7 @@ const config = {
     secretAccessKey: SECRET_ACCESS_KEY,
 }
 
-
 const FormPost = ({ submitForm }) => {
-
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
         validate
@@ -34,7 +32,7 @@ const FormPost = ({ submitForm }) => {
     const titleRef = useRef();
     const descriptionRef = useRef();
     const tagsRef = useRef();
-    // const genreRef = useRef();
+    const genreRef = useRef();
     const formRef = useRef();
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -47,14 +45,13 @@ const FormPost = ({ submitForm }) => {
     }
 
     const handleArtSubmit =  () => {
-        // event.preventDefault();
         console.log(readyImage)
-        // const rejectTimeout = 1000; // ms
         const art = {
             src: readyImage,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
+            genre: genreRef.current.value,
             width:imgwidth,
             height:imgheight,
             user: _.user.user_id
@@ -79,7 +76,6 @@ const FormPost = ({ submitForm }) => {
         
     }
 
-
     const handleUpload = (file) => {
         uploadFile(file, config)
             .then(data => {
@@ -92,7 +88,6 @@ const FormPost = ({ submitForm }) => {
                     setHeight(height);
                 })
                 .catch(errorMessage => {
-                    // if request takes longer than 5 seconds an timeout exception will be thrown
                     console.error(errorMessage)
                 }) 
             })
@@ -101,13 +96,6 @@ const FormPost = ({ submitForm }) => {
             })
             .catch(err => console.error(err))
     }
-
-
-
-    // const handleFormSubmit = (file,event) => {
-    //     handleUpload(file)
-    //     handleArtSubmit(event)
-    // }
 
     return (
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
@@ -152,22 +140,20 @@ const FormPost = ({ submitForm }) => {
                 <div className="col-auto my-1">
                     <label className="form-label2" htmlFor="inlineFormCustomSelect">Choose a Genre for your Artwork</label>
                     <div className="col">
-                        <select className="custom-select mr-sm-2" id="genreSelects" >
-
-                            {/* //need to validate value.genre// */}
+                        <select className="custom-select mr-sm-2" id="genreSelects" ref={genreRef}>
                             <option defaultValue>Choose...</option>
-                            <option value={values.genre}>3D</option>
-                            <option value={values.genre}>Anime and Manga</option>
-                            <option value={values.genre}>Artisan Craft</option>
-                            <option value={values.genre}>Comic</option>
-                            <option value={values.genre}>Customization</option>
-                            <option value={values.genre}>Cosplay</option>
-                            <option value={values.genre}>Digital Art</option>
-                            <option value={values.genre}>Fantasy</option>
-                            <option value={values.genre}>Fan Art</option>
-                            <option value={values.genre}>Photo Manipulation</option>
-                            <option value={values.genre}>Photography</option>
-                            <option value={values.genre}>Traditional Art</option>
+                            <option value="3D">3D</option>
+                            <option value="Anime and Manga">Anime and Manga</option>
+                            <option value="Artisan Craft">Artisan Craft</option>
+                            <option value="Comic">Comic</option>
+                            <option value="Customization">Customization</option>
+                            <option value="Cosplay">Cosplay</option>
+                            <option value="Digital Art">Digital Art</option>
+                            <option value="Fantasy">Fantasy</option>
+                            <option value="Fan Art">Fan Art</option>
+                            <option value="Photo Manipulation">Photo Manipulation</option>
+                            <option value="Photography">Photography</option>
+                            <option value="Traditional Art">Traditional Art</option>
                         </select>
                     </div>
                 </div>
@@ -186,5 +172,3 @@ const FormPost = ({ submitForm }) => {
 };
 
 export default FormPost;
-
-
