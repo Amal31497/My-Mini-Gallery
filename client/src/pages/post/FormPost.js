@@ -6,20 +6,14 @@ import { createArt } from "../../utils/API";
 import useForm from './useForm';
 import './Post.css';
 import { uploadFile } from 'react-s3';
-import envVar from "../../envVar"
-
 import reactImageSize from 'react-image-size';
-
-const S3_BUCKET ='miniartworks';
-const REGION ='us-west-2';
-const ACCESS_KEY =envVar.ACCESS_KEY;
-const SECRET_ACCESS_KEY =envVar.SECRET_ACCESS_KEY;
+import env from "react-dotenv";
 
 const config = {
-    bucketName: S3_BUCKET,
-    region: REGION,
-    accessKeyId: ACCESS_KEY,
-    secretAccessKey: SECRET_ACCESS_KEY,
+    bucketName: 'miniartworks',
+    region: 'us-west-2',
+    accessKeyId: env.REACT_APP_ACCESS_KEY,
+    secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
 }
 
 const FormPost = ({ submitForm }) => {
@@ -28,79 +22,82 @@ const FormPost = ({ submitForm }) => {
         validate
     );
 
-    const [_,dispatch] = useArtContext()
+    const [_, dispatch] = useArtContext();
     const titleRef = useRef();
     const descriptionRef = useRef();
     const tagsRef = useRef();
     const genreRef = useRef();
     const formRef = useRef();
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFile, setSelectedFile] = useState("");
     const [readyImage, setReadyImage] = useState("");
     const [imgwidth, setWidth] = useState();
     const [imgheight, setHeight] = useState();
+    const [widthRatio, setWidthRatio] = useState();
+    const [heightRatio, setHeightRatio] = useState();
 
-    const handleFileInput = (e) => {
-        setSelectedFile(e.target.files[0]); 
+
+    const handleFileInput = (event) => {
+        event.preventDefault();
+        setSelectedFile(event.target.files[0]);
+        uploadFile(event.target.files[0], config)
+            .then(data => {
+                setReadyImage(data.location)
+                reactImageSize(data.location)
+                    .then(({ width, height }) => {
+                        setWidth(width);
+                        setHeight(height);
+                        if (width > height) {
+                            setWidthRatio(Math.round(width / height))
+                            setHeightRatio(1)
+                        } else {
+                            setHeightRatio(Math.round(height / width))
+                            setWidthRatio(1)
+                        }
+                    })
+                    .catch(errorMessage => {
+                        console.error(errorMessage)
+                    })
+            })
     }
 
-    const handleArtSubmit =  () => {
-        console.log(readyImage)
+    const handleFormSubmit = () => {
         const art = {
             src: readyImage,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
             genre: genreRef.current.value,
-            width:imgwidth,
-            height:imgheight,
+            width: widthRatio,
+            height: heightRatio,
             user: _.user.user_id
         }
-        console.log(art)
-        if(readyImage){
+
+        if (readyImage) {
             createArt(art)
-            .then(response => {
-                console.log(response)
-                dispatch({
-                    type: CREATE_ART,
-                    art: response.data
+                .then(response => {
+                    console.log(response)
+                    dispatch({
+                        type: CREATE_ART,
+                        art: response.data
+                    })
+                    formRef.current.reset();
                 })
-                formRef.current.reset();
-            })
-            .catch(error => {
-                console.log(error)
-            });
+                .catch(error => {
+                    console.log(error)
+                });
         } else {
             return
         }
-        
     }
-
-    const handleUpload = (file) => {
-        uploadFile(file, config)
-            .then(data => {
-                setReadyImage(data.location)
-            })
-            .then(() => {
-                reactImageSize(readyImage)
-                .then(({ width, height }) => {
-                    setWidth(width);
-                    setHeight(height);
-                })
-                .catch(errorMessage => {
-                    console.error(errorMessage)
-                }) 
-            })
-            .then(() => {
-                handleArtSubmit()
-            })
-            .catch(err => console.error(err))
-    }
+    
 
     return (
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
+                    {readyImage ? <img src={readyImage} alt="" style={{width:`${widthRatio}*100`, height:`${heightRatio}*100`}}/> : null}
+                    {(imgwidth && imgheight) ? <h3><strong>{imgwidth} X {imgheight}</strong></h3> : null}
                     <div>Choose your Art to Upload</div>
                     <input type="file" onChange={handleFileInput} />
                 </div>
@@ -113,7 +110,6 @@ const FormPost = ({ submitForm }) => {
                     type='text'
                     name='artTitle'
                     placeholder='Enter a title for your art'
-                    value={values.artTitle}
                     onChange={handleChange}
                     ref={titleRef}
                 />
@@ -160,10 +156,11 @@ const FormPost = ({ submitForm }) => {
                 {errors.genre && <p>{errors.genre}</p>}
             </div>
             {
-                selectedFile &&
+                (selectedFile && imgheight && imgwidth) &&
                 <button
                     className='form-input-btn' type='submit'
-                    onClick={() => handleUpload(selectedFile)}>
+                    onClick={handleFormSubmit}
+                    >
                     Submit
                 </button>
             }
