@@ -46,7 +46,6 @@ const FormPost = ({ submitForm }) => {
 
     const handleArtSubmit =  () => {
         console.log(readyImage)
-
         const art = {
             src: readyImage,
             title: titleRef.current.value,

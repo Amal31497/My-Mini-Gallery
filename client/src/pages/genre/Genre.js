@@ -18,7 +18,7 @@ export const Genre = () => {
     return (
         <div className="background">
             <div className="container">
-                <div class="card-group">
+                <div className="card-group">
                     <a href="" className="card">
                         <img src={threeD} alt="3D thumbnail" />
                         <div className="card-img-overlay">
