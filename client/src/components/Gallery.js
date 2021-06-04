@@ -17,8 +17,8 @@ const Gallery2 = () => {
             key:JSON.stringify(uuid()),
             title:art.title,
             src:art.src,
-            height:1,
-            width:2
+            height:art.height,
+            width:art.width
         }
     })
 

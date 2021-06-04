@@ -8,7 +8,6 @@ node_modules
 # testing
 /coverage
 
-
 # misc
 .DS_Store
 envVar.js
