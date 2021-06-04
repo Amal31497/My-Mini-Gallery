@@ -49,9 +49,7 @@ const FormPost = ({ submitForm }) => {
     const handleArtSubmit =  () => {
         // event.preventDefault();
         console.log(readyImage)
-
         // const rejectTimeout = 1000; // ms
-
         const art = {
             src: readyImage,
             title: titleRef.current.value,
