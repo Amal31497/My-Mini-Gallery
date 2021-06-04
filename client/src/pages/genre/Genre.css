@@ -1,0 +1,27 @@
+.background{
+    position: relative;
+    background: url(../assets/genre.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 85vh;
+  }
+
+  .card {
+    margin-top: 3vh;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-radius: 10% !important;
+    background-color: black;
+  }
+
+  .card-title {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+  }
+
+  .card:hover {
+    opacity: 50%;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+  }
