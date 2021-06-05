@@ -68,7 +68,7 @@ const Genre = () => {
                             </div>
                         </a>
 
-                        <a href="" className="card" onClick={(event) => getArt(event,"Artisan Crafts")}>
+                        <a href="" className="card" onClick={(event) => getArt(event,"Artisan Craft")}>
                             <img src={crafts} className="card-img" alt="3D thumbnail"  />
                             <div className="card-img-overlay">
                                 <h5 className="card-title">Artisan Crafts</h5>
@@ -98,7 +98,7 @@ const Genre = () => {
                             </div>
                         </a>
 
-                        <a href="" className="card" onClick={(event) => getArt(event,"Digital Arts")}>
+                        <a href="" className="card" onClick={(event) => getArt(event,"Digital Art")}>
                             <img src={digital} className="card-img" alt="3D thumbnail"  />
                             <div className="card-img-overlay">
                                 <h5 className="card-title">Digital Arts</h5>
@@ -135,7 +135,7 @@ const Genre = () => {
                             </div>
                         </a>
 
-                        <a href="" className="card" onClick={(event) => getArt(event,"Traditional Arts")}>
+                        <a href="" className="card" onClick={(event) => getArt(event,"Traditional Art")}>
                             <img src={traditional} className="card-img" alt="3D thumbnail"  />
                             <div className="card-img-overlay">
                                 <h5 className="card-title">Traditional Arts</h5>

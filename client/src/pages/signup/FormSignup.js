@@ -103,7 +103,6 @@ function FormSignup({ submitForm }) {
             ref={passwordRef}
           />
           {errors.password && <p>{errors.password}</p>}
-
         </div>
 
         <div className='col-md-6'>
