@@ -4,7 +4,6 @@ import Jasur from "../assets/Jasur.jpg";
 import Jenni from "../assets/Jenni.jpg";
 import Greg from "../assets/Greg.jpg";
 import Hanh from "../assets/Hanh.jpg";
-import Faiz from "../assets/Faiz.jpg";
 
 export const Footer = () => {
 
@@ -38,11 +37,6 @@ export const Footer = () => {
                     <div className="col">
                         <a href="https://github.com/hanhle1989"><img className="profilePic" src={Hanh} alt="Hanh Le" /></a>
                         <p>Hanh Le</p>
-                    </div>
-
-                    <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Faiz} alt="Faiz Azeem" /></a>
-                        <p>Faiz Azeem</p>
                     </div>
 
                 </div>
