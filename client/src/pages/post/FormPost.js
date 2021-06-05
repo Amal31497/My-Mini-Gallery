@@ -96,7 +96,7 @@ const FormPost = ({ submitForm }) => {
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
-                    {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio}*100`, height: `${heightRatio}*100` }} /> : null}
+                    {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio*100}px`, height: `${heightRatio*100}px` }} /> : null}
                     {(imgwidth && imgheight) ? <h3><strong>{imgwidth} X {imgheight}</strong></h3> : null}
                     <div>Choose your Art to Upload</div>
                     <input type="file" onChange={handleFileInput} />
