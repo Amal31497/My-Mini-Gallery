@@ -4,14 +4,33 @@ import './Profile.css';
 import artistPic from "../assets/artist.jpg";
 import Gallery from "../../components/Gallery";
 
-import { getAllArt } from "../../utils/API";
+import { getAllArt, getArtist } from "../../utils/API";
 import { useArtContext } from "../../utils/GlobalState";
-import { GET_ALL_ART } from "../../utils/actions";
+import { GET_ALL_ART, GET_ARTIST } from "../../utils/actions";
 
 function Profile() {
 
     // eslint-disable-next-line no-unused-vars
-    const [state, dispatch] = useArtContext();
+    const [_, dispatch] = useArtContext();
+
+    console.log(_.user.user_id)
+    console.log(_.artist)
+
+    const findArtist = () => {
+        if (!_.artist.firstName && _.user.user_id) {
+            getArtist(_.user.user_id)
+                .then(response => {
+                    console.log(response)
+                    dispatch({
+                        type: GET_ARTIST,
+                        artist: response.data
+                    })
+                })
+                .catch(err => console.log(err))
+        }
+    }
+
+    findArtist();
 
     const findArt = () => {
         getAllArt()
@@ -35,8 +54,8 @@ function Profile() {
 
                     </div>
                     <div className="col-lg-8 col-xm-12">
-                        <div className="username">Artist Username</div>
-                        <div className="artistName">Artist Name</div>
+                        <div className="username">{_.artist.username}</div>
+                        <div className="artistName">{_.artist.firstName}</div>
                         <div className="row contact">
                             <button type="button" className="btn btn-dark">Contact Me</button>
                         </div>

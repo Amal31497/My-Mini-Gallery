@@ -15,6 +15,7 @@ function FormSignup({ submitForm }) {
 
 
   const userNameRef = useRef();
+  const firstNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef()
 
@@ -28,6 +29,7 @@ function FormSignup({ submitForm }) {
     signup({
 
       username: userNameRef.current.value,
+      firstName: firstNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
 
@@ -47,39 +49,61 @@ function FormSignup({ submitForm }) {
 
 
   return (
-    <form onSubmit={handleSubmit} className='form' noValidate>
-      <h1> Welcome To Your Online Art Community!</h1>
-      <div className='row'>
-        <div className='col'>
-          <div className='form-inputs'>
-            <label className='form-label'>Username</label>
-            <input
-              className='form-input'
-              type='text'
-              name='username'
-              placeholder='Enter your username'
-              value={values.username}
-              onChange={handleChange}
-              ref={userNameRef}
-            />
-            {errors.username && <p>{errors.username}</p>}
-          </div>
+    <div className='form-content-right'>
+      <form  onSubmit={handleSubmit} className='form' noValidate>
+        <h1> Welcome To Your Online Art Community!</h1>
+        <div className='form-inputs'>
+          <label className='form-label'>Username</label>
+          <input
+            className='form-input'
+            type='text'
+            name='username'
+            placeholder='Enter your username'
+            value={values.username}
+            onChange={handleChange}
+            ref={userNameRef}
+          />
+          {errors.username && <p>{errors.username}</p>}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>First/Last Name</label>
+          <input
+            className='form-input'
+            type='text'
+            name='First Name'
+            placeholder='Enter your name'
+            value={values.firstName}
+            onChange={handleChange}
+            ref={firstNameRef}
+          />
+          {/* {errors.username && <p>{errors.username}</p>} */}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>Email</label>
+          <input
+            className='form-input'
+            type='email'
+            name='email'
+            placeholder='Enter your email'
+            value={values.email}
+            onChange={handleChange}
+            ref={emailRef}
+          />
+          {errors.email && <p>{errors.email}</p>}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>Password</label>
+          <input
+            className='form-input'
+            type='password'
+            name='password'
+            placeholder='Enter your password'
+            value={values.password}
+            onChange={handleChange}
+            ref={passwordRef}
+          />
+          {errors.password && <p>{errors.password}</p>}
 
-          <div className='col'>
-            <div className='form-inputs'>
-              <label className='form-label'>Email</label>
-              <input
-                className='form-input'
-                type='email'
-                name='email'
-                placeholder='Enter your email'
-                value={values.email}
-                onChange={handleChange}
-                ref={emailRef}
-              />
-              {errors.email && <p>{errors.email}</p>}
-            </div>
-          </div>
         </div>
 
         <div className='col-md-6'>
