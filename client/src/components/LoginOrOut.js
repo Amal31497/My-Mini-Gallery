@@ -19,7 +19,7 @@ function LoginOrOut(){
                 history.push("/");
             })
     }
-    console.log(state.user)
+    // console.log(state.user)
     return(
         <>
             {!state.user.user_id

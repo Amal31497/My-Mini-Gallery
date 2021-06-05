@@ -1,6 +1,7 @@
 const db = require("../models");
 
 module.exports = {
+
     findAllArt: function (req, res) {
         db.Art
             .find(req.query)
@@ -8,6 +9,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+
     findArtById: function (req, res) {
         db.Art
             .findById(req.params.id)
@@ -15,6 +17,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+
     createArt: async function (req, res) {
         try {
             const dbModel = await db.Art.create(req.body)

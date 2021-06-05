@@ -30,7 +30,8 @@ const reducer = (state,action) => {
         case GET_ALL_ART:
             return {
                 ...state,
-                arts: action.arts
+                arts: action.arts,
+                genre: action.genre
             }
         case GET_ARTIST:
             return {

@@ -8,6 +8,7 @@ const createArt = (art) => axios.post("/api/art", art)
 const getAllArt = () => axios.get("/api/art")
 const getArtist = (id) => axios.get("/api/user/" + id)
 
+
 export {
     signup,
     login,

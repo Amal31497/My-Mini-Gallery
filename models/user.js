@@ -22,6 +22,7 @@ const artSchema = new Schema({
     src: { type: String, required: true },
     tags: [{ type: String, required: true }],
     user: { type: String, required: true },
+    genre: [genreSchema],
     date: { type: Date },
     width: {type: Number, required: true },
     height: {type: Number, required: true },

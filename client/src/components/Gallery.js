@@ -3,15 +3,12 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import './gallery.css';
 import { useArtContext } from "../utils/GlobalState";
-import uuid from 'react-uuid'
-
-
+import uuid from 'react-uuid';
 const Gallery2 = () => {
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
     // eslint-disable-next-line no-unused-vars
-    const [state, _] = useArtContext()
-
+    const [state,_] = useArtContext()
     const images = state.arts.map(art => {
         return {
             key:JSON.stringify(uuid()),
@@ -39,14 +36,16 @@ const Gallery2 = () => {
             <ModalGateway>
                 {viewerIsOpen ? (
                     <Modal onClose={closeLightbox}>
-                        <Carousel
-                            currentIndex={currentImage}
-                            views={images.map(x => ({
-                                ...x,
-                                srcset: x.srcSet,
-                                caption: x.title
-                            }))}
-                        />
+                        <div>
+                            <Carousel
+                                currentIndex={currentImage}
+                                views={images.map(x => ({
+                                    ...x,
+                                    srcset: x.srcSet,
+                                    caption: x.title
+                                }))}
+                            />
+                        </div>
                     </Modal>
                 ) : null}
             </ModalGateway>

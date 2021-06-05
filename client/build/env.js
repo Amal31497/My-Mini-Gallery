@@ -1,5 +1,4 @@
 window.env = {
-
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\Hanh\\AppData\\Roaming",
   "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_22172_OAYQDWGHZLCCQMZG",
@@ -36,7 +35,6 @@ window.env = {
   "npm_config_bin_links": "true",
   "npm_config_browser": "",
   "npm_config_ca": "",
-
   "npm_config_cache": "C:\\Users\\Hanh\\AppData\\Roaming\\npm-cache",
   "npm_config_cache_lock_retries": "10",
   "npm_config_cache_lock_stale": "60000",
@@ -64,7 +62,6 @@ window.env = {
   "npm_config_git": "git",
   "npm_config_git_tag_version": "true",
   "npm_config_global": "",
-
   "npm_config_globalconfig": "C:\\Users\\Hanh\\AppData\\Roaming\\npm\\etc\\npmrc",
   "npm_config_globalignorefile": "C:\\Users\\Hanh\\AppData\\Roaming\\npm\\etc\\npmignore",
   "npm_config_global_style": "",
@@ -79,7 +76,6 @@ window.env = {
   "npm_config_init_author_name": "",
   "npm_config_init_author_url": "",
   "npm_config_init_license": "ISC",
-
   "npm_config_init_module": "C:\\Users\\Hanh\\.npm-init.js",
   "npm_config_init_version": "1.0.0",
   "npm_config_json": "",
@@ -107,7 +103,6 @@ window.env = {
   "npm_config_parseable": "",
   "npm_config_prefer_offline": "",
   "npm_config_prefer_online": "",
-
   "npm_config_prefix": "C:\\Users\\Hanh\\AppData\\Roaming\\npm",
   "npm_config_preid": "",
   "npm_config_production": "",
@@ -142,7 +137,6 @@ window.env = {
   "npm_config_tag": "latest",
   "npm_config_tag_version_prefix": "v",
   "npm_config_timing": "",
-
   "npm_config_tmp": "C:\\Users\\Hanh\\AppData\\Local\\Temp",
   "npm_config_umask": "0000",
   "npm_config_unicode": "",
@@ -150,7 +144,6 @@ window.env = {
   "npm_config_update_notifier": "true",
   "npm_config_usage": "",
   "npm_config_user": "",
-
   "npm_config_userconfig": "C:\\Users\\Hanh\\.npmrc",
   "npm_config_user_agent": "npm/6.14.11 node/v14.15.5 win32 x64",
   "npm_config_version": "",
@@ -202,7 +195,6 @@ window.env = {
   "npm_package_scripts_start": "react-dotenv && react-scripts start",
   "npm_package_scripts_test": "react-scripts test",
   "npm_package_version": "0.1.0",
-
   "NPM_PREFIX_NPM_CLI_JS": "C:\\Users\\Hanh\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js",
   "NUMBER_OF_PROCESSORS": "8",
   "OneDrive": "C:\\Users\\Hanh\\OneDrive",

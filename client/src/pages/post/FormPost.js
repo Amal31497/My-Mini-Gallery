@@ -8,6 +8,7 @@ import './Post.css';
 import { uploadFile } from 'react-s3';
 import reactImageSize from 'react-image-size';
 import env from "react-dotenv";
+// import { Spinner } from 'react-bootstrap';
 
 const config = {
     bucketName: 'miniartworks',
@@ -17,6 +18,7 @@ const config = {
 }
 
 const FormPost = ({ submitForm }) => {
+    // eslint-disable-next-line no-unused-vars
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
         validate
@@ -36,11 +38,11 @@ const FormPost = ({ submitForm }) => {
     const [widthRatio, setWidthRatio] = useState();
     const [heightRatio, setHeightRatio] = useState();
 
-
     const handleFileInput = (event) => {
         event.preventDefault();
         setSelectedFile(event.target.files[0]);
-        uploadFile(event.target.files[0], config)
+        console.log(event.target.files[0]);
+            uploadFile(event.target.files[0], config)
             .then(data => {
                 setReadyImage(data.location)
                 reactImageSize(data.location)
@@ -67,12 +69,12 @@ const FormPost = ({ submitForm }) => {
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
-            genre: genreRef.current.value,
+            genre: {keyword:genreRef.current.value},
             width: widthRatio,
             height: heightRatio,
             user: _.user.user_id
         }
-
+        console.log(art)
         if (readyImage) {
             createArt(art)
                 .then(response => {
@@ -96,7 +98,8 @@ const FormPost = ({ submitForm }) => {
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
-                    {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio*100}px`, height: `${heightRatio*100}px` }} /> : null}
+                    {readyImage ? <img src={readyImage} alt="" style={{width:`${widthRatio*130}px`, height:`${heightRatio*130}px`}}/> : null}
+                    {/* {!readyImage ? <Spinner animation="border" role="status"><span className="sr-only"></span></Spinner> : null} */}
                     {(imgwidth && imgheight) ? <h3><strong>{imgwidth} X {imgheight}</strong></h3> : null}
                     <div>Choose your Art to Upload</div>
                     <input type="file" onChange={handleFileInput} />
