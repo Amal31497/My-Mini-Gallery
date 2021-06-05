@@ -8,6 +8,7 @@ import './Post.css';
 import { uploadFile } from 'react-s3';
 import reactImageSize from 'react-image-size';
 import env from "react-dotenv";
+import { useHistory } from 'react-router-dom';
 // import { Spinner } from 'react-bootstrap';
 
 const config = {
@@ -25,6 +26,8 @@ const FormPost = ({ submitForm }) => {
     );
 
     const [_, dispatch] = useArtContext();
+    const history = useHistory();
+
     const titleRef = useRef();
     const descriptionRef = useRef();
     const tagsRef = useRef();
@@ -84,6 +87,7 @@ const FormPost = ({ submitForm }) => {
                         art: response.data
                     })
                     formRef.current.reset();
+                    history.push("/postSuccess");
                 })
                 .catch(error => {
                     console.log(error)
