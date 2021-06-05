@@ -91,49 +91,41 @@ function FormSignup({ submitForm }) {
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
-        <div className='col-md-6'>
+        <div className='form-inputs'>
+          <label className='form-label'>Password</label>
+          <input
+            className='form-input'
+            type='password'
+            name='password'
+            placeholder='Enter your password'
+            value={values.password}
+            onChange={handleChange}
+            ref={passwordRef}
+          />
+          {errors.password && <p>{errors.password}</p>}
+
           <div className='form-inputs'>
-            <label className='form-label'>Password</label>
+            <label className='form-label'>Confirm Password</label>
             <input
               className='form-input'
               type='password'
-              name='password'
-              placeholder='Enter your password'
-              value={values.password}
+              name='password2'
+              placeholder='Confirm your password'
+              value={values.password2}
               onChange={handleChange}
               ref={passwordRef}
             />
-            {errors.password && <p>{errors.password}</p>}
-          </div>
-
-          <div className='col-md-6'>
-            <div className='form-inputs'>
-              <label className='form-label'>Confirm Password</label>
-              <input
-                className='form-input'
-                type='password'
-                name='password2'
-                placeholder='Confirm your password'
-                value={values.password2}
-                onChange={handleChange}
-                ref={passwordRef}
-              />
-              {errors.password2 && <p>{errors.password2}</p>}
-            </div>
+            {errors.password2 && <p>{errors.password2}</p>}
           </div>
         </div>
 
-        <div className='col-md-6'>
           <button className='form-input-btn' type='submit' onClick={handleSignup}>
             Sign up
         </button>
-        </div>
 
-        <div className='col-md-6'>
-          <span className='form-input-login'>
-            Already have an account? Login <a href='/login'>here</a>
-          </span>
-        </div>
+        <span className='form-input-login'>
+          Already have an account? Login <a href='/login'>here</a>
+        </span>
       </form >
     </div>
   );

@@ -1,9 +1,9 @@
 .background{
     position: relative;
-    background: url(../assets/genre.jpeg) no-repeat;
+    background-color: black;
     background-size: cover;
     background-position: center;
-    height: 200vh;
+    height: 150vh;
   }
 
   .card {

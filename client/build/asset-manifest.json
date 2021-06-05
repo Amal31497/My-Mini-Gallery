@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.d9abdf8f.chunk.css",
-    "main.js": "/static/js/main.250df702.chunk.js",
-    "main.js.map": "/static/js/main.250df702.chunk.js.map",
+    "main.css": "/static/css/main.8a4eeb40.chunk.css",
+    "main.js": "/static/js/main.62d91841.chunk.js",
+    "main.js.map": "/static/js/main.62d91841.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.25909659.js",
     "runtime-main.js.map": "/static/js/runtime-main.25909659.js.map",
     "static/css/2.61b4cb56.chunk.css": "/static/css/2.61b4cb56.chunk.css",
-    "static/js/2.7f86f7ee.chunk.js": "/static/js/2.7f86f7ee.chunk.js",
-    "static/js/2.7f86f7ee.chunk.js.map": "/static/js/2.7f86f7ee.chunk.js.map",
+    "static/js/2.5d900766.chunk.js": "/static/js/2.5d900766.chunk.js",
+    "static/js/2.5d900766.chunk.js.map": "/static/js/2.5d900766.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.61b4cb56.chunk.css.map": "/static/css/2.61b4cb56.chunk.css.map",
-    "static/css/main.d9abdf8f.chunk.css.map": "/static/css/main.d9abdf8f.chunk.css.map",
-    "static/js/2.7f86f7ee.chunk.js.LICENSE.txt": "/static/js/2.7f86f7ee.chunk.js.LICENSE.txt",
+    "static/css/main.8a4eeb40.chunk.css.map": "/static/css/main.8a4eeb40.chunk.css.map",
+    "static/js/2.5d900766.chunk.js.LICENSE.txt": "/static/js/2.5d900766.chunk.js.LICENSE.txt",
     "static/media/3d.ea649753.jpg": "/static/media/3d.ea649753.jpg",
     "static/media/Amal.644c30e6.jpg": "/static/media/Amal.644c30e6.jpg",
     "static/media/AnimeManga.e4f0963b.jpg": "/static/media/AnimeManga.e4f0963b.jpg",
@@ -27,7 +27,6 @@
     "static/media/digital.defc56e6.jpg": "/static/media/digital.defc56e6.jpg",
     "static/media/fanart.97dcab72.jpg": "/static/media/fanart.97dcab72.jpg",
     "static/media/fantasy.fa6b5532.jpg": "/static/media/fantasy.fa6b5532.jpg",
-    "static/media/Genre.css": "/static/media/genre.21d1a970.jpeg",
     "static/media/Form.css": "/static/media/signup.d1f6bbd2.jpg",
     "static/media/photography.29a27edb.jpg": "/static/media/photography.29a27edb.jpg",
     "static/media/photomanipulation.33d443cc.jpg": "/static/media/photomanipulation.33d443cc.jpg",
@@ -37,8 +36,8 @@
   "entrypoints": [
     "static/js/runtime-main.25909659.js",
     "static/css/2.61b4cb56.chunk.css",
-    "static/js/2.7f86f7ee.chunk.js",
-    "static/css/main.d9abdf8f.chunk.css",
-    "static/js/main.250df702.chunk.js"
+    "static/js/2.5d900766.chunk.js",
+    "static/css/main.8a4eeb40.chunk.css",
+    "static/js/main.62d91841.chunk.js"
   ]
 }
