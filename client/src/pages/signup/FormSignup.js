@@ -40,7 +40,7 @@ function FormSignup({ submitForm }) {
           user: res.data
         });
 
-        history.push("/");
+        history.push("/signupSuccess");
       })
       .catch(error => {
         console.error(error)
@@ -91,20 +91,6 @@ function FormSignup({ submitForm }) {
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password'
-            placeholder='Enter your password'
-            value={values.password}
-            onChange={handleChange}
-            ref={passwordRef}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
-
         <div className='col-md-6'>
           <div className='form-inputs'>
             <label className='form-label'>Password</label>
