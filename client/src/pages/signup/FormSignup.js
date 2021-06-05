@@ -15,6 +15,7 @@ function FormSignup( { submitForm } ){
   
 
   const userNameRef = useRef();
+  const firstNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef()
 
@@ -28,6 +29,7 @@ function FormSignup( { submitForm } ){
     signup({
 
       username: userNameRef.current.value,
+      firstName: firstNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
       
@@ -62,6 +64,19 @@ function FormSignup( { submitForm } ){
             ref={userNameRef}
           />
           {errors.username && <p>{errors.username}</p>}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>First/Last Name</label>
+          <input
+            className='form-input'
+            type='text'
+            name='First Name'
+            placeholder='Enter your name'
+            value={values.firstName}
+            onChange={handleChange}
+            ref={firstNameRef}
+          />
+          {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className='form-inputs'>
           <label className='form-label'>Email</label>

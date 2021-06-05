@@ -6,6 +6,7 @@ const logout = () => axios.post('/api/user/logout')
 const authenticatedUser = () => axios.get("/api/user/authenticatedUser");
 const createArt = (art) => axios.post("/api/art", art)
 const getAllArt = () => axios.get("/api/art")
+const getArtist = (id) => axios.get("/api/user/" + id)
 
 export {
     signup,
@@ -13,5 +14,6 @@ export {
     logout,
     authenticatedUser,
     createArt,
-    getAllArt
+    getAllArt,
+    getArtist
 }
