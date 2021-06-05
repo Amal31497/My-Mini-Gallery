@@ -7,6 +7,7 @@ const authenticatedUser = () => axios.get("/api/user/authenticatedUser");
 const createArt = (art) => axios.post("/api/art", art)
 const getAllArt = () => axios.get("/api/art")
 
+
 export {
     signup,
     login,

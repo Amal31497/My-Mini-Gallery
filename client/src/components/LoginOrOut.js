@@ -13,14 +13,14 @@ function LoginOrOut(){
         event.preventDefault();
         logout()
             .then(response => {
-                console.log(response)
+                // console.log(response)
                 dispatch({
                     type: LOGOUT
                 });
                 // history.push("/");
             })
     }
-    console.log(state.user)
+    // console.log(state.user)
     return(
         <>
             {!state.user.user_id
