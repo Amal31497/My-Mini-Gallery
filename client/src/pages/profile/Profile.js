@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import './Profile.css';
 
 import artistPic from "../assets/artist.jpg";
-import Gallery from "../../components/Gallery";
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
 import { getAllArt, getArtist } from "../../utils/API";
 import { useArtContext } from "../../utils/GlobalState";
-import { GET_ALL_ART, GET_ARTIST } from "../../utils/actions";
+import { GET_ARTIST } from "../../utils/actions";
 
 function Profile() {
-
+    const [currentImage, setCurrentImage] = useState(0);
+    const [viewerIsOpen, setViewerIsOpen] = useState(false);
+    const [images, setImages] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
 
@@ -32,21 +35,32 @@ function Profile() {
 
     findArtist();
 
-    // const findArt = () => {
-    //     if (!_.artist.firstName && _.user.user_id) {
-    //         getAllArt()
-    //             .then(response => {
-    //                 console.log(response)
-    //                 dispatch({
-    //                     type: GET_ALL_ART,
-    //                     arts: response.data
-    //                 })
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-    // }
+    const findArt = () => {
+        if (!_.artist.firstName && _.user.user_id) {
+            getAllArt()
+                .then(response => {
+                    const profileArt = response.data.filter(art => {
+                        return art.user === _.user.user_id
+                    })
+                    setImages (profileArt)
+                    console.log("Artwork:", response)
+                    console.log(profileArt)
+                })
+                .catch(err => console.log(err))
+        }
+    }
 
-    // findArt();
+    findArt();
+
+    const openLightbox = useCallback((event, { photo, index }) => {
+        setCurrentImage(index);
+        setViewerIsOpen(true);
+    }, []);
+
+    const closeLightbox = () => {
+        setCurrentImage(0);
+        setViewerIsOpen(false);
+    };
 
     return (
         <div className="background2">
@@ -67,7 +81,23 @@ function Profile() {
                     </div>
                 </div>
 
-                <Gallery />
+                <div className="gallery">
+                    <Gallery key={images.key} photos={images} onClick={openLightbox} />
+                    <ModalGateway>
+                        {viewerIsOpen ? (
+                            <Modal onClose={closeLightbox}>
+                                <Carousel
+                                    currentIndex={currentImage}
+                                    views={images.map(x => ({
+                                        ...x,
+                                        srcset: x.srcSet,
+                                        caption: x.title
+                                    }))}
+                                />
+                            </Modal>
+                        ) : null}
+                    </ModalGateway>
+                </div>
             </div>
         </div>
     )
