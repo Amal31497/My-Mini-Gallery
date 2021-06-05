@@ -24,14 +24,11 @@ router
     .route("/authenticatedUser")
     .get(userController.authenticatedUser)
 
-
 // Matches with "/api/user/:id"
 router
     .route("/:id")
     .get(userController.findUserById)
     .put(userController.updateUser)
     .delete(userController.removeUser);
-
-
 
 module.exports = router;

@@ -1,0 +1,27 @@
+.background2{
+    position: relative;
+    background-color:black;
+    background-position: center;
+    height: 85vh;
+  }
+
+.artistPic{
+    width: 130px;
+    border-radius: 50%;
+}
+
+.username{
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.artistName{
+    color: white;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+
+.contact {
+    width: 150px;
+}

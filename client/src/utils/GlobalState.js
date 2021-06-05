@@ -4,12 +4,11 @@ import {
     LOGOUT,
     CREATE_ART,
     GET_ALL_ART,
-    RESET
+    GET_ARTIST
 } from "./actions"
 
 const ArtContext = createContext();
 const { Provider } = ArtContext;
-
 
 const reducer = (state,action) => {
     switch (action.type) {
@@ -34,11 +33,10 @@ const reducer = (state,action) => {
                 arts: action.arts,
                 genre: action.genre
             }
-        case RESET:
+        case GET_ARTIST:
             return {
                 ...state,
-                arts: [],
-                genre: ""
+                artist: action.artist
             }
             default:
                 return state
@@ -49,7 +47,7 @@ const ArtProvider = ({ value = {}, ...props }) => {
     const [state, dispatch] = useReducer(reducer, {
         arts: [],
         user: {},
-        genre: ""
+        artist: {}
     })
 
     return <Provider value={[state, dispatch]} {...props} />

@@ -5,16 +5,17 @@ import { LOGIN } from "../../utils/actions";
 import { useHistory } from 'react-router-dom';
 import validate from './validateInfo';
 import useForm from './useForm';
-import './Signup.css';
+import '../Form.css';
 
-function FormSignup( { submitForm } ){
+function FormSignup({ submitForm }) {
 
   // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = useArtContext();
   const history = useHistory();
-  
+
 
   const userNameRef = useRef();
+  const firstNameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef()
 
@@ -28,16 +29,17 @@ function FormSignup( { submitForm } ){
     signup({
 
       username: userNameRef.current.value,
+      firstName: firstNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
-      
+
     })
       .then(res => {
         dispatch({
           type: LOGIN,
           user: res.data
         });
-        
+
         history.push("/");
       })
       .catch(error => {
@@ -48,7 +50,7 @@ function FormSignup( { submitForm } ){
 
   return (
     <div className='form-content-right'>
-      <form  onSubmit={handleSubmit} className='form' noValidate>
+      <form onSubmit={handleSubmit} className='form' noValidate>
         <h1> Welcome To Your Online Art Community!</h1>
         <div className='form-inputs'>
           <label className='form-label'>Username</label>
@@ -62,6 +64,19 @@ function FormSignup( { submitForm } ){
             ref={userNameRef}
           />
           {errors.username && <p>{errors.username}</p>}
+        </div>
+        <div className='form-inputs'>
+          <label className='form-label'>First/Last Name</label>
+          <input
+            className='form-input'
+            type='text'
+            name='First Name'
+            placeholder='Enter your name'
+            value={values.firstName}
+            onChange={handleChange}
+            ref={firstNameRef}
+          />
+          {/* {errors.username && <p>{errors.username}</p>} */}
         </div>
         <div className='form-inputs'>
           <label className='form-label'>Email</label>
@@ -88,27 +103,53 @@ function FormSignup( { submitForm } ){
             ref={passwordRef}
           />
           {errors.password && <p>{errors.password}</p>}
+
         </div>
-        <div className='form-inputs'>
-          <label className='form-label'>Confirm Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password2'
-            placeholder='Confirm your password'
-            value={values.password2}
-            onChange={handleChange}
-            ref={passwordRef}
-          />
-          {errors.password2 && <p>{errors.password2}</p>}
+
+        <div className='col-md-6'>
+          <div className='form-inputs'>
+            <label className='form-label'>Password</label>
+            <input
+              className='form-input'
+              type='password'
+              name='password'
+              placeholder='Enter your password'
+              value={values.password}
+              onChange={handleChange}
+              ref={passwordRef}
+            />
+            {errors.password && <p>{errors.password}</p>}
+          </div>
+
+          <div className='col-md-6"'>
+            <div className='form-inputs'>
+              <label className='form-label'>Confirm Password</label>
+              <input
+                className='form-input'
+                type='password'
+                name='password2'
+                placeholder='Confirm your password'
+                value={values.password2}
+                onChange={handleChange}
+                ref={passwordRef}
+              />
+              {errors.password2 && <p>{errors.password2}</p>}
+            </div>
+          </div>
         </div>
-        <button className='form-input-btn' type='submit' onClick={handleSignup}>
-          Sign up
+
+        <div className='col'>
+          <button className='form-input-btn' type='submit' onClick={handleSignup}>
+            Sign up
         </button>
-        <span className='form-input-login'>
-          Already have an account? Login <a href='/login'>here</a>
-        </span>
-      </form>
+        </div>
+
+        <div className='col'>
+          <span className='form-input-login'>
+            Already have an account? Login <a href='/login'>here</a>
+          </span>
+        </div>
+      </form >
     </div>
   );
 };
