@@ -5,7 +5,7 @@ import { useArtContext } from '../../utils/GlobalState';
 import { LOGIN } from "../../utils/actions"
 import validate from './validateInfo';
 import useForm from './useForm';
-import './Login.css';
+import '../Form.css';
 
 const FormLogin = ({ submitForm }) => {
 
@@ -44,47 +44,53 @@ const FormLogin = ({ submitForm }) => {
   );
 
   return (
-    <div className='form-content-right'>
+    <div className='row'>
       <form onSubmit={handleSubmit} className='form' noValidate>
         <h1> Welcome Back!</h1>
-        <div className='form-inputs'>
-          <label className='form-label'>Username</label>
-          <input
-            className='form-input'
-            type='text'
-            name='username'
-            placeholder='Enter your username'
-            value={values.username}
-            onChange={handleChange}
-            ref={usernameRef}
-          />
-          {errors.username && <p>{errors.username}</p>}
+        <div className='col-5'>
+          <div className='form-inputs'>
+            <label className='form-label'>Username</label>
+            <input
+              className='form-input'
+              type='text'
+              name='username'
+              placeholder='Enter your username'
+              value={values.username}
+              onChange={handleChange}
+              ref={usernameRef}
+            />
+            {errors.username && <p>{errors.username}</p>}
+          </div>
         </div>
 
-        <div className='form-inputs'>
-          <label className='form-label'>Password</label>
-          <input
-            className='form-input'
-            type='password'
-            name='password'
-            placeholder='Enter your password'
-            value={values.password}
-            onChange={handleChange}
-            ref={passwordRef}
-          />
-          {errors.password && <p>{errors.password}</p>}
+        <div className='col-5'>
+          <div className='form-inputs'>
+            <label className='form-label'>Password</label>
+            <input
+              className='form-input'
+              type='password'
+              name='password'
+              placeholder='Enter your password'
+              value={values.password}
+              onChange={handleChange}
+              ref={passwordRef}
+            />
+            {errors.password && <p>{errors.password}</p>}
+          </div>
         </div>
 
-        <button className='form-input-btn' type='submit' onClick={handleLogin}>
-          Login
+        <div className='col-5'>
+          <button className='form-input-btn' type='submit' onClick={handleLogin}>
+            Login
         </button>
-        <span className='form-input-login'>
-          Forgot your password? Reset your password <a href='/'>here</a>
-        </span>
-        <br></br>
-        <span className='form-input-login'>
-          Don't have an account? Signup <a href='/signup'>here</a>
-        </span>
+          <span className='form-input-login'>
+            Forgot your password? Reset your password <a href='/'>here</a>
+          </span>
+          <br></br>
+          <span className='form-input-login'>
+            Don't have an account? Signup <a href='/signup'>here</a>
+          </span>
+        </div>
       </form>
     </div>
   );
