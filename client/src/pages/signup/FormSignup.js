@@ -40,7 +40,7 @@ function FormSignup({ submitForm }) {
           user: res.data
         });
 
-        history.push("/signupSuccess");
+        history.push("/");
       })
       .catch(error => {
         console.error(error)
@@ -76,7 +76,7 @@ function FormSignup({ submitForm }) {
             onChange={handleChange}
             ref={firstNameRef}
           />
-          {/* {errors.username && <p>{errors.username}</p>} */}
+          {errors.username && <p>{errors.username}</p>}
         </div>
         <div className='form-inputs'>
           <label className='form-label'>Email</label>
@@ -106,7 +106,7 @@ function FormSignup({ submitForm }) {
             {errors.password && <p>{errors.password}</p>}
           </div>
 
-          <div className='col-md-6"'>
+          <div className='col-md-6'>
             <div className='form-inputs'>
               <label className='form-label'>Confirm Password</label>
               <input
@@ -123,13 +123,13 @@ function FormSignup({ submitForm }) {
           </div>
         </div>
 
-        <div className='col'>
+        <div className='col-md-6'>
           <button className='form-input-btn' type='submit' onClick={handleSignup}>
             Sign up
         </button>
         </div>
 
-        <div className='col'>
+        <div className='col-md-6'>
           <span className='form-input-login'>
             Already have an account? Login <a href='/login'>here</a>
           </span>
