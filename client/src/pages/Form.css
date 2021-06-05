@@ -1,14 +1,22 @@
+.formBackground{
+  position: relative;
+  background: url(./assets/signup.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 90vh;
+}
+
 .formBackground2{
   position: relative;
-  background: url(../assets/login.jpg) no-repeat;
+  background: url(./assets/login.jpg) no-repeat;
   background-size: cover;
   background-position: center;
   height: 90vh;
 }
 
 .form-container {
-  margin-top: 10%;
-  width: 25%;
+  margin-top: 5%;
+  width: 50vw;
   position: absolute;
 }
 
@@ -18,12 +26,20 @@
   right: 3%;
   font-size: 1.5rem;
   z-index: 1;
-  color: #fff;
+  color: black;
   cursor: pointer;
 }
 
-.form-content-left { 
-  position: relative;
+.form-success {
+  margin-top: 10vh;
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+}
+
+.form-success-2{
+  color: white;
+  width: 100vh;
 }
 
 .form {
@@ -33,7 +49,8 @@
 }
 
 .form h1 {
-  font-size: 50px;
+  font-size: 30px;
+  font-weight: bold;;
   margin-bottom: 1rem;
   color: #fff;
 }
@@ -44,6 +61,12 @@
 }
 
 .form-inputs p {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #f00e0e;
+}
+
+.custom-select p {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   color: #f00e0e;
@@ -88,4 +111,18 @@
   cursor: pointer;
   background: rgb(32, 32, 32);
   transition: all 0.4s ease-out;
+}
+
+.form-input-login {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: #fff;
+  width: 80%;
+  text-align: center;
+}
+
+.form-input-login a {
+  text-decoration: none;
+  color: #27cdff;
+  font-weight: 600;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Signup.css';
+import '../Form.css';
 
 const FormSuccess = () => {
   return (

@@ -90,13 +90,13 @@ const FormPost = ({ submitForm }) => {
             return
         }
     }
-    
+
 
     return (
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
-                    {readyImage ? <img src={readyImage} alt="" style={{width:`${widthRatio}*100`, height:`${heightRatio}*100`}}/> : null}
+                    {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio}*100`, height: `${heightRatio}*100` }} /> : null}
                     {(imgwidth && imgheight) ? <h3><strong>{imgwidth} X {imgheight}</strong></h3> : null}
                     <div>Choose your Art to Upload</div>
                     <input type="file" onChange={handleFileInput} />
@@ -105,31 +105,37 @@ const FormPost = ({ submitForm }) => {
 
             <div className='form-inputs'>
                 <label className='form-label2'>Art Title</label>
-                <input
-                    className='form-input'
-                    type='text'
-                    name='artTitle'
-                    placeholder='Enter a title for your art'
-                    onChange={handleChange}
-                    ref={titleRef}
-                />
-                {errors.artTitle && <p>{errors.artTitle}</p>}
+                <div className='col-7'>
+                    <input
+                        className='form-input'
+                        type='text'
+                        name='artTitle'
+                        placeholder='Enter a title for your art'
+                        onChange={handleChange}
+                        ref={titleRef}
+                    />
+                    {errors.artTitle && <p>{errors.artTitle}</p>}
+                </div>
             </div>
 
             <div className='form-group'>
                 <label className='form-label2'>Description</label>
-                <textarea className="form-control" id="artDescription" rows="3" ref={descriptionRef}></textarea>
+                <div className='col-7'>
+                    <textarea className="form-control" id="artDescription" rows="2" ref={descriptionRef}></textarea>
+                </div>
             </div>
 
             <div className='form-inputs'>
                 <label className='form-label2'>Tags</label>
-                <input
-                    className='form-input'
-                    type='text'
-                    name='tags'
-                    placeholder='Enter a maximum of 5 tags, separate with a comma'
-                    ref={tagsRef}
-                />
+                <div className='col-7'>
+                    <input
+                        className='form-input'
+                        type='text'
+                        name='tags'
+                        placeholder='Enter a maximum of 5 tags, separate with a comma'
+                        ref={tagsRef}
+                    />
+                </div>
             </div>
 
             <div className="form-row align-items-center">
@@ -155,15 +161,16 @@ const FormPost = ({ submitForm }) => {
                 </div>
                 {errors.genre && <p>{errors.genre}</p>}
             </div>
-            {
-                (selectedFile && imgheight && imgwidth) &&
-                <button
-                    className='form-input-btn' type='submit'
-                    onClick={handleFormSubmit}
-                    >
-                    Submit
+
+            <div className='col-7'>
+                {
+                    (selectedFile && imgheight && imgwidth) &&
+                    <button className='form-input-btn' type='submit' onClick={handleFormSubmit}>
+                        Submit
                 </button>
-            }
+                }
+            </div>
+
         </form>
     );
 };
