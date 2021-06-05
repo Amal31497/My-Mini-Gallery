@@ -50,7 +50,7 @@ function FormSignup({ submitForm }) {
 
   return (
     <div className='form-content-right'>
-      <form  onSubmit={handleSubmit} className='form' noValidate>
+      <form onSubmit={handleSubmit} className='form' noValidate>
         <h1> Welcome To Your Online Art Community!</h1>
         <div className='form-inputs'>
           <label className='form-label'>Username</label>
@@ -137,21 +137,20 @@ function FormSignup({ submitForm }) {
             </div>
           </div>
         </div>
-      </div>
 
-      <div className='col'>
-        <button className='form-input-btn' type='submit' onClick={handleSignup}>
-          Sign up
+        <div className='col'>
+          <button className='form-input-btn' type='submit' onClick={handleSignup}>
+            Sign up
         </button>
-      </div>
+        </div>
 
-      <div className='col'>
-        <span className='form-input-login'>
-          Already have an account? Login <a href='/login'>here</a>
-        </span>
-      </div>
-    </form >
-
+        <div className='col'>
+          <span className='form-input-login'>
+            Already have an account? Login <a href='/login'>here</a>
+          </span>
+        </div>
+      </form >
+    </div>
   );
 };
 
