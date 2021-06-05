@@ -32,16 +32,21 @@ function Profile() {
 
     findArtist();
 
-    const findArt = () => {
-        getAllArt()
-            .then(response => {
-                dispatch({
-                    type: GET_ALL_ART,
-                    arts: response.data
-                })
-            })
-            .catch(err => console.log(err))
-    }
+    // const findArt = () => {
+    //     if (!_.artist.firstName && _.user.user_id) {
+    //         getAllArt()
+    //             .then(response => {
+    //                 console.log(response)
+    //                 dispatch({
+    //                     type: GET_ALL_ART,
+    //                     arts: response.data
+    //                 })
+    //             })
+    //             .catch(err => console.log(err))
+    //     }
+    // }
+
+    // findArt();
 
     return (
         <div className="background2">
