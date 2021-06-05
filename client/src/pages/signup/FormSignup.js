@@ -91,7 +91,6 @@ function FormSignup({ submitForm }) {
           />
           {errors.email && <p>{errors.email}</p>}
         </div>
-
         <div className='col-md-6'>
           <div className='form-inputs'>
             <label className='form-label'>Password</label>
