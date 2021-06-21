@@ -16,8 +16,8 @@ function Profile() {
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
 
-    console.log(_.user.user_id)
-    console.log(_.artist)
+    // console.log(_.user.user_id)
+    // console.log(_.artist)
 
     const findArtist = () => {
         if (!_.artist.firstName && _.user.user_id) {
@@ -43,8 +43,8 @@ function Profile() {
                         return art.user === _.user.user_id
                     })
                     setImages (profileArt)
-                    console.log("Artwork:", response)
-                    console.log(profileArt)
+                    // console.log("Artwork:", response)
+                    // console.log(profileArt)
                 })
                 .catch(err => console.log(err))
         }

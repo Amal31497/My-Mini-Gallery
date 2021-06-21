@@ -7,6 +7,8 @@ const authenticatedUser = () => axios.get("/api/user/authenticatedUser");
 const createArt = (art) => axios.post("/api/art", art)
 const getAllArt = () => axios.get("/api/art")
 const getArtist = (id) => axios.get("/api/user/" + id)
+const updateArtist = (id,art) => axios.put("/api/user/" + id, art)
+// const deleteArtist = (id) => axios.delete("/api/user/" + id)
 
 
 export {
@@ -16,5 +18,7 @@ export {
     authenticatedUser,
     createArt,
     getAllArt,
-    getArtist
+    getArtist,
+    updateArtist
+    // deleteArtist
 }

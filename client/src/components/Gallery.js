@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { Button, Card, Image } from "react-bootstrap";
@@ -14,12 +14,15 @@ const Gallery2 = () => {
         return {
             key: JSON.stringify(uuid()),
             title: art.title,
+            description: art.description,
+            comments: art.comments,
+            genre: art.genre,
+            user: art.user,
             src: art.src,
             height: art.height,
             width: art.width
         }
     })
-
 
     const openLightbox = useCallback((event, { photo, index }) => {
         setCurrentImage(index);
