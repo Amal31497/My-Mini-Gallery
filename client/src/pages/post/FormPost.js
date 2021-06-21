@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import validate from './validateInfo';
 import { useArtContext } from "../../utils/GlobalState";
-import { CREATE_ART } from "../../utils/actions";
-import { createArt } from "../../utils/API";
+import { CREATE_ART, UPDATE_ARTIST } from "../../utils/actions";
+import { createArt, updateArtist } from "../../utils/API";
 import useForm from './useForm';
 import './Post.css';
 import { uploadFile } from 'react-s3';
@@ -65,7 +65,6 @@ const FormPost = ({ submitForm }) => {
                     })
             })
     }
-
     const handleFormSubmit = () => {
         const art = {
             src: readyImage,
@@ -77,7 +76,7 @@ const FormPost = ({ submitForm }) => {
             height: heightRatio,
             user: _.user.user_id
         }
-        console.log(art)
+        // console.log(art)
         if (readyImage) {
             createArt(art)
                 .then(response => {
@@ -92,6 +91,20 @@ const FormPost = ({ submitForm }) => {
                 .catch(error => {
                     console.log(error)
                 });
+            if(_.user.user_id){
+                updateArtist(_.user.user_id,{art:art})
+                    .then(response => {
+                        console.log(response)
+                        dispatch({
+                            type: UPDATE_ARTIST,
+                            artist: response.data,
+                            art:art
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+            }
         } else {
             return
         }

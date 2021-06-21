@@ -5,7 +5,7 @@ import Jenni from "../assets/Jenni.jpg";
 import Greg from "../assets/Greg.jpg";
 import Hanh from "../assets/Hanh.jpg";
 
-export const Footer = () => {
+const Footer = () => {
 
     const currentYear = new Date().getFullYear();
 

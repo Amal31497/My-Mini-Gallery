@@ -2,7 +2,7 @@ import React from "react";
 import LoginOrOut from "./LoginOrOut"
 import logo from "../logo.png"
 
-export const Navbar = () => {
+const Navbar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

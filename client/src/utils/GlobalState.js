@@ -4,7 +4,8 @@ import {
     LOGOUT,
     CREATE_ART,
     GET_ALL_ART,
-    GET_ARTIST
+    GET_ARTIST,
+    UPDATE_ARTIST
 } from "./actions"
 
 const ArtContext = createContext();
@@ -37,6 +38,12 @@ const reducer = (state,action) => {
             return {
                 ...state,
                 artist: action.artist
+            }
+        case UPDATE_ARTIST:
+            return {
+                ...state,
+                artist: action.artist,
+                art: [action.art, ...state.arts]
             }
             default:
                 return state
