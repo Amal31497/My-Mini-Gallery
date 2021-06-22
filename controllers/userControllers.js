@@ -81,12 +81,15 @@ module.exports = {
             }
     },
 
-    updateUser: function (req, res) {
-        db.User
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
-            .populate("art")
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+    updateUser: async (req, res) => {
+        try {
+            const user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body}}, {upsert:true});
+            user.save();
+            res.json(user)
+        } catch (error) {
+            console.log(error);
+            res.status(400).json(error);
+        }
     },
 
     removeUser: function (req, res) {
@@ -105,3 +108,4 @@ module.exports = {
         }
     }
 }
+
