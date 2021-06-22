@@ -14,7 +14,7 @@ module.exports = {
     findUserById: function (req, res) {
         db.User
             .findById(req.params.id)
-            .populate("art")
+            // .populate("art")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
