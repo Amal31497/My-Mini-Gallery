@@ -21,7 +21,7 @@ module.exports = {
     createArt: async function (req, res) {
         try {
             const dbModel = await db.Art.create(req.body)
-
+            
             res.status(200).json(dbModel)
         } catch (error) {
             console.error(error);

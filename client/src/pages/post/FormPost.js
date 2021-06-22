@@ -44,8 +44,8 @@ const FormPost = ({ submitForm }) => {
     const handleFileInput = (event) => {
         event.preventDefault();
         setSelectedFile(event.target.files[0]);
-        console.log(event.target.files[0]);
-            uploadFile(event.target.files[0], config)
+        // console.log(event.target.files[0]);
+        uploadFile(event.target.files[0], config)
             .then(data => {
                 setReadyImage(data.location)
                 reactImageSize(data.location)
@@ -65,46 +65,48 @@ const FormPost = ({ submitForm }) => {
                     })
             })
     }
+
     const handleFormSubmit = () => {
         const art = {
             src: readyImage,
             title: titleRef.current.value,
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
-            genre: {keyword:genreRef.current.value},
+            genre: { keyword: genreRef.current.value },
             width: widthRatio,
             height: heightRatio,
             user: _.user.user_id
         }
-        // console.log(art)
+
         if (readyImage) {
             createArt(art)
                 .then(response => {
-                    console.log(response)
+                    console.log(response.data._id)
                     dispatch({
                         type: CREATE_ART,
                         art: response.data
                     })
+                    if (_.user.user_id) {
+                        updateArtist(_.user.user_id, {_id:response.data._id})
+                            .then(res => {
+                                console.log(res)
+                                dispatch({
+                                    type: UPDATE_ARTIST,
+                                    artist: res.data,
+                                    art: response.data._id
+                                })
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            });
+                    }
+                    console.log(_)
                     formRef.current.reset();
                     history.push("/postSuccess");
                 })
                 .catch(error => {
                     console.log(error)
                 });
-            if(_.user.user_id){
-                updateArtist(_.user.user_id,{art:art})
-                    .then(response => {
-                        console.log(response)
-                        dispatch({
-                            type: UPDATE_ARTIST,
-                            artist: response.data,
-                            art:art
-                        })
-                    })
-                    .catch(error => {
-                        console.log(error)
-                    });
-            }
         } else {
             return
         }
@@ -115,7 +117,7 @@ const FormPost = ({ submitForm }) => {
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div>
                 <div>
-                    {readyImage ? <img src={readyImage} alt="" style={{width:`${widthRatio*130}px`, height:`${heightRatio*130}px`}}/> : null}
+                    {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px` }} /> : null}
                     {/* {!readyImage ? <Spinner animation="border" role="status"><span className="sr-only"></span></Spinner> : null} */}
                     {(imgwidth && imgheight) ? <h3><strong>{imgwidth} X {imgheight}</strong></h3> : null}
                     <div>Choose your Art to Upload</div>

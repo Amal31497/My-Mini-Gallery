@@ -16,7 +16,8 @@ const genreSchema = new Schema({
     keyword: { type: String, required: true },
 });
 
-const artSchema = new Schema({
+
+const artSchema = new Schema([{
     title: { type: String, required: true },
     description: { type: String, required: true },
     src: { type: String, required: true },
@@ -27,7 +28,8 @@ const artSchema = new Schema({
     width: {type: Number, required: true },
     height: {type: Number, required: true },
     comments: [commentSchema]
-});
+}]);
+
 
 const userSchema = new Schema({
     firstName: { type: String },
@@ -48,13 +50,14 @@ const userSchema = new Schema({
         required: "Password is Required",
         validate: [({ length }) => length >= 6, "Password should be longer."]
     },
-    art: [artSchema]
+    // art: [{type: mongoose.Schema.Types.ObjectId, ref:"Art"}]
+    art:[{type:String}]
 });
 
 const User = mongoose.model("User", userSchema);
 const Art = mongoose.model("Art", artSchema)
-const Comment = mongoose.model("Comment", commentSchema)
 const Genre = mongoose.model("Genre", genreSchema);
+const Comment = mongoose.model("Comment", commentSchema)
 
 module.exports = { User,Art,Comment,Genre };
 
