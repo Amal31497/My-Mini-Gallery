@@ -62,4 +62,3 @@ const Comment = mongoose.model("Comment", commentSchema)
 module.exports = { User,Art,Comment,Genre };
 
 
-

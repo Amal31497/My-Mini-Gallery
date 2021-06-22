@@ -16,41 +16,30 @@ function Profile() {
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
 
-    // console.log(_.user.user_id)
-    // console.log(_.artist)
-
     const findArtist = () => {
         if (!_.artist.firstName && _.user.user_id) {
             getArtist(_.user.user_id)
                 .then(response => {
-                    console.log(response)
                     dispatch({
                         type: GET_ARTIST,
                         artist: response.data
                     })
+                    getAllArt()
+                        .then(res => {
+                            const profileArt = [];
+                            res.data.forEach(art => {
+                                if(response.data.art.includes(art._id)){
+                                    profileArt.push(art)
+                                }
+                            })
+                            setImages (profileArt)
+                        })
                 })
                 .catch(err => console.log(err))
         }
     }
 
     findArtist();
-
-    const findArt = () => {
-        if (!_.artist.firstName && _.user.user_id) {
-            getAllArt()
-                .then(response => {
-                    const profileArt = response.data.filter(art => {
-                        return art.user === _.user.user_id
-                    })
-                    setImages (profileArt)
-                    // console.log("Artwork:", response)
-                    // console.log(profileArt)
-                })
-                .catch(err => console.log(err))
-        }
-    }
-
-    findArt();
 
     const openLightbox = useCallback((event, { photo, index }) => {
         setCurrentImage(index);
