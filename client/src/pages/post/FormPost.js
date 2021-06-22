@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import validate from './validateInfo';
 import { useArtContext } from "../../utils/GlobalState";
 import { CREATE_ART, UPDATE_ARTIST } from "../../utils/actions";
-import { createArt, updateArtist } from "../../utils/API";
+import { createArt, updateUser } from "../../utils/API";
 import useForm from './useForm';
 import './Post.css';
 import { uploadFile } from 'react-s3';
@@ -87,7 +87,7 @@ const FormPost = ({ submitForm }) => {
                         art: response.data
                     })
                     if (_.user.user_id) {
-                        updateArtist(_.user.user_id, {_id:response.data._id})
+                        updateUser(_.user.user_id, {_id:response.data._id})
                             .then(res => {
                                 console.log(res)
                                 dispatch({

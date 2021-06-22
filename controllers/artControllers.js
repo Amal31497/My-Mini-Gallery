@@ -30,7 +30,7 @@ module.exports = {
     },
     updateArt: function (req, res) {
         db.Art
-            .findOneAndUpdate({ _id: req.params.id }, req.body)
+            .findOneAndUpdate({ _id: req.params.id }, req.body, {upsert:true})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

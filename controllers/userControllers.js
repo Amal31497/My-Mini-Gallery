@@ -1,5 +1,6 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
+const { User } = require("../models");
 
 module.exports = {
     findAllUsers: function (req, res) {
@@ -83,11 +84,16 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
-            const user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body}}, {upsert:true});
+            var user;
+            if(req.body._id){
+                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body}}, {upsert:true});
+            } else {
+                user = await db.User.findOneAndUpdate({ _id:req.params.id }, req.body);
+            }
             user.save();
             res.json(user)
         } catch (error) {
-            console.log(error);
+            console.error(error);
             res.status(400).json(error);
         }
     },
