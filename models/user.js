@@ -34,6 +34,7 @@ const artSchema = new Schema([{
 const userSchema = new Schema({
     firstName: { type: String },
     username: { type: String, required: true },
+    avatar: { type: String },
     email: {
         type: String,
         trim: true,

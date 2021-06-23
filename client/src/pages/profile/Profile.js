@@ -1,13 +1,23 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import './Profile.css';
+
+import { useArtContext } from "../../utils/GlobalState";
+import {  UPDATE_ARTIST, GET_ARTIST } from "../../utils/actions";
+import { updateUser,getAllArt, getArtist } from "../../utils/API";
 
 import artistPic from "../assets/artist.jpg";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { Button } from 'react-bootstrap'
-import { getAllArt, getArtist } from "../../utils/API";
-import { useArtContext } from "../../utils/GlobalState";
-import { GET_ARTIST } from "../../utils/actions";
+import { uploadFile } from 'react-s3';
+import env from "react-dotenv";
+
+const config = {
+    bucketName: 'miniartworks',
+    region: 'us-west-2',
+    accessKeyId: env.REACT_APP_ACCESS_KEY,
+    secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
+}
 
 function Profile() {
     const [currentImage, setCurrentImage] = useState(0);
@@ -16,6 +26,13 @@ function Profile() {
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
     const [display, setDisplay] = useState("none")
+    const [readyImage, setReadyImage] = useState("");
+
+    const nameRef = useRef();
+    const userNameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const descriptionRef = useRef();
 
 
     const hideModal = (event) => {
@@ -26,6 +43,42 @@ function Profile() {
     const showModal = (event) => {
         event.preventDefault();
         setDisplay("show")
+    }
+
+    const handleFileInput = (event) => {
+        event.preventDefault();
+        uploadFile(event.target.files[0], config)
+            .then(data => {
+                console.log(data.location)
+                setReadyImage(data.location)
+            })
+    }
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault()
+        const update = {
+            firstName:nameRef.current.value,
+            username:userNameRef.current.value,
+            password:passwordRef.current.value,
+            description:descriptionRef.current.value,
+            avatar:readyImage
+        }
+
+        if(readyImage && _.user.user_id){
+                updateUser(_.user.user_id,update)
+                    .then(res => {
+                        console.log(res)
+                        dispatch({
+                            type: UPDATE_ARTIST,
+                            artist: res.data
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    });
+        }
+        hideModal(event);
+        window.location.reload();
     }
 
 
@@ -77,6 +130,7 @@ function Profile() {
                                         Edit
                                     </p>
                                 </Button>
+                                {/* Begin Modal */}
                                 {display === "show" ?
                                     <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                                         <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -85,16 +139,25 @@ function Profile() {
                                                     <h5 className="modal-title">Edit your profile</h5>
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={hideModal}></button>
                                                 </div>
-                                                <div className="modal-body" style={{height:"55vh"}}>
+                                                <div className="modal-body" style={{height:"60vh"}}>
                                                     <div className="row" style={{display:"flex",justifyContent:"center", alignContent:"center"}}>
-                                                        <img className="artistPic col-lg-2 col-md-12 col-sm-12 col-xs-12" src={artistPic} alt="profile pic" />
+                                                        <div className="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                                                            {readyImage ? 
+                                                            <img className="artistPic" src={readyImage} alt="profile pic" id="avatar" />
+                                                            :
+                                                            <img className="artistPic" src={artistPic} alt="profile pic" id="avatar" />
+                                                            }
+                                                            <div>Change Avatar</div>
+                                                            <input type="file" onChange={handleFileInput} />
+                                                        </div>
+                                                        <br />
                                                         <div className="col-lg-5 col-md-9 col-sm-9">
-                                                            <div><span><strong>Name - </strong></span><input defaultValue={_.artist.firstName}></input></div>
-                                                            <div><span><strong>Username - </strong></span><input defaultValue={_.artist.username}></input></div>
+                                                            <div style={{marginBottom:"4px"}}><span><strong>Name - </strong></span><input placeholder={_.artist.firstName} ref={nameRef}></input></div>
+                                                            <div style={{marginBottom:"4px"}}><span><strong>Username - </strong></span><input placeholder={_.artist.username} ref={userNameRef}></input></div>
                                                         </div>
                                                         <div className="col-lg-5 col-md-9 col-sm-9">
-                                                            <div><span><strong>Email - </strong></span><input defaultValue={_.artist.email}></input></div>
-                                                            <div><span><strong>Password - </strong></span><input defaultValue={_.artist.password}></input></div>
+                                                            <div style={{marginBottom:"4px"}}><span><strong>Email - </strong></span><input placeholder={_.artist.email} ref={emailRef}></input></div>
+                                                            <div style={{marginBottom:"4px"}}><span><strong>Password - </strong></span><input placeholder={_.artist.password} ref={passwordRef}></input></div>
                                                         </div>
                                                     </div>
                                                     <div className="row">
@@ -104,20 +167,25 @@ function Profile() {
                                                     </div>
                                                     <div className="row">
                                                         <div style={{ display: "flex", justifyContent: "center", width:"100%", height:"6rem" }}>
-                                                            <textarea defaultValue={_.artist.description} style={{width:"90%", height:"100%"}}></textarea>
+                                                            <textarea placeholder={_.artist.description} style={{width:"90%", height:"100%"}} ref={descriptionRef}></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={hideModal}>Close</button>
-                                                    <button type="button" className="btn btn-primary">Update Profile</button>
+                                                    <button type="button" className="btn btn-primary" onClick={(event) => handleFormSubmit(event)}>Update Profile</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div> : null}
+                                {/* End Modal */}
                             </div>
                             <div className="photo-wrap mb-5c col-lg-11">
+                                {_.artist.avatar ? 
+                                <img className="artistPic" src={_.artist.avatar} alt="profile pic"/>
+                                :
                                 <img className="artistPic" src={artistPic} alt="profile pic" />
+                                }
                             </div>
                         </div>
                     </div>
