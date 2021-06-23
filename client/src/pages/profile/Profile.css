@@ -8,7 +8,7 @@
 .artistPic{
     width: 130px;
     height: 130px;
-    border-radius: 50%;
+    border-radius: 10%;
     padding:0;
 }
 
@@ -28,6 +28,6 @@
     width: 150px;
 }
 
-/* .modal{
-    display:inline !important;
-} */
+.aboutMe{
+    color:white; 
+}
