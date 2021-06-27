@@ -3,10 +3,10 @@ import Typed from "react-typed"
 
 const Header = () => {
 
-    function test(event){
-        event.preventDefault();
-        console.log("hello")
-    }
+    // function test(event){
+    //     event.preventDefault();
+    //     console.log("hello")
+    // }
 
     return (
         <div className="header-wrapper" >
@@ -19,7 +19,7 @@ const Header = () => {
                 backSpeed={50}
                 loop
                 />
-                <p className="btn-sign-up" onClick={test}>View Gallery</p>
+                <button type="button" className="btn btn-outline-dark" href="#gallerea">View Gallery</button>
             </div>
         </div>
     )

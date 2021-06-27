@@ -36,7 +36,6 @@ nav{
   position: absolute;
   white-space: nowrap;
   width: 5px;
-
 }
 
 .header-wrapper{
@@ -66,14 +65,14 @@ nav{
   font-weight: bold;
 }
 
-.btn-sign-up{
+/* .btn-sign-up{
   border: 1px solid white;
   border-radius: 0%;
   padding: 8px 10px 10px 10px;
   margin-top: 30px;
   color: white;
   text-decoration: none;
-}
+} */
 
 .tsparticles-canvas-el{
   position: absolute;
