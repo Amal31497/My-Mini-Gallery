@@ -60,13 +60,15 @@ function Profile() {
                 .then(({ width, height }) => {
                     setWidth(width);
                     setHeight(height);
+                    // console.log(height/width)
                     if (width > height) {
-                        setWidthRatio(Math.round(width / height))
+                        setWidthRatio((width / height))
                         setHeightRatio(1)
                     } else {
-                        setHeightRatio(Math.round(height / width))
+                        setHeightRatio((height / width))
                         setWidthRatio(1)
                     }
+
                 })
                 .catch(errorMessage => {
                     console.error(errorMessage)
@@ -81,7 +83,11 @@ function Profile() {
             username: userNameRef.current.value,
             password: passwordRef.current.value,
             description: descriptionRef.current.value,
-            avatar: readyImage
+            avatar: {
+                avatarSrc:readyImage,
+                avatarWidthRatio:widthRatio,
+                avatarHeightRatio:heightRatio
+            }
         }
 
         if (readyImage && _.user.user_id) {
@@ -128,6 +134,7 @@ function Profile() {
     findArtist();
 
     const openLightbox = useCallback((event, { photo, index }) => {
+        // console.log(photo)
         setCurrentImage(index);
         setViewerIsOpen(true);
     }, []);
@@ -152,7 +159,7 @@ function Profile() {
                         </div>
                         <div className="photo-wrap mb-5c col-lg-3 col-md-5 col-sm-11 col-xs-11">
                             {_.artist.avatar ?
-                                <img className="artistPic" src={_.artist.avatar} alt="profile pic" />
+                                <img className="artistPic" src={_.artist.avatar.avatarSrc} style={{height:`${_.artist.avatar.avatarHeightRatio*200}px`,width:`${_.artist.avatar.avatarWidthRatio*200}px`}} alt="profile pic" />
                                 :
                                 <img className="artistPic" src={artistPic} alt="profile pic" />
                             }
@@ -178,13 +185,13 @@ function Profile() {
                                         <h5 className="modal-title">Edit your profile</h5>
                                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={hideModal}></button>
                                     </div>
-                                    <div className="modal-body" style={{ height: "60vh" }}>
+                                    <div className="modal-body" style={{ height: "69vh" }}>
                                         <div className="row" style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
                                             <div className="col-lg-2 col-md-12 col-sm-12 col-xs-12">
                                                 {readyImage ?
                                                     <img className="artistPicModal" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px`}} />
                                                     :
-                                                    <img className="artistPic" src={artistPic} alt="profile pic" id="avatar" />
+                                                    <img className="artistPic" src={_.artist.avatar} alt="profile pic" id="avatar" />
                                                 }
                                                 <div>Change Avatar</div>
                                                 <input type="file" onChange={handleFileInput} />
@@ -222,18 +229,15 @@ function Profile() {
                 <div className="gallery">
                     <Gallery key={images.key} photos={images} onClick={openLightbox} />
                     <ModalGateway>
-                        {viewerIsOpen ? (
-                            <Modal onClose={closeLightbox}>
-                                <Carousel
-                                    currentIndex={currentImage}
-                                    views={images.map(x => ({
-                                        ...x,
-                                        srcset: x.srcSet,
-                                        caption: x.title
-                                    }))}
-                                />
-                            </Modal>
-                        ) : null}
+                        {/* {viewerIsOpen ? (
+                            images.map(image => {
+                                return(
+                                    <div className="modal-dialog modal-fullscreen-sm-down">
+                                        <img src={image.src} alt={image.title} />
+                                    </div>
+                                )
+                            })
+                        ) : null} */}
                     </ModalGateway>
                 </div>
             </div>

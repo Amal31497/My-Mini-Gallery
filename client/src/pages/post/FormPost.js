@@ -73,8 +73,8 @@ const FormPost = ({ submitForm }) => {
             description: descriptionRef.current.value,
             tags: tagsRef.current.value,
             genre: { keyword: genreRef.current.value },
-            width: widthRatio,
-            height: heightRatio,
+            width: imgwidth,
+            height: imgheight,
             user: _.user.user_id
         }
 

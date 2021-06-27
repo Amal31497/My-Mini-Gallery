@@ -27,14 +27,22 @@ const artSchema = new Schema([{
     date: { type: Date },
     width: {type: Number, required: true },
     height: {type: Number, required: true },
+    widthRatio: { type: Number },
+    heightRatio: { type: Number },
     comments: [commentSchema]
 }]);
 
 
+const avatarSchema = new Schema({
+    avatarSrc: { type: String },
+    avatarWidthRatio: { type: Number },
+    avatarHeightRatio: { type: Number }
+})
+
 const userSchema = new Schema({
     firstName: { type: String },
     username: { type: String, required: true },
-    avatar: { type: String },
+    avatar: avatarSchema,
     email: {
         type: String,
         trim: true,
@@ -58,8 +66,9 @@ const userSchema = new Schema({
 const User = mongoose.model("User", userSchema);
 const Art = mongoose.model("Art", artSchema)
 const Genre = mongoose.model("Genre", genreSchema);
-const Comment = mongoose.model("Comment", commentSchema)
+const Comment = mongoose.model("Comment", commentSchema);
+const Avatar = mongoose.model("Avatar", avatarSchema);
 
-module.exports = { User,Art,Comment,Genre };
+module.exports = { User,Art,Comment,Genre,Avatar };
 
 
