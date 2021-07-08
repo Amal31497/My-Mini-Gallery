@@ -1,12 +1,12 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
-const { User } = require("../models");
+// const { User } = require("../models");
 
 module.exports = {
+
     findAllUsers: function (req, res) {
         db.User
             .find(req.query)
-            .populate("art")
             .sort({ date: -1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -14,10 +14,25 @@ module.exports = {
 
     findUserById: function (req, res) {
         db.User
-            .findById(req.params.id)
-            // .populate("art")
+            .findById({_id:req.params.id})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+
+    updateUser: async (req, res) => {
+        try {
+            var user;
+            if(req.body._id){
+                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body._id}}, {upsert:true});
+            } else {
+                user = await db.User.findOneAndUpdate({ _id: req.params.id }, req.body);
+            }
+            await user.save();
+            res.json(user)
+        } catch (error) {
+            console.error(error);
+            res.status(400).json(error);
+        }
     },
 
     createUser: async (req, res) => {
@@ -39,6 +54,7 @@ module.exports = {
             res.status(422).json(error);
         }
     },
+
 
     loginUser: async (req, res) => {
         try {
@@ -80,22 +96,6 @@ module.exports = {
             } else {
                 res.status(404).end();
             }
-    },
-
-    updateUser: async (req, res) => {
-        try {
-            var user;
-            if(req.body._id){
-                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body}}, {upsert:true});
-            } else {
-                user = await db.User.findOneAndUpdate({ _id:req.params.id }, req.body);
-            }
-            user.save();
-            res.json(user)
-        } catch (error) {
-            console.error(error);
-            res.status(400).json(error);
-        }
     },
 
     removeUser: function (req, res) {

@@ -1,12 +1,12 @@
 const express = require("express");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session)
-
 const path = require("path");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
     collection: "sessions"

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const commentController = require("../../controllers/commentControllers");
 
-// Matches with "/api/comments"
+// Matches with "/api/comment"
 router
     .route("/")
     .get(commentController.findAllComment)

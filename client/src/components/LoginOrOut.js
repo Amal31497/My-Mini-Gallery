@@ -19,10 +19,10 @@ function LoginOrOut(){
                 history.push("/");
             })
     }
-    // console.log(state.user)
+    // console.log(state)
     return(
         <>
-            {!state.user.user_id
+            {!state.user.length
                 ?
                 <>
                     <li className="nav-item active">
@@ -32,6 +32,7 @@ function LoginOrOut(){
                         <a className="nav-link" href="/login">Login</a>
                     </li>
                 </>
+                
                 :
                 <>
                     <li className="nav-item">

@@ -5,17 +5,31 @@ module.exports = {
     findAllArt: function (req, res) {
         db.Art
             .find(req.query)
-            // .sort({ date: -1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
 
     findArtById: function (req, res) {
         db.Art
-            .findById(req.params.id)
-            .populate('comments')
+            .findById({_id:req.params.id})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+
+    updateArt: async function (req, res) {
+        try {
+            var art;
+            if(req.body._id){
+                art = await db.Art.findOneAndUpdate({ _id: req.params.id}, {$push:{comments:req.body}}, {upsert:true});
+            } else {
+                art = await db.Art.findOneAndUpdate({ _id:req.params.id }, req.body);
+            }
+            await art.save();
+            res.json(art)
+        } catch (error) {
+            console.error(error);
+            res.status(400).json(error);
+        }
     },
 
     createArt: async function (req, res) {
@@ -28,12 +42,7 @@ module.exports = {
             err => res.status(422).json(err)
         }
     },
-    updateArt: function (req, res) {
-        db.Art
-            .findOneAndUpdate({ _id: req.params.id }, req.body, {upsert:true})
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
+    
     removeArt: function (req, res) {
         db.Art
             .findById({ _id: req.params.id })

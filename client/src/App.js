@@ -13,6 +13,7 @@ import Post from "./pages/post/Post";
 import Genre from "./pages/genre/Genre";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
+import ArtPage from "./pages/ArtPage/ArtPage";
 import signUpSuccess from "./pages/signup/FormSuccess";
 import postSuccess from "./pages/post/PostSuccess";
 
@@ -37,6 +38,7 @@ function App() {
             <Route exact path="/post" component={Post} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route path="/artPage" component={ArtPage} />
           </Switch>
           <Footer />
         </div>

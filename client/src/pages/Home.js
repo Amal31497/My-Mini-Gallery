@@ -11,22 +11,23 @@ function Home() {
 
     // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useArtContext();
+    // console.log(state)
+    // console.log(state)
+    // const findArt = () => {
+    //     getAllArt()
+    //         .then(response => {
+    //             dispatch({
+    //                 type: GET_ALL_ART,
+    //                 arts: response.data
+    //             })
+    //         })
+    //         .catch(err => console.log(err))
+    // }
 
-    const findArt = () => {
-        getAllArt()
-            .then(response => {
-                dispatch({
-                    type: GET_ALL_ART,
-                    arts: response.data
-                })
-            })
-            .catch(err => console.log(err))
-    }
-
-    useEffect(() => {
-        findArt()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // useEffect(() => {
+    //     findArt()
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
 
     return (
