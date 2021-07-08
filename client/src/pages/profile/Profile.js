@@ -1,37 +1,32 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import './Profile.css';
-
 import { useArtContext } from "../../utils/GlobalState";
-import { UPDATE_ARTIST, GET_ARTIST } from "../../utils/actions";
 import { updateUser, getAllArt, getArtist } from "../../utils/API";
 import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
 import Gallery from "react-photo-gallery";
-import Carousel, { Modal, ModalGateway } from "react-images";
-import { Button } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import { uploadFile } from 'react-s3';
 import env from "react-dotenv";
 
 const config = {
-    bucketName: 'miniartworks',
-    region: 'us-west-2',
+    bucketName: 'myminigallery',
+    region: 'us-east-2',
     accessKeyId: env.REACT_APP_ACCESS_KEY,
     secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
 }
 
 function Profile() {
-    const [currentImage, setCurrentImage] = useState(0);
-    const [viewerIsOpen, setViewerIsOpen] = useState(false);
     const [images, setImages] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
+    const [artist, setArtist] = useState();
     const [display, setDisplay] = useState("none")
     const [readyImage, setReadyImage] = useState("");
 
     const nameRef = useRef();
     const userNameRef = useRef();
     const emailRef = useRef();
-    const passwordRef = useRef();
     const descriptionRef = useRef();
 
     const [imgwidth, setWidth] = useState();
@@ -81,7 +76,6 @@ function Profile() {
         const update = {
             firstName: nameRef.current.value,
             username: userNameRef.current.value,
-            password: passwordRef.current.value,
             description: descriptionRef.current.value,
             avatar: {
                 avatarSrc:readyImage,
@@ -90,14 +84,10 @@ function Profile() {
             }
         }
 
-        if (readyImage && _.user.user_id) {
-            updateUser(_.user.user_id, update)
+        if (readyImage && _.user) {
+            updateUser(_.user, update)
                 .then(res => {
                     console.log(res)
-                    dispatch({
-                        type: UPDATE_ARTIST,
-                        artist: res.data
-                    })
                 })
                 .catch(error => {
                     console.log(error)
@@ -108,41 +98,30 @@ function Profile() {
     }
 
 
+
     const findArtist = () => {
-        if (!_.artist.firstName && _.user.user_id) {
-            getArtist(_.user.user_id)
-                .then(response => {
-                    dispatch({
-                        type: GET_ARTIST,
-                        artist: response.data
-                    })
-                    getAllArt()
-                        .then(res => {
-                            const profileArt = [];
-                            res.data.forEach(art => {
-                                if (response.data.art.includes(art._id)) {
-                                    profileArt.push(art)
-                                }
-                            })
-                            setImages(profileArt)
+        if(_.user){
+            getArtist(_.user)
+            .then(response => {
+                console.log(response.data)
+                setArtist(response.data)
+                getAllArt()
+                    .then(res => {
+                        const profileArt = [];
+                        res.data.forEach(art => {
+                            if(response.data.art.includes(art._id)) profileArt.push(art)
                         })
-                })
-                .catch(err => console.log(err))
+                        setImages(profileArt)
+                    })
+                    .catch(error => console.log(error))
+            })
+            .catch(error => console.error(error))
         }
     }
-
-    findArtist();
-
-    const openLightbox = useCallback((event, { photo, index }) => {
-        // console.log(photo)
-        setCurrentImage(index);
-        setViewerIsOpen(true);
-    }, []);
-
-    const closeLightbox = () => {
-        setCurrentImage(0);
-        setViewerIsOpen(false);
-    };
+    
+    useEffect(() => {
+        findArtist();
+    },[_.user])
 
     return (
         <div className="background2">
@@ -158,22 +137,22 @@ function Profile() {
                             </Button>
                         </div>
                         <div className="photo-wrap mb-5c col-lg-3 col-md-5 col-sm-11 col-xs-11">
-                            {_.artist.avatar ?
-                                <img className="artistPic" src={_.artist.avatar.avatarSrc} style={{height:`${_.artist.avatar.avatarHeightRatio*200}px`,width:`${_.artist.avatar.avatarWidthRatio*200}px`}} alt="profile pic" />
+                            {(artist && artist.avatar) ?
+                                <img className="artistPic" src={artist.avatar.avatarSrc} style={{height:`${artist.avatar.avatarHeightRatio*200}px`,width:`${artist.avatar.avatarWidthRatio*200}px`}} alt="profile pic" />
                                 :
                                 <img className="artistPic" src={artistPic} alt="profile pic" />
                             }
                         </div>
                         <div className="profileInfo col-lg-3 col-md-6 col-sm-4 col-xs-12">
-                            <div className="username">{_.artist.username}</div>
-                            <div className="artistName">{_.artist.firstName}</div>
+                            <div className="username">{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
+                            <div className="artistName">{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="row contact">
                                 <button type="button" className="btn btn-dark">Contact Me</button>
                             </div>
                         </div>
                         <div className="aboutMe col-lg-5 col-md-12 col-sm-8 col-xs-12">
                             <h2>About me</h2>
-                            <p>{_.artist.description}</p>
+                            <p>{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
                         </div>
                     </div>
                     {/* Begin Modal */}
@@ -191,19 +170,18 @@ function Profile() {
                                                 {readyImage ?
                                                     <img className="artistPicModal" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px`}} />
                                                     :
-                                                    <img className="artistPic" src={_.artist.avatar} alt="profile pic" id="avatar" />
+                                                    <img className="artistPic" src={(artist&&artist.avatar)?artist.avatar.avatarSrc:artistPic} alt="profile pic" id="avatar" />
                                                 }
                                                 <div>Change Avatar</div>
                                                 <input type="file" onChange={handleFileInput} />
                                             </div>
                                             <br />
                                             <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input placeholder={_.artist.firstName} ref={nameRef}></input></div>
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input placeholder={_.artist.username} ref={userNameRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input placeholder={artist?artist.firstName:<Spinner animation="grow" variant="dark" />} ref={nameRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input placeholder={artist?artist.username:<Spinner animation="grow" variant="dark" />} ref={userNameRef}></input></div>
                                             </div>
                                             <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input placeholder={_.artist.email} ref={emailRef}></input></div>
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Password - </strong></span><input placeholder={_.artist.password} ref={passwordRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input placeholder={artist?artist.email:<Spinner animation="grow" variant="dark" />} ref={emailRef}></input></div>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -213,7 +191,7 @@ function Profile() {
                                         </div>
                                         <div className="row">
                                             <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "6rem" }}>
-                                                <textarea placeholder={_.artist.description} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
+                                                <textarea placeholder={artist?artist.description:<Spinner animation="grow" variant="dark" />} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -227,18 +205,7 @@ function Profile() {
                     {/* End Modal */}
                 </div>
                 <div className="gallery">
-                    <Gallery key={images.key} photos={images} onClick={openLightbox} />
-                    <ModalGateway>
-                        {/* {viewerIsOpen ? (
-                            images.map(image => {
-                                return(
-                                    <div className="modal-dialog modal-fullscreen-sm-down">
-                                        <img src={image.src} alt={image.title} />
-                                    </div>
-                                )
-                            })
-                        ) : null} */}
-                    </ModalGateway>
+                    <Gallery key={images.key} photos={images} />
                 </div>
             </div>
         </div>

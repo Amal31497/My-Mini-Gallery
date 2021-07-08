@@ -7,6 +7,11 @@
   pointer-events: none;
 }
 
+.logoSmall{
+  height: 27px;
+  pointer-events: none;
+}
+
 nav{
   z-index: 2;
 }
@@ -89,7 +94,8 @@ nav{
 
 .footer {
   background-color: black;
-  padding-bottom: 50px;
+  margin-top:50px !important;
+  /* padding-bottom: 50px; */
 }
 
 .copyright {

@@ -3,7 +3,17 @@
   background: url(../assets/post.jpeg) no-repeat;
   background-size: cover;
   background-position: center;
-  height: 90vh;
+  height: 100vh;
+}
+
+@media screen and (max-width: 1000px){
+  .formBackground3{
+    position: relative;
+    background: url(../assets/post.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 1100px;
+  }
 }
 
 .form-label2 {
@@ -11,6 +21,18 @@
   font-size: 16px;
   margin-top: 10px;
   color: black !important;
+}
+
+.form-input{
+  width:26rem !important;
+}
+
+.form-inputs{
+  justify-content: center;
+}
+
+#artDescription, #genreSelects{
+  width:26rem !important;
 }
 
 .form-input::placeholder {
@@ -25,7 +47,7 @@
 }
 
 .form-input-btn {
-  width: 100%;
+  width: 26rem !important;
   height: 40px;
   margin-top: 10px;
   border-radius: 2px;
@@ -34,6 +56,7 @@
   border: none;
   color: #fff;
   font-size: 16px;
+  margin-left:17px;
 }
 
 .form-input-btn:hover {
@@ -57,4 +80,8 @@
 
 .post-success-2{
   width: 100vh;
+}
+
+.form-container{
+  width:100% !important;
 }

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { login } from "../../utils/API";
 import { useArtContext } from '../../utils/GlobalState';
@@ -16,6 +16,7 @@ const FormLogin = ({ submitForm }) => {
   const usernameRef = useRef();
   const passwordRef = useRef()
 
+
   const handleLogin = (event) => {
     event.preventDefault()
     login({
@@ -23,20 +24,18 @@ const FormLogin = ({ submitForm }) => {
       password: passwordRef.current.value
     })
       .then(response => {
-        console.log(response)
+        // console.log(response)
         dispatch({
           type: LOGIN,
-          user: response.data.user
+          user: response.data.user.user_id,
+          art:[]
         });
-
-        history.push("/");
+        history.push('/')
       })
       .catch(error => {
         console.log(error)
       })
   }
-
-
 
   const { handleChange, handleSubmit, values, errors } = useForm(
     submitForm,

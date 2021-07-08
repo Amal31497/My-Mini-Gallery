@@ -6,32 +6,29 @@ var validateEmail = function(email) {
     return re.test(email)
 };
 
-const commentSchema = new Schema({
-    _id: { type: Number, required: true },
-    content: { type: String, required: true },
-    date: { type: Date }
-})
-
-const genreSchema = new Schema({
-    keyword: { type: String, required: true },
-});
-
-
 const artSchema = new Schema([{
     title: { type: String, required: true },
     description: { type: String, required: true },
     src: { type: String, required: true },
     tags: [{ type: String, required: true }],
     user: { type: String, required: true },
-    genre: [genreSchema],
+    genre: { type: String, required: true },
     date: { type: Date },
     width: {type: Number, required: true },
     height: {type: Number, required: true },
     widthRatio: { type: Number },
     heightRatio: { type: Number },
-    comments: [commentSchema]
+    comments: [{ type: String }]
 }]);
 
+
+const commentSchema = new Schema({
+    content: { type: String, required: true },
+    user: { type: String, required: true },
+    userInfo: { type: Object, required: true },
+    date: { type: Date, required: true },
+    assetSrc: { type: String }
+});
 
 const avatarSchema = new Schema({
     avatarSrc: { type: String },
@@ -53,22 +50,21 @@ const userSchema = new Schema({
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     description: { type: String },
+    art:[{ type:String }],
     password: {
         type: String,
         trim: true,
         required: "Password is Required",
         validate: [({ length }) => length >= 6, "Password should be longer."]
-    },
-    // art: [{type: mongoose.Schema.Types.ObjectId, ref:"Art"}]
-    art:[{type:String}]
+    }
 });
 
+
 const User = mongoose.model("User", userSchema);
-const Art = mongoose.model("Art", artSchema)
-const Genre = mongoose.model("Genre", genreSchema);
+const Art = mongoose.model("Art", artSchema);
 const Comment = mongoose.model("Comment", commentSchema);
 const Avatar = mongoose.model("Avatar", avatarSchema);
 
-module.exports = { User,Art,Comment,Genre,Avatar };
+module.exports = { User,Art,Comment,Avatar };
 
 

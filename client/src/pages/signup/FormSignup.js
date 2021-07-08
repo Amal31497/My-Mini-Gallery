@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { signup } from '../../utils/API';
 import { useArtContext } from '../../utils/GlobalState';
-import { LOGIN } from "../../utils/actions";
+import { CREATE_ARTIST, LOGIN } from "../../utils/actions";
 import { useHistory } from 'react-router-dom';
 import validate from './validateInfo';
 import useForm from './useForm';
@@ -27,19 +27,17 @@ function FormSignup({ submitForm }) {
   const handleSignup = (event) => {
     event.preventDefault();
     signup({
-
       username: userNameRef.current.value,
       firstName: firstNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value
-
     })
       .then(res => {
         dispatch({
           type: LOGIN,
-          user: res.data
+          user: res.data.user_id,
+          art: []
         });
-
         history.push("/");
       })
       .catch(error => {
