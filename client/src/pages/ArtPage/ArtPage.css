@@ -178,11 +178,45 @@
     height:145vh;
 }
 
+/* width */
+.categories::-webkit-scrollbar {
+    width: 10px;
+}
+
+  /* Track */
+.categories::-webkit-scrollbar-track {
+    display:none;
+    box-shadow: inset 0 0 5px black;
+    border-radius: 10px;
+}
+
+  /* Handle */
+.categories::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    /* display:none; */
+    background: black;
+    box-shadow: inset 0 0 5px black;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background:white;
+    border-radius: 2px;
+}
+
 .moreByAuthor{
     display:flex;
     justify-content: center;
     width:100%;
-    height:55vh;
+    height:30vh;
 }
 
 .moreByAuthorTitle{
@@ -192,8 +226,6 @@
     justify-content:center;
 }
 
-
-
 .categoryElement{
     display:flex;
     justify-content: center;
@@ -202,6 +234,17 @@
     height:30vh;
     width:90%;
     width:flex;
+}
+
+.genreWrapper>h4:hover{
+    color:rgb(105, 87, 224);
+    cursor:pointer;
+}
+
+.addGenreText:hover{
+    color:white !important;
+    opacity:40% !important;
+    cursor:pointer;
 }
 
 
@@ -223,10 +266,13 @@
 }
 
 .mainComment{
+    word-break: break-all;
+    white-space: normal;
     background: #4d4d52;
     padding-top:13px;
-    padding-left: 10px;
-    padding-bottom:1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom:10px;
 }
 
 .mainCommentConsole{

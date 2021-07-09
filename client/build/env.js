@@ -145,6 +145,7 @@ window.env = {
   "HOME": "/Users/amaljanabayev",
   "npm_config_fetch_retry_maxtimeout": "60000",
   "npm_package_scripts_test": "react-scripts test",
+  "npm_package_dependencies_animate_css": "^4.1.1",
   "VSCODE_GIT_ASKPASS_MAIN": "/private/var/folders/j5/3qckvsg16wx43jkfbk68m2k80000gn/T/AppTranslocation/417616C6-3E68-49DE-A735-7CAA45BF8129/d/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js",
   "npm_config_tag_version_prefix": "v",
   "npm_config_strict_ssl": "true",
@@ -207,6 +208,6 @@ window.env = {
   "npm_config_format_package_lock": "true",
   "npm_package_dependencies__material_ui_icons": "^4.11.2",
   "COLORTERM": "truecolor",
-  "REACT_APP_ACCESS_KEY": "AKIA4OX6BDUKQ6MGVM2V",
-  "REACT_APP_SECRET_ACCESS_KEY": "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"
+  "REACT_APP_ACCESS_KEY": "AKIA4OX6BDUK46X7H2PN",
+  "REACT_APP_SECRET_ACCESS_KEY": "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"
 };

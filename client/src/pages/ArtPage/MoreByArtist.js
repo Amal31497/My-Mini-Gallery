@@ -30,7 +30,7 @@ const MoreByArtist = (props) => {
         <>
             {artwork ?
                 // <Gallery style={{width:"60%"}} key={artwork._id} photos={artwork} />
-                <div id="surrounding" style={{width:"480px"}}>
+                <div id="surrounding" style={{width:"450px"}}>
                     <Carousel
                         plugins={[
                             'centered',
