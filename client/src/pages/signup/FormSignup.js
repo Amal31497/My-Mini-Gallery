@@ -30,7 +30,8 @@ function FormSignup({ submitForm }) {
       username: userNameRef.current.value,
       firstName: firstNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value
+      password: passwordRef.current.value,
+      date: Date.now()
     })
       .then(res => {
         dispatch({

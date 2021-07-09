@@ -40,9 +40,6 @@ const Gallery2 = () => {
 
     // console.log(images)
 
-
-
-
     const selectImage = (event) => {
         event.preventDefault();
         var selected = {id:event.target.getAttribute("id")}
@@ -51,9 +48,9 @@ const Gallery2 = () => {
     }
     
     return (
-        <div className="gallery">
+        <div className="gallery" style={{ width:"90%" }}>
             {images?
-                <Gallery key={images.key} photos={images} onClick={selectImage} />
+                <Gallery key={images.key} photos={images} onClick={selectImage}/>
                 :
                 <Spinner animation="grow" variant="dark" />
             }

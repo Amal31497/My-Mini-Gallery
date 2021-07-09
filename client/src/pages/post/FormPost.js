@@ -57,6 +57,7 @@ const FormPost = ({ submitForm }) => {
     const [widthRatio, setWidthRatio] = useState();
     const [heightRatio, setHeightRatio] = useState();
     const [artIds, setArtIds] = useState();
+    
     // Begin function - AWS S3 uploader
     const handleFileInput = (event) => {
         event.preventDefault();
@@ -101,6 +102,7 @@ const FormPost = ({ submitForm }) => {
             height: imgheight,
             widthRatio: widthRatio,
             heightRatio: heightRatio,
+            date: Date.now(),
             user: _.user
         }
         

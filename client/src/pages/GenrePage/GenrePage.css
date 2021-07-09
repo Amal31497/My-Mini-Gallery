@@ -1,0 +1,40 @@
+.genreSearchPageMain{
+    background-image: linear-gradient(to right,  #292b2c , black);
+    height:125vh;
+}
+
+.backToGenres{
+    color:white;
+    margin-left:80px;
+    padding-top:50px;
+}
+
+.backToGenres:hover{
+    text-decoration: underline;
+    cursor:pointer;
+}
+
+.mainGenreText{
+    position: absolute;
+}
+
+.imagePart{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:45vh;
+    color:white;
+    position:relative;
+}
+
+.mainImage{
+    width:70%;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1.0) -80%, transparent 100%);
+}
+
+.galleryPart{
+    position:absolute;
+    left:400px;
+    width:70%;
+    height:80vh;
+}

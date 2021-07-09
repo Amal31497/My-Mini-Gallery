@@ -10,7 +10,8 @@ const getArtist = (id) => axios.get("/api/user/" + id);
 const updateUser = (id,art) => axios.put("/api/user/" + id, art);
 const getOneArt = (id) => axios.get("/api/art/" + id);
 const addComment = (comment) => axios.post("/api/comment/", comment);
-const loadComments = () => axios.get("/api/comment");
+const loadComments = () => axios.get("/api/comment/");
+const updateComment = (id,response) => axios.put("/api/comment/" + id, response)
 const updateArt = (id,comment) => axios.put("/api/art/" + id, comment)
 // const deleteArtist = (id) => axios.delete("/api/user/" + id)
 
@@ -27,6 +28,7 @@ export {
     getOneArt,
     addComment,
     loadComments,
-    updateArt
+    updateArt,
+    updateComment
     // deleteArtist
 }

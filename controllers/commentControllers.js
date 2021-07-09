@@ -4,15 +4,31 @@ module.exports = {
     findAllComment: function (req, res) {
         db.Comment
         .find(req.query)
+        .sort({ date: -1 })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+
     findCommentById: function (req, res) {
         db.Comment
         .findById(req.params.id)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     },
+
+    updateComment: async function (req, res) {
+        try {
+            var comment = await db.Comment.findOneAndUpdate( {_id: req.params.id}, {$push:{responses:req.body.response}}, {upsert:true})
+            
+            console.log(req.body)
+            // await comment.save();
+            res.json(comment)
+        } catch (error) {
+            console.error(error);
+            res.status(400).json(error);
+        }
+    },
+
     createComment: async function (req, res) {
         try {
             const dbModel = await db.Comment.create(req.body)
@@ -23,12 +39,7 @@ module.exports = {
             error => res.status(422).json(error)
         }
     },
-    updateComment: function (req, res) {
-        db.Comment
-        .findOneAndUpdate({ _id: req.params.id }, req.body)
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err));
-    },
+    
     removeComment: function (req, res) {
         db.Comment.findById({ _id: req.params.id })
         .then(dbModel => dbModel.remove())
