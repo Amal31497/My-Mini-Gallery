@@ -45,7 +45,7 @@ const ArtPage = () => {
 
 
                 <div className="row">
-                    <div className="main col-lg-8 col-md-12">
+                    <div className="main col-lg-7 col-md-12">
                         <div className="row" style={{width:"100%"}}>
                             <div className="imageInfo col-12" style={{ height:`${(art.heightRatio * 200) + 680}px` }}>
                                 <div className="row" style={{width:"100%", height: `${art.heightRatio * 200}px`}}>
@@ -80,9 +80,9 @@ const ArtPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="side col-lg-4 col-md-12">
+                    <div className="side col-lg-5 col-md-12">
                         <div className="row" style={{ width: "96%" }}>
-                            <div className="moreByAuthor col-12">
+                            <div className="moreByAuthor col-lg-12 col-md-6">
                                 <div className="row" style={{height:"120vh"}}>
                                     <h4 className="col-12 moreByAuthorTitle">
                                         More by {artist.username}
@@ -94,7 +94,7 @@ const ArtPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="categories">
+                            <div className="categories col-lg-12 col-md-6">
                                 <Genres />
                             </div>
                         </div>

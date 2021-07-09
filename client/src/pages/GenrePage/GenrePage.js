@@ -16,7 +16,7 @@ import PhotoManipulation from '../genre/pics/photomanipulation.jpg';
 import Photos from '../genre/pics/photography.jpg';
 import Traditionals from '../genre/pics/traditional.jpg';
 import { TiChevronLeftOutline } from 'react-icons/ti';
-
+import { BiRightArrow } from 'react-icons/bi';
 
 
 import './GenrePage.css';
@@ -56,6 +56,10 @@ const GenrePage = () => {
     
     const takeMeBack = () => {
         history.push("/genre")
+    }
+
+    const uploadArt = () => {
+        history.push("/post")
     }
 
     useEffect(() => {
@@ -103,7 +107,7 @@ const GenrePage = () => {
                         <Gallery key={artWork.key} photos={artWork} onClick={selectImage} />
                     </div>
                     :
-                    <h3>No Art has been added for this genre!</h3>
+                    <h3 onClick={uploadArt} className="addGenreText" style={{opacity:"30%", color:"rgb(231,233,235)"}}>Be the first one to add to this genre! <BiRightArrow size={24}/> </h3>
                 }
             </div>
         </div>

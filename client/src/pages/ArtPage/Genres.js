@@ -12,8 +12,10 @@ import photoManipulation from '../genre/pics/photomanipulation.jpg';
 import photography from '../genre/pics/photography.jpg';
 import traditional from '../genre/pics/traditional.jpg';
 
+import { useHistory } from 'react-router-dom';
 const Card = (props) => {
 
+    
 
     const [hover,setHover] = useState(false);
 
@@ -25,78 +27,110 @@ const Card = (props) => {
         setHover(false)
     }
 
+
     if(hover === false){
         return(
-            <h4 className="col-12 categoryElement" onMouseEnter={flipOn} onMouseLeave={flipOff}>{props.genres.name}</h4>
+            <img 
+                className="col-12 categoryElement" 
+                onMouseEnter={flipOn} 
+                onMouseLeave={flipOff} 
+                src={props.genres.img} 
+                alt={props.genres.name} 
+                
+            />
+            
         )
     } else {
         return(
-            <img className="col-12 categoryElement" onMouseEnter={flipOn} onMouseLeave={flipOff} src={props.genres.img} alt={props.genres.name} />
+            <h4 
+                className="col-12 categoryElement" 
+                onMouseEnter={flipOn} 
+                onMouseLeave={flipOff}>{props.genres.name}
+            </h4>
         )
     }
 }
 
 
 const Genres = () => {
-
+    const history = useHistory();
     const genres = [
         {
             name:"3D",
-            img:threeD
+            img:threeD,
+            href:"/genresearch?3D"
         },
         {
             name:"Anime/Manga",
-            img:AnimeManga
+            img:AnimeManga,
+            href:"/genresearch?AnimeAndManga"
         },
         {
             name:"Crafts",
-            img:crafts
+            img:crafts,
+            href:"/genresearch?ArtisanCraft"
         },
         {
             name:"Comics",
-            img:comics
+            img:comics,
+            href:"/genresearch?Comic"
         },
         {
             name:"Customization",
-            img:customization
+            img:customization,
+            href:"/genresearch?Customization"
         },
         {
             name:"Cosplay",
-            img:cosplay
+            img:cosplay,
+            href:"/genresearch?Cosplay"
         },
         {
             name:"Digital Art",
-            img:digital
+            img:digital,
+            href:"/genresearch?DigitalArt"
         },
         {
             name:"Fantasy",
-            img:fantasy
+            img:fantasy,
+            href:"/genresearch?Fantasy"
         },
         {
             name:"Fanart",
-            img:fanart
+            img:fanart,
+            href:"/genresearch?FanArt"
         },
         {
             name:"Photo Manipulation",
-            img:photoManipulation
+            img:photoManipulation,
+            href:"/genresearch?PhotoManipulation"
         },
         {
             name:"Photography",
-            img:photography
+            img:photography,
+            href:"/genresearch?Photography"
         },
         {
             name:"Traditional",
-            img:traditional
+            img:traditional,
+            href:"/genresearch?TraditionalArt"
         }
     ]
 
+
+    const takeMeToGenre = (event,genre) => {
+        event.preventDefault();
+        if(genre){
+            history.push(genre)
+        }
+    }
 
     return(
         <div  className="row" style={{display:"block", justifyContent:"center", marginTop:"50px", width:"80%"}}>
             <h4 style={{marginBottom:"50px", display:"flex",justifyContent:"center"}}>Explore More Genres</h4>
             {genres.map(genre => {
                 return (
-                    <div>
+                    <div className="genreWrapper" onClick={(event) => takeMeToGenre(event,genre.href)}>
                         <Card
                             genres={genre}
                             className="genreCard col-12"
