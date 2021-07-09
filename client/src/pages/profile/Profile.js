@@ -234,7 +234,7 @@ function Profile() {
                         </div> : null}
                     {/* End Modal */}
                 </div>
-                <div className="gallery">
+                <div className="gallery" style={{opacity:"93%"}}>
                     <Gallery key={images.key} photos={images} onClick={selectImage} />
                 </div>
             </div>

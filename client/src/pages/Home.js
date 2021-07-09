@@ -87,7 +87,7 @@ function Home() {
             />
             <div style={{ background:"black" }}>
                 <Header />
-                <div style={{ display:"flex", justifyContent:"center" }}>
+                <div style={{ display:"flex", justifyContent:"center",opacity:"93%" }}>
                     <Gallery />
                 </div>
             </div>
