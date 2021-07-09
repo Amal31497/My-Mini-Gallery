@@ -17,11 +17,12 @@ import Photos from '../genre/pics/photography.jpg';
 import Traditionals from '../genre/pics/traditional.jpg';
 import { TiChevronLeftOutline } from 'react-icons/ti';
 import { BiRightArrow } from 'react-icons/bi';
-
+import { useArtContext } from "../../utils/GlobalState";
 
 import './GenrePage.css';
 
 const GenrePage = () => {
+    const [state, dispatch] = useArtContext();
     const history = useHistory();
     const selectedGenre = window.location.search.split("?")[1].split("%20").join(" ")||window.location.search.split("?")[1];
     const [artWork, setArtwork] = useState();
@@ -57,9 +58,14 @@ const GenrePage = () => {
     const takeMeBack = () => {
         history.push("/genre")
     }
-
+    console.log(state.user)
     const uploadArt = () => {
-        history.push("/post")
+        if(state.user.length > 0){
+            history.push("/post")
+        } else {
+            history.push("/login")
+        }
+        
     }
 
     useEffect(() => {

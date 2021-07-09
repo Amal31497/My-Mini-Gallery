@@ -3,6 +3,10 @@
     height:125vh;
 }
 
+.addGenreText:hover{
+    opacity:90%;
+}
+
 .backToGenres{
     color:white;
     margin-left:80px;
