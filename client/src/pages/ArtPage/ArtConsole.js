@@ -8,7 +8,7 @@ import { FcHighPriority } from 'react-icons/fc';
 
 const ArtConsole = (props) => {
     var author = props.author;
-    console.log(author)
+    // console.log(author)
     return(
         <>
             <img className="logoSmall consoleElement" src={logo} alt="logo" />

@@ -85,9 +85,11 @@ function Home() {
                     }
                 }}
             />
-            <div>
+            <div style={{ background:"black" }}>
                 <Header />
-                <Gallery />
+                <div style={{ display:"flex", justifyContent:"center" }}>
+                    <Gallery />
+                </div>
             </div>
         </div>
     )

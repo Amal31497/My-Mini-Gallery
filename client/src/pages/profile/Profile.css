@@ -2,7 +2,7 @@
     position: relative;
     background-color:black;
     background-position: center;
-    height: 250vh;
+    height: 200vh;
 }
 
 .artistPic{
@@ -30,4 +30,8 @@
 
 .aboutMe{
     color:white; 
+}
+
+.gallery{
+    opacity: 70%;
 }

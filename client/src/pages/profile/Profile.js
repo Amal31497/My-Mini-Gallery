@@ -2,12 +2,15 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import './Profile.css';
 import { useArtContext } from "../../utils/GlobalState";
 import { updateUser, getAllArt, getArtist } from "../../utils/API";
+import { useHistory } from 'react-router-dom';
 import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
 import Gallery from "react-photo-gallery";
 import { Button, Spinner } from 'react-bootstrap'
 import { uploadFile } from 'react-s3';
 import env from "react-dotenv";
+import uuid from 'react-uuid';
+
 
 const config = {
     bucketName: 'myminigallery',
@@ -18,6 +21,7 @@ const config = {
 
 function Profile() {
     const [images, setImages] = useState([]);
+    const [openedImage, setOpenedImage] = useState({});
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
     const [artist, setArtist] = useState();
@@ -34,6 +38,7 @@ function Profile() {
     const [widthRatio, setWidthRatio] = useState();
     const [heightRatio, setHeightRatio] = useState();
 
+    const history = useHistory();
 
     const hideModal = (event) => {
         event.preventDefault();
@@ -74,15 +79,17 @@ function Profile() {
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const update = {
-            firstName: nameRef.current.value,
-            username: userNameRef.current.value,
-            description: descriptionRef.current.value,
+            firstName: nameRef.current.value||document.querySelector(".firstNameInput").getAttribute("name"),
+            username: userNameRef.current.value||document.querySelector(".userNameInput").getAttribute("name"),
+            email: emailRef.current.value||document.querySelector(".emailInput").getAttribute("name"),
+            description: descriptionRef.current.value||document.querySelector(".descriptionInput").getAttribute("name"),
             avatar: {
                 avatarSrc:readyImage,
                 avatarWidthRatio:widthRatio,
                 avatarHeightRatio:heightRatio
             }
         }
+        console.log(_.user)
 
         if (readyImage && _.user) {
             updateUser(_.user, update)
@@ -99,29 +106,52 @@ function Profile() {
 
 
 
-    const findArtist = () => {
-        if(_.user){
-            getArtist(_.user)
-            .then(response => {
-                console.log(response.data)
-                setArtist(response.data)
-                getAllArt()
-                    .then(res => {
-                        const profileArt = [];
-                        res.data.forEach(art => {
-                            if(response.data.art.includes(art._id)) profileArt.push(art)
-                        })
-                        setImages(profileArt)
-                    })
-                    .catch(error => console.log(error))
-            })
-            .catch(error => console.error(error))
-        }
-    }
+    // const findArtist = () => {
+        
+    // }
     
     useEffect(() => {
-        findArtist();
+        if(_.user){
+            getArtist(_.user)
+                .then(response => {
+                    // console.log(response.data)
+                    setArtist(response.data)
+                    getAllArt()
+                        .then(res => {
+                            const profileArt = [];
+                            res.data.forEach(art => {
+                                if (response.data.art.includes(art._id)) {
+                                    profileArt.push(
+                                        {
+                                            key: JSON.stringify(uuid()),
+                                            id: art._id,
+                                            title: art.title,
+                                            description: art.description,
+                                            comments: art.comments,
+                                            genre: art.genre,
+                                            user: art.user,
+                                            src: art.src,
+                                            height: art.height,
+                                            width: art.width
+                                        }
+                                    )
+                                }
+                            })
+                            setImages(profileArt)
+                        })
+                        .catch(error => console.log(error.message))
+                })
+            .catch(error => console.error(error.message))
+        }
     },[_.user])
+
+    const selectImage = (event) => {
+        event.preventDefault();
+        var selected = {id:event.target.getAttribute("id")}
+        setOpenedImage(selected);
+        history.push(`artPage?${selected.id}`)
+    }
+
 
     return (
         <div className="background2">
@@ -177,11 +207,11 @@ function Profile() {
                                             </div>
                                             <br />
                                             <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input placeholder={artist?artist.firstName:<Spinner animation="grow" variant="dark" />} ref={nameRef}></input></div>
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input placeholder={artist?artist.username:<Spinner animation="grow" variant="dark" />} ref={userNameRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input type="text" className="firstNameInput" name={artist?artist.firstName:null} placeholder={artist?artist.firstName:null} ref={nameRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input type="text" className="userNameInput" name={artist?artist.username:null} placeholder={artist?artist.username:null} ref={userNameRef}></input></div>
                                             </div>
                                             <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input placeholder={artist?artist.email:<Spinner animation="grow" variant="dark" />} ref={emailRef}></input></div>
+                                                <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input type="text" className="emailInput" name={artist?artist.email:null} placeholder={artist?artist.email:null} ref={emailRef}></input></div>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -191,7 +221,7 @@ function Profile() {
                                         </div>
                                         <div className="row">
                                             <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "6rem" }}>
-                                                <textarea placeholder={artist?artist.description:<Spinner animation="grow" variant="dark" />} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
+                                                <textarea type="text" classnName="descriptionInput" name={artist?artist.description:null} placeholder={artist?artist.description:null} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +235,7 @@ function Profile() {
                     {/* End Modal */}
                 </div>
                 <div className="gallery">
-                    <Gallery key={images.key} photos={images} />
+                    <Gallery key={images.key} photos={images} onClick={selectImage} />
                 </div>
             </div>
         </div>

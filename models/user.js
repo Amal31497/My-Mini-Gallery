@@ -13,21 +13,27 @@ const artSchema = new Schema([{
     tags: [{ type: String, required: true }],
     user: { type: String, required: true },
     genre: { type: String, required: true },
-    date: { type: Date },
+    date: { type: Date, required: true },
     width: {type: Number, required: true },
     height: {type: Number, required: true },
-    widthRatio: { type: Number },
-    heightRatio: { type: Number },
+    widthRatio: { type: Number, required: true },
+    heightRatio: { type: Number, required:true },
     comments: [{ type: String }]
 }]);
-
 
 const commentSchema = new Schema({
     content: { type: String, required: true },
     user: { type: String, required: true },
     userInfo: { type: Object, required: true },
     date: { type: Date, required: true },
-    assetSrc: { type: String }
+    assetSrc: { type: String },
+    responses: [new Schema([{
+        content: { type: String, required:true },
+        user: { type: String, required: true },
+        userInfo: { type: Object, required: true },
+        date: { type: Date, required: true },
+        assetSrc: { type: String },
+    }])]
 });
 
 const avatarSchema = new Schema({
@@ -56,7 +62,8 @@ const userSchema = new Schema({
         trim: true,
         required: "Password is Required",
         validate: [({ length }) => length >= 6, "Password should be longer."]
-    }
+    },
+    date: { type: Date, required:true }
 });
 
 

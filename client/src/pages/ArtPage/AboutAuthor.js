@@ -6,10 +6,10 @@ import { useArtContext } from "../../utils/GlobalState";
 const AboutAuthor = (props) => {
     var artist = props.author;
     var art = props.art;
-    console.log(art)
+    // console.log(art)
     return (
         <>
-            <div className="row" style={{marginBottom:"30px"}}>
+            <div className="row" style={{marginBottom:"30px", scrollBehavior:"smooth"}}>
                 {artist ?
                     <div className="artistImage col-lg-3 col-md-3 col-sm-4 col-xs-12">
                         <img
