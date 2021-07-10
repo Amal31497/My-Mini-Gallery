@@ -18,7 +18,8 @@ const artSchema = new Schema([{
     height: {type: Number, required: true },
     widthRatio: { type: Number, required: true },
     heightRatio: { type: Number, required:true },
-    comments: [{ type: String }]
+    comments: [{ type: String }],
+    savedFavorite: { type: Number }
 }]);
 
 const commentSchema = new Schema({
@@ -57,6 +58,7 @@ const userSchema = new Schema({
     },
     description: { type: String },
     art:[{ type:String }],
+    favorites:[{ type:String }],
     password: {
         type: String,
         trim: true,

@@ -207,7 +207,5 @@ window.env = {
   "npm_config_link": "",
   "npm_config_format_package_lock": "true",
   "npm_package_dependencies__material_ui_icons": "^4.11.2",
-  "COLORTERM": "truecolor",
-  "REACT_APP_ACCESS_KEY": "AKIA4OX6BDUK46X7H2PN",
-  "REACT_APP_SECRET_ACCESS_KEY": "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"
+  "COLORTERM": "truecolor"
 };
