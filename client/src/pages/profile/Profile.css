@@ -31,3 +31,11 @@
 .aboutMe{
     color:white; 
 }
+
+.profileGalleryColumnTitles{
+    display:flex;
+    justify-content: center;
+    color:white;
+    margin-top:30px;
+    margin-bottom:30px;
+}

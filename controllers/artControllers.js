@@ -21,6 +21,8 @@ module.exports = {
             var art;
             if(req.body._id){
                 art = await db.Art.findOneAndUpdate({ _id: req.params.id}, {$push:{comments:req.body}}, {upsert:true});
+            } else if(req.body.savedFavorite){
+                art = await db.Art.findOneAndUpdate({ _id: req.params.id}, {$inc:{savedFavorite:1}}).exec();
             } else {
                 art = await db.Art.findOneAndUpdate({ _id:req.params.id }, req.body);
             }

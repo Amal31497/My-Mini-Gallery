@@ -21,6 +21,7 @@ const config = {
 
 function Profile() {
     const [images, setImages] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const [openedImage, setOpenedImage] = useState({});
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
@@ -68,7 +69,6 @@ function Profile() {
                         setHeightRatio((height / width))
                         setWidthRatio(1)
                     }
-
                 })
                 .catch(errorMessage => {
                     console.error(errorMessage)
@@ -104,11 +104,6 @@ function Profile() {
         window.location.reload();
     }
 
-
-
-    // const findArtist = () => {
-        
-    // }
     
     useEffect(() => {
         if(_.user){
@@ -119,6 +114,7 @@ function Profile() {
                     getAllArt()
                         .then(res => {
                             const profileArt = [];
+                            const profileFavorites = [];
                             res.data.forEach(art => {
                                 if (response.data.art.includes(art._id)) {
                                     profileArt.push(
@@ -136,8 +132,25 @@ function Profile() {
                                         }
                                     )
                                 }
+                                if(response.data.favorites.includes(art._id)){
+                                    profileFavorites.push(
+                                        {
+                                            key: JSON.stringify(uuid()),
+                                            id: art._id,
+                                            title: art.title,
+                                            description: art.description,
+                                            comments: art.comments,
+                                            genre: art.genre,
+                                            user: art.user,
+                                            src: art.src,
+                                            height: art.height,
+                                            width: art.width
+                                        }
+                                    )
+                                }
                             })
-                            setImages(profileArt)
+                            setImages(profileArt);
+                            setFavorites(profileFavorites);
                         })
                         .catch(error => console.log(error.message))
                 })
@@ -151,7 +164,7 @@ function Profile() {
         setOpenedImage(selected);
         history.push(`artPage?${selected.id}`)
     }
-
+    console.log(favorites)
 
     return (
         <div className="background2">
@@ -234,8 +247,23 @@ function Profile() {
                         </div> : null}
                     {/* End Modal */}
                 </div>
-                <div className="gallery" style={{opacity:"93%"}}>
-                    <Gallery key={images.key} photos={images} onClick={selectImage} />
+                <div className="gallery row" style={{opacity:"93%", marginTop:"20px"}}>
+                    {(favorites&&favorites.length) > 0 ? 
+                        <>
+                            <div className="col-6">
+                                <h6 className="profileGalleryColumnTitles">{artist.username}'s Gallery</h6>
+                                <Gallery key={images.key} photos={images} onClick={selectImage} />
+                            </div>
+                            <div className="col-6">
+                                <h6 className="profileGalleryColumnTitles">{artist.username}'s Favorites</h6>
+                                <Gallery key={favorites.key} photos={favorites} onClick={selectImage} />
+                            </div>
+                        </>
+                        :
+                        <div>
+                            <Gallery key={images.key} photos={images} onClick={selectImage} />
+                        </div>
+                    }
                 </div>
             </div>
         </div>

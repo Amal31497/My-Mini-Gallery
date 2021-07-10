@@ -24,6 +24,8 @@ module.exports = {
             var user;
             if(req.body._id){
                 user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body._id}}, {upsert:true});
+            } else if(req.body.favorite){
+                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{favorites:req.body.favorite}}, {upsert:true});
             } else {
                 user = await db.User.findOneAndUpdate({ _id: req.params.id }, req.body);
             }
