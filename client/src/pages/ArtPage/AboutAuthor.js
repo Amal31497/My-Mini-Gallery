@@ -2,11 +2,17 @@ import React, {useState} from 'react';
 import { Spinner } from 'react-bootstrap';
 import placeholder from "../../pages/assets/artist.jpg";
 import { useArtContext } from "../../utils/GlobalState";
+import { useHistory } from 'react-router-dom';
 import Moment from 'react-moment';
 const AboutAuthor = (props) => {
     var artist = props.author;
     var art = props.art;
-    // console.log(art)
+    const history = useHistory();
+    const runQuery = (event) => {
+        event.preventDefault();
+        history.push(`/search?${event.target.getAttribute("value")}`)
+    }
+
     return (
         <>
             <div className="row" style={{marginBottom:"30px", scrollBehavior:"smooth"}}>
@@ -37,7 +43,7 @@ const AboutAuthor = (props) => {
                 {art.tags.map(tag => {
                     return(
                         <>
-                        <button type="button" class="btn btn-outline-secondary">{tag}</button>
+                        <button type="button" class="btn btn-outline-secondary" value={tag} onClick={runQuery}>{tag}</button>
                         &nbsp;&nbsp;
                         </>
                     )

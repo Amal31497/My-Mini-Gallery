@@ -14,6 +14,7 @@ const addComment = (comment) => axios.post("/api/comment/", comment);
 const loadComments = () => axios.get("/api/comment/");
 const updateComment = (id,response) => axios.put("/api/comment/" + id, response)
 const updateArt = (id,comment) => axios.put("/api/art/" + id, comment)
+const queryArt = (query) => axios.get("/api/query/" + query)
 // const deleteArtist = (id) => axios.delete("/api/user/" + id)
 
 
@@ -31,6 +32,7 @@ export {
     loadComments,
     updateArt,
     updateComment,
-    updateUserFavorites
+    updateUserFavorites,
+    queryArt
     // deleteArtist
 }

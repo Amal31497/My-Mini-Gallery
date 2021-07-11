@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const artRoutes = require("./art");
-// const genreRoutes = require("./genre");
+const queryRoutes = require("./queries");
 const userRoutes = require("./user");
 const commentsRoutes = require("./comment")
 
 router.use("/art", artRoutes);
-// router.use("/genre", genreRoutes);
+router.use("/query", queryRoutes);
 router.use("/user", userRoutes);
 router.use("/comment", commentsRoutes);
 
