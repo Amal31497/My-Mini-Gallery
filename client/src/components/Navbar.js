@@ -1,8 +1,17 @@
-import React from "react";
-import LoginOrOut from "./LoginOrOut"
-import logo from "../logo.png"
+import React, { useState, useRef } from "react";
+import LoginOrOut from "./LoginOrOut";
+import logo from "../logo.png";
+import { useHistory } from 'react-router-dom';
+
 
 const Navbar = () => {
+    const history = useHistory();
+    const queryRef = useRef();
+    
+    const runQuery = (event) => {
+        event.preventDefault();
+        history.push(`search?${queryRef.current.value}`)
+    }
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -21,10 +30,10 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-            <form className="d-flex navBarSearch">
-                <input className="form-control me-2" type="search" placeholder="Search For An Artist" aria-label="Search" />
-                <button className="btn btn-outline-light" type="submit">Search</button>
-            </form>
+                <form className="d-flex navBarSearch">
+                    <input className="form-control me-2" type="search" placeholder="Search" ref={queryRef} aria-label="Search" />
+                    <button className="btn btn-outline-light" onClick={runQuery}>Search</button>
+                </form>
             </div>
         </nav >
     )

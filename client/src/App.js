@@ -17,6 +17,7 @@ import ArtPage from "./pages/ArtPage/ArtPage";
 import signUpSuccess from "./pages/signup/FormSuccess";
 import postSuccess from "./pages/post/PostSuccess";
 import GenrePage from "./pages/GenrePage/GenrePage";
+import Search from "./pages/Search/Search";
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route path="/artPage" component={ArtPage} />
             <Route path="/genresearch" component={GenrePage} />
+            <Route path="/search" component={Search} />
           </Switch>
           <Footer />
         </div>

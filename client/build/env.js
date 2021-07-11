@@ -89,7 +89,7 @@ window.env = {
   "npm_package_dependencies_react_photo_gallery": "^8.0.0",
   "npm_config_json": "",
   "npm_config_access": "",
-  "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"build\"],\"original\":[\"run\",\"build\"]}",
+  "npm_config_argv": "{\"remain\":[],\"cooked\":[\"start\"],\"original\":[\"start\"]}",
   "PATH": "/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/amaljanabayev/Desktop/My-Mini-Gallery/client/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.8/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.8/bin",
   "npm_config_allow_same_version": "",
   "npm_package_dependencies__material_ui_core": "^4.11.4",
@@ -107,7 +107,7 @@ window.env = {
   "npm_config_user": "",
   "npm_config_node_version": "14.15.5",
   "npm_package_dependencies_uuidv4": "^6.2.10",
-  "npm_lifecycle_event": "build",
+  "npm_lifecycle_event": "start",
   "npm_package_browserslist_production_2": "not op_mini all",
   "npm_config_save": "true",
   "npm_config_ignore_prepublish": "",
@@ -169,7 +169,7 @@ window.env = {
   "npm_config_cache": "/Users/amaljanabayev/.npm",
   "npm_package_dependencies_react_scripts": "^4.0.3",
   "LOGNAME": "amaljanabayev",
-  "npm_lifecycle_script": "react-dotenv && react-scripts build",
+  "npm_lifecycle_script": "react-dotenv && react-scripts start",
   "npm_config_color": "true",
   "npm_package_dependencies_react_uuid": "^1.0.2",
   "npm_config_proxy": "",
@@ -207,5 +207,7 @@ window.env = {
   "npm_config_link": "",
   "npm_config_format_package_lock": "true",
   "npm_package_dependencies__material_ui_icons": "^4.11.2",
-  "COLORTERM": "truecolor"
+  "COLORTERM": "truecolor",
+  "REACT_APP_ACCESS_KEY": "AKIA4OX6BDUKT6CFK4JV",
+  "REACT_APP_SECRET_ACCESS_KEY": "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"
 };

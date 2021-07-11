@@ -4,15 +4,17 @@ import { useHistory } from 'react-router-dom';
 import './gallery.css';
 import { Spinner } from 'react-bootstrap';
 import { useArtContext } from "../utils/GlobalState";
-import { getAllArt } from "../utils/API"
+import { getAllArt } from "../utils/API";
 import uuid from 'react-uuid';
 
 
 const Gallery2 = () => {
     const [openedImage, setOpenedImage] = useState({});
+    const [state,dispatch] = useArtContext();
     const [images, setImages] = useState();
     const history = useHistory();
-
+    // console.log(state)
+    
     useEffect(() => {
         getAllArt()
             .then(response => {
@@ -50,7 +52,7 @@ const Gallery2 = () => {
     return (
         <div className="gallery" style={{ width:"90%" }}>
             {images?
-                <Gallery key={images.key} photos={images} onClick={selectImage}/>
+                <Gallery key={images.key} photos={images} onClick={selectImage} />
                 :
                 <Spinner animation="grow" variant="dark" />
             }

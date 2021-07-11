@@ -6,6 +6,7 @@ import { LOGIN } from '../utils/actions';
 function WatchAuthenticatedUser() {
     // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useArtContext();
+    // console.log(state)
     useEffect(() => {
         authenticatedUser()
         .then(response => {
@@ -13,15 +14,13 @@ function WatchAuthenticatedUser() {
             if (response.data) {
                 dispatch({
                     type: LOGIN,
-                    user: response.data.user_id,
-                    art: []
+                    user: response.data.user_id
                 });
             }
         })
         .catch(err => console.error(err))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    // console.log(state)
     return <></>;
 }
 

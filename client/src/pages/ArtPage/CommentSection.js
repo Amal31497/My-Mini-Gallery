@@ -150,7 +150,6 @@ const CommentSection = () => {
                                             :
                                             <img src={placeholder} alt="artist" />
                                         }
-                                        <div class="vl" style={{height:`${comment.responses.length*203}px`}}></div>
                                     </div>
                                     <div className="commentWrapper col-11">
                                         {comment? 
@@ -208,7 +207,6 @@ const CommentSection = () => {
                                                                 <div className="col-1" />
                                                                 <p className="col-1 reportButtons" id="responseReportButton">Report</p>
                                                             </div>
-                                                            <hr className="hl" />
                                                             </>
                                                         )
                                                     })

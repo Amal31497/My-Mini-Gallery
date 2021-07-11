@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useContext } from 'react';
 import {
     LOGIN,
     LOGOUT,
-    ADD_ART
+    RUN_QUERY
     // CREATE_ART,
     // GET_ALL_ART,
     // CREATE_ARTIST,
@@ -18,13 +18,17 @@ const reducer = (state, action) => {
         case LOGIN:
             return {
                 ...state,
-                user: action.user,
-                art: action.art
+                user: action.user
             }
         case LOGOUT:
             return {
                 ...state,
                 user: {}
+            }
+        case RUN_QUERY:
+            return{
+                ...state,
+                art: action.art
             }
         // case ADD_ART:
         //     return {
@@ -64,8 +68,8 @@ const reducer = (state, action) => {
 
 const ArtProvider = ({ value = {}, ...props }) => {
     const [state, dispatch] = useReducer(reducer, {
-        user: {}
-        // art:[]
+        user: {},
+        art:[]
     })
 
     return <Provider value={[state, dispatch]} {...props} />

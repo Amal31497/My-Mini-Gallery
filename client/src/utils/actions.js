@@ -4,6 +4,7 @@ export const ADD_ART = "ADD_ART"
 
 
 export const ERROR = "ERROR"
+export const RUN_QUERY = "RUN_QUERY"
 export const CREATE_ARTIST = "CREATE_ARTIST"
 export const GET_ARTIST = "GET_ARTIST"
 export const UPDATE_ARTIST = "UPDATE_ARTIST"
