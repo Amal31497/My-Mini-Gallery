@@ -102,18 +102,15 @@ const GenrePage = () => {
 
     return(
         <div className="genreSearchPageMain">
-            <h4 className="backToGenres" onClick={takeMeBack}><span><TiChevronLeftOutline size={20} /></span> Back to Genres</h4>
-            <div className="imagePart">
-                <h4 className="mainGenreText">{selectedGenre}</h4>
-                <img className="mainImage" src={src} alt="mainImage" />
-            </div>
+            <p className="backToGenres" onClick={takeMeBack}><span><TiChevronLeftOutline size={20} /></span> Back to Genres</p>
+            <h4 className="titleGenre">{window.location.search.split("?")[1].replace("%20", " ")}</h4>
             <div className="galleryPart">
                 {artWork&&artWork.length > 0 ? 
-                    <div style={{width:"700px",height:"600px"}}>
+                    <div className="gallery">
                         <Gallery key={artWork.key} photos={artWork} onClick={selectImage} />
                     </div>
                     :
-                    <h3 onClick={uploadArt} className="addGenreText" style={{opacity:"30%", color:"rgb(231,233,235)"}}>Be the first one to add to this genre! <BiRightArrow size={24}/> </h3>
+                    <h3 onClick={uploadArt} className="addGenreText" style={{color:"rgb(231,233,235)"}}>Be the first one to add to this genre! <BiRightArrow size={24}/> </h3>
                 }
             </div>
         </div>

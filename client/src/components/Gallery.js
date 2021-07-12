@@ -47,10 +47,11 @@ const Gallery2 = () => {
         var selected = {id:event.target.getAttribute("id")}
         setOpenedImage(selected);
         history.push(`artPage?${selected.id}`)
+        window.scrollTo(0, 0)
     }
     
     return (
-        <div className="gallery" style={{ width:"90%" }}>
+        <div className="gallery" style={{ width:"100%" }}>
             {images?
                 <Gallery key={images.key} photos={images} onClick={selectImage} />
                 :

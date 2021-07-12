@@ -12,7 +12,7 @@ function Home() {
     // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useArtContext();
     return (
-        <div>
+        <div style={{height:"240vh", background:"black"}}>
             <Particles
                 params={{
                     particles: {
@@ -68,7 +68,7 @@ function Home() {
             />
             <div style={{ background: "black" }}>
                 <Header />
-                <div style={{ display: "flex", justifyContent: "center", opacity: "93%" }}>
+                <div className="gallery">
                     <Gallery />
                 </div>
             </div>

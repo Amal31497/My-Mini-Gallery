@@ -16,11 +16,12 @@
 
 
 .searchBar{
-    display:flex;
-    justify-content: center;
-    padding:20px 300px;
+    padding:20px 50px;
     color:white;
+    margin-right:auto;
+    margin-left:auto;
 }
+
 
 #searchButtonMain{
     margin-top:12px;

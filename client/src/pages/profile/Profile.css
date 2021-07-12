@@ -2,7 +2,15 @@
     position: relative;
     background-color:black;
     background-position: center;
-    height: 200vh;
+    height: 230vh;
+}
+
+
+.title{
+    color:white;
+    display:flex;
+    justify-content: center;
+    padding-top:30px;
 }
 
 .artistPic{
@@ -18,6 +26,7 @@
     font-weight: bold;
 }
 
+
 .artistName{
     color: white;
     font-size: 14px;
@@ -32,10 +41,79 @@
     color:white; 
 }
 
-.profileGalleryColumnTitles{
+.gallery{
+    padding:0 !important;
+}
+
+
+.profileArt{
+    color:white;
     display:flex;
     justify-content: center;
+    margin-top: 50px;
+}
+
+.profileConsoleElement{
+    display:flex;
+    justify-content: center;
+}
+
+.profileConsoleElement:hover{
+    font-weight:800;
+    cursor:pointer;
+}
+
+.lineSelection{
+    background:white;
+    margin-bottom:20px;
+}
+
+.modal{
+    background-color: rgba(0,0,0, 0.6); 
     color:white;
-    margin-top:30px;
-    margin-bottom:30px;
+    overflow:auto;
+    white-space:nowrap;
+}
+
+.modal-content{
+    background: black;
+    color:white;
+}
+
+.modalImageContentWrapper{
+    margin-left:auto;
+    margin-right:auto;
+    width:140px;
+}
+
+.modalInfoLeftContent,.modalInfoRightContent{
+    display:block;
+    margin-top:35px;
+    margin-bottom:35px;
+}
+
+
+.modalLabelInfoLeftElement,
+.modalTextInfoLeftElement,
+.modalLabelInfoRightElement,
+.modalTextInfoRightElement{
+    width:90%;
+    margin:auto;
+}
+
+
+.modalTextInfoLeftElement{
+    border:none; 
+    outline:none;
+    background:black;
+    border-bottom:1px solid white;
+    color:white;
+    margin-bottom:15px;
+}
+
+.modalTextInfoRightElement{
+    width:90%;
+    height:90%;
+    background:black;
+    color:white;
 }

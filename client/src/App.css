@@ -95,7 +95,7 @@ nav{
 .footer {
   background-color: black;
   margin-top:50px !important;
-  /* padding-bottom: 50px; */
+  padding-bottom: 50px;
 }
 
 .copyright {
@@ -111,4 +111,12 @@ nav{
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.gallery{
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+  padding:0;
+  width:100%;
 }
