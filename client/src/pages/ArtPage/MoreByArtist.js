@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 // import Gallery from "react-photo-gallery";
 import { getAllArt } from '../../utils/API'
 import { Spinner } from 'react-bootstrap';
-import Carousel from '@brainhubeu/react-carousel';
+import Carousel, { slidesToShowPlugin, autoplayPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
+import { useHistory } from 'react-router-dom';
 
 const MoreByArtist = (props) => {
     const currentArt = window.location.search.split("?")[1];
+    const history = useHistory();
     const [artwork, setArtwork] = useState();
+
 
     useEffect(() => {
         if(props.artist){
@@ -25,23 +28,100 @@ const MoreByArtist = (props) => {
         }
     },[props.artist,currentArt])
 
+    const openArt = (event) => {
+        event.preventDefault();
+        history.push(`/artPage?${event.target.getAttribute("value")}`)
+        window.scrollTo(0, 0)
+    }
 
     return(
         <>
             {artwork ?
                 // <Gallery style={{width:"60%"}} key={artwork._id} photos={artwork} />
-                <div id="surrounding" style={{width:"450px"}}>
+                <div className="moreByArtistWrapper">
                     <Carousel
                         plugins={[
                             'centered',
                             'arrows',
-                            'infinite'
+                            'infinite',
+                            {
+                                resolve: autoplayPlugin,
+                                options: {
+                                    interval: 1000,
+                                }
+                            },
+                            {
+                                resolve: slidesToShowPlugin,
+                                options: {
+                                    numberOfSlides: 3
+                                }
+                            }
                         ]}
+                        animationSpeed={1000}
+                        breakpoints={{
+                            640: {
+                                plugins: [
+                                    'centered',
+                                    'arrows',
+                                    'infinite',
+                                    {
+                                        resolve: autoplayPlugin,
+                                        options: {
+                                            interval: 1000,
+                                        }
+                                    },
+                                    {
+                                        resolve: slidesToShowPlugin,
+                                        options: {
+                                            numberOfSlides: 1
+                                        }
+                                    },
+                                ]
+                            },
+                            1100: {
+                                plugins: [
+                                    'centered',
+                                    'arrows',
+                                    'infinite',
+                                    {
+                                        resolve: autoplayPlugin,
+                                        options: {
+                                            interval: 1000,
+                                        }
+                                    },
+                                    {
+                                        resolve: slidesToShowPlugin,
+                                        options: {
+                                            numberOfSlides: 2
+                                        }
+                                    },
+                                ]
+                            },
+                            1400: {
+                                plugins: [
+                                    'centered',
+                                    'arrows',
+                                    'infinite',
+                                    {
+                                        resolve: autoplayPlugin,
+                                        options: {
+                                            interval: 1000,
+                                        }
+                                    },
+                                    {
+                                        resolve: slidesToShowPlugin,
+                                        options: {
+                                            numberOfSlides: 3
+                                        }
+                                    },
+                                ]
+                            }
+                        }}
                     >
                         {artwork.map(art => {
                             return (
                                 <div classname="row">
-                                    <img className="col-12" src={art.src} alt={art.title} style={{
+                                    <img className="col-12 moreByArtistImage" src={art.src} alt={art.title} value={art._id} onClick={openArt} style={{
                                         height: `${art.heightRatio * 140}px`,
                                         width: `${art.widthRatio * 140}px`
                                     }} />

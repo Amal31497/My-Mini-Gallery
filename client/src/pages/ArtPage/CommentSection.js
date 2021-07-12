@@ -148,7 +148,7 @@ const CommentSection = () => {
                                         {comment ? 
                                             <img className="commentArtistThumbnail"src={comment.userInfo.avatar.avatarSrc}  alt={comment.userInfo.username}/>
                                             :
-                                            <img src={placeholder} alt="artist" />
+                                            <Spinner animation="grow" variant="dark" />
                                         }
                                     </div>
                                     <div className="commentWrapper col-11">

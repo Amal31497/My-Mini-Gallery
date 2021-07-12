@@ -12,6 +12,11 @@ import photoManipulation from '../genre/pics/photomanipulation.jpg';
 import photography from '../genre/pics/photography.jpg';
 import traditional from '../genre/pics/traditional.jpg';
 
+import Gallery from "react-photo-gallery";
+import Carousel, { slidesToShowPlugin, autoplayPlugin } from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
+
+
 import { useHistory } from 'react-router-dom';
 const Card = (props) => {
 
@@ -34,7 +39,7 @@ const Card = (props) => {
                 className="col-12 categoryElement" 
                 onMouseEnter={flipOn} 
                 onMouseLeave={flipOff} 
-                src={props.genres.img} 
+                src={props.genres.src} 
                 alt={props.genres.name} 
                 
             />
@@ -57,63 +62,87 @@ const Genres = () => {
     const genres = [
         {
             name:"3D",
-            img:threeD,
-            href:"/genresearch?3D"
+            src:threeD,
+            href:"/genresearch?3D",
+            width:1,
+            height:1
         },
         {
             name:"Anime/Manga",
-            img:AnimeManga,
-            href:"/genresearch?AnimeAndManga"
+            src:AnimeManga,
+            href:"/genresearch?AnimeAndManga",
+            width:1,
+            height:1
         },
         {
             name:"Crafts",
-            img:crafts,
-            href:"/genresearch?ArtisanCraft"
+            src:crafts,
+            href:"/genresearch?ArtisanCraft",
+            width:1,
+            height:1
         },
         {
             name:"Comics",
-            img:comics,
-            href:"/genresearch?Comic"
+            src:comics,
+            href:"/genresearch?Comic",
+            width:1,
+            height:1
         },
         {
             name:"Customization",
-            img:customization,
-            href:"/genresearch?Customization"
+            src:customization,
+            href:"/genresearch?Customization",
+            width:1,
+            height:1
         },
         {
             name:"Cosplay",
-            img:cosplay,
-            href:"/genresearch?Cosplay"
+            src:cosplay,
+            href:"/genresearch?Cosplay",
+            width:1,
+            height:1
         },
         {
             name:"Digital Art",
-            img:digital,
-            href:"/genresearch?DigitalArt"
+            src:digital,
+            href:"/genresearch?DigitalArt",
+            width:1,
+            height:1
         },
         {
             name:"Fantasy",
-            img:fantasy,
-            href:"/genresearch?Fantasy"
+            src:fantasy,
+            href:"/genresearch?Fantasy",
+            width:1,
+            height:1
         },
         {
             name:"Fanart",
-            img:fanart,
-            href:"/genresearch?FanArt"
+            src:fanart,
+            href:"/genresearch?FanArt",
+            width:1,
+            height:1
         },
         {
             name:"Photo Manipulation",
-            img:photoManipulation,
-            href:"/genresearch?PhotoManipulation"
+            src:photoManipulation,
+            href:"/genresearch?PhotoManipulation",
+            width:1,
+            height:1
         },
         {
             name:"Photography",
-            img:photography,
-            href:"/genresearch?Photography"
+            src:photography,
+            href:"/genresearch?Photography",
+            width:1,
+            height:1
         },
         {
             name:"Traditional",
-            img:traditional,
-            href:"/genresearch?TraditionalArt"
+            src:traditional,
+            href:"/genresearch?TraditionalArt",
+            width:1,
+            height:1
         }
     ]
 
@@ -122,24 +151,125 @@ const Genres = () => {
         event.preventDefault();
         if(genre){
             history.push(genre)
+            window.scrollTo(0, 0)
         }
     }
 
     return(
-        <div  className="row" style={{display:"block", justifyContent:"center", marginTop:"50px", width:"80%"}}>
-            <h4 style={{marginBottom:"50px", display:"flex",justifyContent:"center"}}>Explore More Genres</h4>
-            {genres.map(genre => {
-                return (
-                    <div className="genreWrapper" onClick={(event) => takeMeToGenre(event,genre.href)}>
-                        <Card
-                            genres={genre}
-                            className="genreCard col-12"
-                        />
-                    </div>
-                )
-            })}
+        <div  className="row" style={{display:"block", justifyContent:"center", marginTop:"50px", width:"90%"}}>
+            <h4 style={{marginBottom:"50px", display:"flex",justifyContent:"center"}}>Explore</h4>
+
+            <div className="row">
+                {genres.map(genre => {
+                    return (
+                        <div className="col-lg-6 col-md-3" onClick={(event) => takeMeToGenre(event, genre.href)}>
+                            <Card
+                                genres={genre}
+                                className="genreCard col-12"
+                            />
+                        </div>
+                    )
+                })}
+            </div>
+
+            {/* <Gallery key={genres.key} photos={genres}  />        */}
         </div>
     )
 }
 
 export default Genres;
+
+
+
+
+
+{/* <Carousel
+                plugins={[
+                    'centered',
+                    'arrows',
+                    'infinite',
+                    {
+                        resolve: autoplayPlugin,
+                        options: {
+                            interval: 1000,
+                        }
+                    },
+                    {
+                        resolve: slidesToShowPlugin,
+                        options: {
+                            numberOfSlides: 1
+                        }
+                    }
+                ]}
+                animationSpeed={1000}
+                breakpoints={{
+                    640: {
+                        plugins: [
+                            'centered',
+                            'arrows',
+                            'infinite',
+                            {
+                                resolve: autoplayPlugin,
+                                options: {
+                                    interval: 1000,
+                                }
+                            },
+                            {
+                                resolve: slidesToShowPlugin,
+                                options: {
+                                    numberOfSlides: 1
+                                }
+                            },
+                        ]
+                    },
+                    1100: {
+                        plugins: [
+                            'centered',
+                            'arrows',
+                            'infinite',
+                            {
+                                resolve: autoplayPlugin,
+                                options: {
+                                    interval: 1000,
+                                }
+                            },
+                            {
+                                resolve: slidesToShowPlugin,
+                                options: {
+                                    numberOfSlides: 2
+                                }
+                            },
+                        ]
+                    },
+                    1400: {
+                        plugins: [
+                            'centered',
+                            'arrows',
+                            'infinite',
+                            {
+                                resolve: autoplayPlugin,
+                                options: {
+                                    interval: 1000,
+                                }
+                            },
+                            {
+                                resolve: slidesToShowPlugin,
+                                options: {
+                                    numberOfSlides: 3
+                                }
+                            },
+                        ]
+                    }
+                }}
+            >
+                {genres.map(genre => {
+                    return (
+                        <div className="genreWrapper" onClick={(event) => takeMeToGenre(event, genre.href)}>
+                            <Card
+                                genres={genre}
+                                className="genreCard col-12"
+                            />
+                        </div>
+                    )
+                })}
+            </Carousel> */}

@@ -34,16 +34,15 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/signupSuccess" component={signUpSuccess} />
             <Route exact path="/postSuccess" component={postSuccess} />
-            <Route exact path="/profile" component={Profile} />
             <Route exact path="/genre" component={Genre} />
             <Route exact path="/post" component={Post} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
+            <Route path="/profile" component={Profile} />
             <Route path="/artPage" component={ArtPage} />
             <Route path="/genresearch" component={GenrePage} />
             <Route path="/search" component={Search} />
           </Switch>
-          <Footer />
         </div>
       </Router>
     </ArtProvider>

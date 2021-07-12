@@ -1,16 +1,17 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import './Profile.css';
+import Gallery from "react-photo-gallery";
 import { useArtContext } from "../../utils/GlobalState";
 import { updateUser, getAllArt, getArtist } from "../../utils/API";
 import { useHistory } from 'react-router-dom';
 import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
-import Gallery from "react-photo-gallery";
+
 import { Button, Spinner } from 'react-bootstrap'
 import { uploadFile } from 'react-s3';
 import env from "react-dotenv";
 import uuid from 'react-uuid';
-
+import Moment from 'react-moment';
 
 const config = {
     bucketName: 'myminigallery',
@@ -20,9 +21,12 @@ const config = {
 }
 
 function Profile() {
+    var query = window.location.search.split("?")[1];
+    const [personalProfile, setPersonalProfile] = useState();
     const [images, setImages] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [openedImage, setOpenedImage] = useState({});
+    const [selection, setSelection] = useState("gallery");
     // eslint-disable-next-line no-unused-vars
     const [_, dispatch] = useArtContext();
     const [artist, setArtist] = useState();
@@ -40,6 +44,12 @@ function Profile() {
     const [heightRatio, setHeightRatio] = useState();
 
     const history = useHistory();
+
+    useEffect(() => {
+        setPersonalProfile(query === _.state)
+    },[])
+
+    console.log(personalProfile);
 
     const hideModal = (event) => {
         event.preventDefault();
@@ -102,12 +112,19 @@ function Profile() {
         }
         hideModal(event);
         window.location.reload();
+        window.scrollTo(0, 0)
     }
 
     
     useEffect(() => {
-        if(_.user){
-            getArtist(_.user)
+        var targetLookUp;
+        if(query){
+            targetLookUp = query;
+        } else {
+            targetLookUp = _.user;
+        }
+        if(targetLookUp){
+            getArtist(targetLookUp)
                 .then(response => {
                     // console.log(response.data)
                     setArtist(response.data)
@@ -156,28 +173,49 @@ function Profile() {
                 })
             .catch(error => console.error(error.message))
         }
-    },[_.user])
+    },[_.user,selection])
 
     const selectImage = (event) => {
         event.preventDefault();
         var selected = {id:event.target.getAttribute("id")}
         setOpenedImage(selected);
         history.push(`artPage?${selected.id}`)
+        window.scrollTo(0, 0)
+    }
+    console.log(images)
+
+    const selectGallery = (event) => {
+        event.preventDefault();
+        setSelection("gallery")
+    }
+
+    const selectFavorites = (event) => {
+        event.preventDefault();
+        setSelection("favorites")
     }
     console.log(favorites)
 
     return (
         <div className="background2">
+            {personalProfile === true ?
+                <h3 className="title">Your Mini Gallery</h3>
+                :
+                null
+            }
             <div id="about" className="container py-5">
                 <div>
                     <div className="mainProfile row">
                         <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            <Button variant="outline-light" onClick={showModal}
-                                style={{ width: "2rem", height: "100%", display: "flex", textAlign: "center", justifyContent: "center" }}>
-                                <p style={{ textOrientation: "mixed", writingMode: "vertical-rl", alignSelf: "center", padding: "0", letterSpacing: "2px" }}>
-                                    Edit
+                            {personalProfile === true ? 
+                                <Button variant="outline-light" onClick={showModal}
+                                    style={{ width: "2rem", height: "100%", display: "flex", textAlign: "center", justifyContent: "center" }}>
+                                    <p style={{ textOrientation: "mixed", writingMode: "vertical-rl", alignSelf: "center", padding: "0", letterSpacing: "2px" }}>
+                                        Edit
                                 </p>
-                            </Button>
+                                </Button>
+                                :
+                                null
+                            }
                         </div>
                         <div className="photo-wrap mb-5c col-lg-3 col-md-5 col-sm-11 col-xs-11">
                             {(artist && artist.avatar) ?
@@ -189,6 +227,7 @@ function Profile() {
                         <div className="profileInfo col-lg-3 col-md-6 col-sm-4 col-xs-12">
                             <div className="username">{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName">{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
+                            <div className="artistName">User since: {artist?<Moment format="MMMM D / YYYY">{artist.date}</Moment>:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="row contact">
                                 <button type="button" className="btn btn-dark">Contact Me</button>
                             </div>
@@ -204,38 +243,77 @@ function Profile() {
                             <div className="modal-dialog modal-lg modal-dialog-centered">
                                 <div className="modal-content">
                                     <div className="modal-header">
-                                        <h5 className="modal-title">Edit your profile</h5>
-                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={hideModal}></button>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={hideModal}>x</button>
                                     </div>
-                                    <div className="modal-body" style={{ height: "69vh" }}>
-                                        <div className="row" style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-                                            <div className="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                                    <div className="row">
+                                        <div className="col-12 modalImageContent">
+                                            <div className="row modalImageContentWrapper">
                                                 {readyImage ?
-                                                    <img className="artistPicModal" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px`}} />
+                                                    <img className="col-12" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px` }} />
                                                     :
-                                                    <img className="artistPic" src={(artist&&artist.avatar)?artist.avatar.avatarSrc:artistPic} alt="profile pic" id="avatar" />
+                                                    <img className="col-12 artistPic" src={(artist && artist.avatar) ? artist.avatar.avatarSrc : artistPic} alt="profile pic" id="avatar" />
                                                 }
-                                                <div>Change Avatar</div>
-                                                <input type="file" onChange={handleFileInput} />
-                                            </div>
-                                            <br />
-                                            <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input type="text" className="firstNameInput" name={artist?artist.firstName:null} placeholder={artist?artist.firstName:null} ref={nameRef}></input></div>
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input type="text" className="userNameInput" name={artist?artist.username:null} placeholder={artist?artist.username:null} ref={userNameRef}></input></div>
-                                            </div>
-                                            <div className="col-lg-5 col-md-9 col-sm-9">
-                                                <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input type="text" className="emailInput" name={artist?artist.email:null} placeholder={artist?artist.email:null} ref={emailRef}></input></div>
+                                                <div className="col-12">Change Avatar</div>
+                                                <input className="col-12" type="file" onChange={handleFileInput} />
                                             </div>
                                         </div>
-                                        <div className="row">
-                                            <div style={{ display: "flex", justifyContent: "center", paddingTop: "10px" }}>
-                                                <p className="row"><strong>Description</strong></p>
-                                            </div>
+
+                                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 modalInfoLeftContent">
+
+                                            <strong className="row modalLabelInfoLeftElement">Name</strong>
+                                            <input
+                                                type="text"
+                                                className="row modalTextInfoLeftElement"
+                                                name={artist ? artist.firstName : null}
+                                                placeholder={artist ? artist.firstName : null}
+                                                ref={nameRef}
+                                            />
+
+                                            <strong className="row modalLabelInfoLeftElement">Username</strong>
+                                            <input
+                                                type="text"
+                                                className="row modalTextInfoLeftElement"
+                                                name={artist ? artist.username : null}
+                                                placeholder={artist ? artist.username : null}
+                                                ref={userNameRef}
+                                            />
+
+                                            <strong className="row modalLabelInfoLeftElement">Email</strong>
+                                            <input
+                                                type="text"
+                                                className="row modalTextInfoLeftElement"
+                                                name={artist ? artist.email : null}
+                                                placeholder={artist ? artist.email : null}
+                                                ref={emailRef}
+                                            />
+
+                                            <strong className="row modalLabelInfoLeftElement">Old Password</strong>
+                                            <input
+                                                type="text"
+                                                className="row modalTextInfoLeftElement"
+                                                name="Old"
+                                                placeholder="In Development"
+                                            />
+
+                                            <strong className="row modalLabelInfoLeftElement">New Password</strong>
+                                            <input
+                                                type="text"
+                                                className="row modalTextInfoLeftElement"
+                                                name="New"
+                                                placeholder="In Development"
+                                            />
+
                                         </div>
-                                        <div className="row">
-                                            <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "6rem" }}>
-                                                <textarea type="text" classnName="descriptionInput" name={artist?artist.description:null} placeholder={artist?artist.description:null} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
-                                            </div>
+
+                                        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12 modalInfoRightContent">
+                                            <p className="row modalLabelInfoRightElement"><strong>Description</strong></p>
+                                            <textarea
+                                                type="text"
+                                                className="row modalTextInfoRightElement" 
+                                                name={artist ? artist.description : null}
+                                                placeholder={artist ? artist.description : null}
+                                                ref={descriptionRef}
+                                            />
                                         </div>
                                     </div>
                                     <div className="modal-footer">
@@ -247,22 +325,42 @@ function Profile() {
                         </div> : null}
                     {/* End Modal */}
                 </div>
-                <div className="gallery row" style={{opacity:"93%", marginTop:"20px"}}>
-                    {(favorites&&favorites.length) > 0 ? 
+                <div className="profileArt row">
+                    {images?
                         <>
-                            <div className="col-6">
-                                <h6 className="profileGalleryColumnTitles">{artist.username}'s Gallery</h6>
-                                <Gallery key={images.key} photos={images} onClick={selectImage} />
+                            <div className="col-6 profileConsoleElement" onClick={selectGallery}>
+                                <div className="row" style={{width:"85px"}}>
+                                    <p className="col-12">GALLERY</p>
+                                    {selection === "gallery" ?
+                                        <hr className="col-12 lineSelection" />
+                                        :
+                                        null
+                                    }
+                                </div>
                             </div>
-                            <div className="col-6">
-                                <h6 className="profileGalleryColumnTitles">{artist.username}'s Favorites</h6>
-                                <Gallery key={favorites.key} photos={favorites} onClick={selectImage} />
+                            <div className="col-6 profileConsoleElement" onClick={selectFavorites}>
+                                <div className="row" style={{width:"75px"}}>
+                                    <p className="col-12">FAVORITES</p>
+                                    {selection === "favorites" ?
+                                        <hr className="col-12 lineSelection" />
+                                        :
+                                        null
+                                    }
+                                </div>
+                            </div>
+                            <div className="col-12 gallery">
+                                {selection === "gallery" ?
+                                    <Gallery key={images.key} photos={images} onClick={selectImage} />
+                                    :
+                                selection === "favorites"?
+                                    <Gallery key={favorites.key} photos={favorites} onClick={selectImage} />
+                                    :
+                                    null
+                                }
                             </div>
                         </>
                         :
-                        <div>
-                            <Gallery key={images.key} photos={images} onClick={selectImage} />
-                        </div>
+                        null
                     }
                 </div>
             </div>
@@ -271,3 +369,37 @@ function Profile() {
 }
 
 export default Profile;
+
+
+// eslint-disable-next-line no-lone-blocks
+{/* <div className="modal-body" style={{ height: "69vh" }}>
+    <div className="row" style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
+        <div className="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            {readyImage ?
+                <img className="artistPicModal" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px` }} />
+                :
+                <img className="artistPic" src={(artist && artist.avatar) ? artist.avatar.avatarSrc : artistPic} alt="profile pic" id="avatar" />
+            }
+            <div>Change Avatar</div>
+            <input type="file" onChange={handleFileInput} />
+        </div>
+        <br />
+        <div className="col-lg-5 col-md-9 col-sm-9">
+            <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input type="text" className="firstNameInput" name={artist ? artist.firstName : null} placeholder={artist ? artist.firstName : null} ref={nameRef}></input></div>
+            <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input type="text" className="userNameInput" name={artist ? artist.username : null} placeholder={artist ? artist.username : null} ref={userNameRef}></input></div>
+        </div>
+        <div className="col-lg-5 col-md-9 col-sm-9">
+            <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input type="text" className="emailInput" name={artist ? artist.email : null} placeholder={artist ? artist.email : null} ref={emailRef}></input></div>
+        </div>
+    </div>
+    <div className="row">
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "10px" }}>
+            <p className="row"><strong>Description</strong></p>
+        </div>
+    </div>
+    <div className="row">
+        <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "6rem" }}>
+            <textarea type="text" classnName="descriptionInput" name={artist ? artist.description : null} placeholder={artist ? artist.description : null} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
+        </div>
+    </div>
+</div> */}

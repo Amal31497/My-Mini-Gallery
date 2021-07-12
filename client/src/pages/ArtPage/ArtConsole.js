@@ -17,6 +17,7 @@ const ArtConsole = (props) => {
     var author = props.author;
     var targetArt = window.location.search.split("?")[1];
     console.log(_.user)
+
     const addFavorite = (event) => {
         event.preventDefault();
 
@@ -29,6 +30,7 @@ const ArtConsole = (props) => {
             updateArt(targetArt, { savedFavorite: 1 })
         } else {
             history.push("/login")
+            window.scrollTo(0, 0)
         }
     }
 

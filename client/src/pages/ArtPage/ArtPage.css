@@ -1,26 +1,13 @@
 
 
 .artPage{
-    background-image: linear-gradient(to right,  #292b2c , black);
+    background:black !important;
+    width:99vw;
+    height:320%;
 }
 
 
 /* Left - Right */
-.main{
-    padding:0;
-    height:200vh;
-    display:flex;
-    justify-content: center;
-    color: white;
-}
-
-.side{
-    padding:0;
-    height:200vh;
-    display:flex;
-    justify-content: center;
-    color: white;
-}
 /* ... */
 
 /* LEFT */
@@ -31,20 +18,12 @@
     display:flex;
     justify-content: center;
     width:100%;
-    /* height:120vh; */
 }
 
-.actualImage{
-    box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
-    0 2px 4px rgba(0,0,0,0.07), 
-    0 4px 8px rgba(0,0,0,0.07), 
-    0 8px 16px rgba(0,0,0,0.07),
-    0 16px 32px rgba(0,0,0,0.07), 
-    0 32px 64px rgba(0,0,0,0.07);
-}
 
 .artImage{
     padding:0;
+    height:180vh;
     width:100% !important;
     display: flex;
     justify-content: center;
@@ -97,8 +76,7 @@
 }
 
 .artDescription{
-    width:90%;
-    margin-top:15px;
+    width:50%;
     margin-left:auto;
     margin-right:auto;
 }
@@ -110,10 +88,53 @@
 
 .artistInfo{
     padding-left:50px;
+    height:20vh;
+    color:white;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.actualImage{
+    max-height:800px;
+    max-width:1100px;
+    padding:20px;
+    margin-top:30px;
+}
+
+@media screen and (max-width: 1000px){
+    .actualImage{
+        max-height:700px;
+        max-width:800px;
+        padding:20px;
+        margin-top:30px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .actualImage{
+        max-height:650px;
+        max-width:600px;
+        padding:20px;
+        margin-top:30px;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .actualImage{
+        max-height:300px;
+        max-width:500px;
+        padding:20px;
+        margin-top:30px;
+    }
 }
 
 /* ... */
 
+.artistLink:hover{
+    text-decoration: underline;
+    opacity:80%;
+    cursor:pointer;
+}
 
 /* BOTTOM */
 .commentSection{
@@ -121,9 +142,28 @@
     white-space:nowrap;
     display:flex;
     justify-content: center;
-    padding-top: 30px;
-    width:100%;
-    height:77vh
+    padding:30px;
+    margin-top: 120px;
+    width:70%;
+    color:white;
+    height:85vh
+}
+
+.commentSection::-webkit-scrollbar {
+    width: 2px;
+}
+
+  /* Track */
+.commentSection::-webkit-scrollbar-track {
+    display:none;
+    box-shadow: inset 0 0 5px black;
+    border-radius: 10px;
+}
+
+  /* Handle */
+.commentSection::-webkit-scrollbar-thumb {
+    background: white !important;
+    border-radius: 2px;
 }
 
 .commentReply:hover{
@@ -132,7 +172,7 @@
 }
 
 .responseBox{
-    background: #4d4d52;
+    background: #4d4d52 !important;
     width:90%;
     padding-top:13px;
     padding-left: 10px;
@@ -159,7 +199,7 @@
 }
 
 .hl{
-    background-color:white;
+    background-color:white !important;
     width:100%;
 }
 
@@ -175,24 +215,26 @@
     display:flex;
     justify-content: center;
     width:100%;
-    height:145vh;
+    color:white;
+    margin-bottom:50px;
 }
 
 /* width */
 .categories::-webkit-scrollbar {
-    width: 10px;
+    width: 3px;
 }
 
   /* Track */
 .categories::-webkit-scrollbar-track {
     display:none;
     box-shadow: inset 0 0 5px black;
-    border-radius: 10px;
+    border-radius: 5px;
+    width:5px;
 }
 
   /* Handle */
 .categories::-webkit-scrollbar-thumb {
-    background: white;
+    background: white !important;
     border-radius: 2px;
 }
 
@@ -202,14 +244,26 @@
 
 ::-webkit-scrollbar-track {
     /* display:none; */
-    background: black;
+    background: black !important;
     box-shadow: inset 0 0 5px black;
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background:white;
+    background:white !important;
     border-radius: 2px;
+}
+
+.moreByArtistWrapper{
+    margin-left:auto;
+    margin-right:auto;
+    width:80vw;
+    color:white;
+}
+
+.moreByArtistImage:hover{
+    cursor:pointer;
+    opacity:80%;
 }
 
 .moreByAuthor{
@@ -217,6 +271,7 @@
     justify-content: center;
     width:100%;
     height:30vh;
+    margin-top:40px;
 }
 
 .moreByAuthorTitle{
@@ -230,10 +285,10 @@
     display:flex;
     justify-content: center;
     align-items: center;
-    border:1px white solid;
-    height:30vh;
-    width:90%;
-    width:flex;
+    margin-left:auto;
+    margin-right:auto;
+    height:15vh;
+    width:100%;
 }
 
 .genreWrapper>h4:hover{
@@ -268,7 +323,7 @@
 .mainComment{
     word-break: break-all;
     white-space: normal;
-    background: #4d4d52;
+    background: #4d4d52 !important;
     padding-top:13px;
     padding-left: 20px;
     padding-right: 20px;
@@ -287,9 +342,6 @@
 .responseReportButton{
     padding-left:20px;
 }
-
-
-
 
 
 
@@ -313,7 +365,7 @@
     width: 2px;
     height: -webkit-calc(100% + 14px);
     height: calc(100% + 14px);
-    background-color: black;
+    background-color: black !important;
     transition: .3s;
 }
 .cross_line:before {left: 7px;}

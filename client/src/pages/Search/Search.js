@@ -29,6 +29,7 @@ const Search = () => {
     const runQuery = (event) => {
         event.preventDefault();
         history.push(`/search?${searchRef.current.value.toLowerCase()}`)
+        window.scrollTo(0, 0);
     }
 
     useEffect(() => {
@@ -57,10 +58,10 @@ const Search = () => {
     
     return(
         <div className="mainSearch" >
-            <div className="searchBar row">
-                <p className="col-12" id="searchTitleTag">Search <BsSearch size={15}  /></p>
-                <input className="col-11" id="input" ref={searchRef} defaultValue={query}></input><BsSearch className="col-1" id="searchButtonMain" onClick={runQuery}  size={20} />
-                <p className="col-12" id="searchResultNumber" >{searchResult?searchResult.length : null} &nbsp; results</p>
+            <div className="searchBar row" style={{width:"100%"}}>
+                <p className="col-12 searchBarElement" id="searchTitleTag">Search <BsSearch size={15}  /></p>
+                <input className="col-lg-11 col-md-10 col-sm-9 col-xs-8 searchBarElement" id="input" ref={searchRef} defaultValue={query}></input><BsSearch className="col-lg-1 col-md-2 col-sm-3 col-xs-4" id="searchButtonMain" onClick={runQuery}  size={20} />
+                <p className="col-12 searchBarElement" id="searchResultNumber" >{searchResult?searchResult.length : null} &nbsp; results</p>
             </div>
             <div className="resultsWrapper">
                 {searchResult?
