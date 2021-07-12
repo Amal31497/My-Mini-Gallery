@@ -120,3 +120,13 @@ nav{
   padding:0;
   width:100%;
 }
+
+.narrowWidthNavigation{
+  display:inline-flex;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+li{
+  list-style: none;
+}

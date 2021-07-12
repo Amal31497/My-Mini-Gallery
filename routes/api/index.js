@@ -2,11 +2,13 @@ const router = require("express").Router();
 const artRoutes = require("./art");
 const queryRoutes = require("./queries");
 const userRoutes = require("./user");
-const commentsRoutes = require("./comment")
+const commentsRoutes = require("./comment");
+const imageUpload = require("./image-upload");
 
 router.use("/art", artRoutes);
 router.use("/query", queryRoutes);
 router.use("/user", userRoutes);
 router.use("/comment", commentsRoutes);
+router.use("/image-upload", imageUpload)
 
 module.exports = router;

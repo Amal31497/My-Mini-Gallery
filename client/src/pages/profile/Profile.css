@@ -14,11 +14,14 @@
 }
 
 .artistPic{
-    width: 130px;
-    height: 130px;
     border-radius: 10%;
     padding:0;
 }
+
+.artistPicWrapper{
+    width:40%;
+}
+
 
 .username{
     color: white;
@@ -116,4 +119,14 @@
     height:90%;
     background:black;
     color:white;
+}
+
+.aboutArtistSection{
+    display:block;
+    margin-left:10px;
+    margin-bottom:20px;
+}
+
+.aboutArtistSection>*{
+    width:50%;
 }

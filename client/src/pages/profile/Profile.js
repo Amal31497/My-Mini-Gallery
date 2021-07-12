@@ -8,17 +8,17 @@ import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
 
 import { Button, Spinner } from 'react-bootstrap'
-import { uploadFile } from 'react-s3';
-import env from "react-dotenv";
+// import { uploadFile } from 'react-s3';
+// import env from "react-dotenv";
 import uuid from 'react-uuid';
 import Moment from 'react-moment';
 
-const config = {
-    bucketName: 'myminigallery',
-    region: 'us-east-2',
-    accessKeyId: env.REACT_APP_ACCESS_KEY,
-    secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
-}
+// const config = {
+//     bucketName: 'myminigallery',
+//     region: 'us-east-2',
+//     accessKeyId: env.REACT_APP_ACCESS_KEY,
+//     secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
+// }
 
 function Profile() {
     var query = window.location.search.split("?")[1];
@@ -49,7 +49,6 @@ function Profile() {
         setPersonalProfile(query === _.state)
     },[])
 
-    console.log(personalProfile);
 
     const hideModal = (event) => {
         event.preventDefault();
@@ -61,30 +60,74 @@ function Profile() {
         setDisplay("show")
     }
 
-    const handleFileInput = (event) => {
+
+    const handleFileInput = event => {
         event.preventDefault();
-        uploadFile(event.target.files[0], config)
-            .then(data => {
-                console.log(data.location)
-                setReadyImage(data.location)
-                reactImageSize(data.location)
-                .then(({ width, height }) => {
-                    setWidth(width);
-                    setHeight(height);
-                    // console.log(height/width)
-                    if (width > height) {
-                        setWidthRatio((width / height))
-                        setHeightRatio(1)
-                    } else {
-                        setHeightRatio((height / width))
-                        setWidthRatio(1)
-                    }
+        const data = new FormData();
+        data.append('image', event.target.files[0]);
+        // setSelectedFile(event.target.files[0]);
+        const postImage = async () => {
+            try {
+                const res = await fetch('/api/image-upload', {
+                    mode: 'cors',
+                    method: 'POST',
+                    body: data
                 })
-                .catch(errorMessage => {
-                    console.error(errorMessage)
-                })
-            })
-    }
+                if (!res.ok) throw new Error(res.statusText);
+                
+                const postResponse = await res.json();
+                
+                setReadyImage(postResponse.Location)
+                reactImageSize(postResponse.Location)
+                    .then(({ width, height }) => {
+                        setWidth(width);
+                        setHeight(height);
+                        if (width > height) {
+                            setWidthRatio(Math.round(width / height))
+                            setHeightRatio(1)
+                        } else {
+                            setHeightRatio(Math.round(height / width))
+                            setWidthRatio(1)
+                        }
+                    })
+                    .catch(errorMessage => {
+                        console.error(errorMessage)
+                    })
+                // setFormState({ ...formState, image: postResponse.Location })
+                console.log("postImage: ", postResponse.Location)
+                return postResponse.Location;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        postImage();
+    };
+
+
+    // const handleFileInput = (event) => {
+    //     event.preventDefault();
+    //     uploadFile(event.target.files[0], config)
+    //         .then(data => {
+    //             console.log(data.location)
+    //             setReadyImage(data.location)
+    //             reactImageSize(data.location)
+    //             .then(({ width, height }) => {
+    //                 setWidth(width);
+    //                 setHeight(height);
+    //                 // console.log(height/width)
+    //                 if (width > height) {
+    //                     setWidthRatio((width / height))
+    //                     setHeightRatio(1)
+    //                 } else {
+    //                     setHeightRatio((height / width))
+    //                     setWidthRatio(1)
+    //                 }
+    //             })
+    //             .catch(errorMessage => {
+    //                 console.error(errorMessage)
+    //             })
+    //         })
+    // }
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
@@ -99,7 +142,6 @@ function Profile() {
                 avatarHeightRatio:heightRatio
             }
         }
-        console.log(_.user)
 
         if (readyImage && _.user) {
             updateUser(_.user, update)
@@ -182,7 +224,6 @@ function Profile() {
         history.push(`artPage?${selected.id}`)
         window.scrollTo(0, 0)
     }
-    console.log(images)
 
     const selectGallery = (event) => {
         event.preventDefault();
@@ -193,7 +234,6 @@ function Profile() {
         event.preventDefault();
         setSelection("favorites")
     }
-    console.log(favorites)
 
     return (
         <div className="background2">
@@ -217,14 +257,16 @@ function Profile() {
                                 null
                             }
                         </div>
-                        <div className="photo-wrap mb-5c col-lg-3 col-md-5 col-sm-11 col-xs-11">
-                            {(artist && artist.avatar) ?
-                                <img className="artistPic" src={artist.avatar.avatarSrc} style={{height:`${artist.avatar.avatarHeightRatio*200}px`,width:`${artist.avatar.avatarWidthRatio*200}px`}} alt="profile pic" />
-                                :
-                                <img className="artistPic" src={artistPic} alt="profile pic" />
-                            }
-                        </div>
-                        <div className="profileInfo col-lg-3 col-md-6 col-sm-4 col-xs-12">
+                        <div className="photo-wrap aboutArtistSection mb-5c col-lg-4 col-md-4 col-sm-11 col-xs-11">
+                            <div className="artistPicWrapper">
+                                {(artist && artist.avatar) ?
+                                    <img className="artistPic" src={artist.avatar.avatarSrc} style={{ height: `${artist.avatar.avatarHeightRatio * 130}px`, width: `${artist.avatar.avatarWidthRatio * 130}px` }} alt="profile pic" />
+                                    :
+                                    <img className="artistPic" src={artistPic} alt="profile pic" />
+                                }
+                            </div>                          
+                        {/* </div>
+                        <div className="profileInfo col-lg-3 col-md-6 col-sm-4 col-xs-12"> */}
                             <div className="username">{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName">{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName">User since: {artist?<Moment format="MMMM D / YYYY">{artist.date}</Moment>:<Spinner animation="grow" variant="dark" />}</div>
@@ -232,7 +274,7 @@ function Profile() {
                                 <button type="button" className="btn btn-dark">Contact Me</button>
                             </div>
                         </div>
-                        <div className="aboutMe col-lg-5 col-md-12 col-sm-8 col-xs-12">
+                        <div className="aboutMe col-lg-6 col-md-7 col-sm-12 col-xs-12">
                             <h2>About me</h2>
                             <p>{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
                         </div>
