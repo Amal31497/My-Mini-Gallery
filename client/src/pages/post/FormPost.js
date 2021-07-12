@@ -24,14 +24,15 @@ import reactImageSize from 'react-image-size';
 import { useHistory } from 'react-router-dom';
 // ...
 
-const config = {
-    bucketName: 'myminigallery',
-    region: 'us-east-2',
-    accessKeyId: env.REACT_APP_ACCESS_KEY,
-    secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
-}
+// const config = {
+//     bucketName: 'myminigallery',
+//     region: 'us-east-2',
+//     accessKeyId: env.REACT_APP_ACCESS_KEY,
+//     secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
+// }
 
 const FormPost = ({ submitForm }) => {
+    console.log(process.env.REACT_APP_SECRET_ACCESS_KEY)
     // eslint-disable-next-line no-unused-vars
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
@@ -58,16 +59,26 @@ const FormPost = ({ submitForm }) => {
     const [heightRatio, setHeightRatio] = useState();
     const [artIds, setArtIds] = useState();
     
-    // Begin function - AWS S3 uploader
-    const handleFileInput = (event) => {
+
+
+    const handleFileInput = event => {
         event.preventDefault();
+        const data = new FormData();
+        data.append('image', event.target.files[0]);
         setSelectedFile(event.target.files[0]);
-        // console.log(config);
-        uploadFile(event.target.files[0], config)
-            .then(data => {
-                // console.log(data.location)
-                setReadyImage(data.location)
-                reactImageSize(data.location)
+        const postImage = async () => {
+            try {
+                const res = await fetch('/api/image-upload', {
+                    mode: 'cors',
+                    method: 'POST',
+                    body: data
+                })
+                if (!res.ok) throw new Error(res.statusText);
+                
+                const postResponse = await res.json();
+                
+                setReadyImage(postResponse.Location)
+                reactImageSize(postResponse.Location)
                     .then(({ width, height }) => {
                         setWidth(width);
                         setHeight(height);
@@ -82,11 +93,47 @@ const FormPost = ({ submitForm }) => {
                     .catch(errorMessage => {
                         console.error(errorMessage)
                     })
-            })
-            .catch(errorMessage => {
-                console.error(errorMessage)
-            })
-    }
+                // setFormState({ ...formState, image: postResponse.Location })
+                console.log("postImage: ", postResponse.Location)
+                return postResponse.Location;
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        postImage();
+    };
+
+    // console.log(readyImage)
+
+    // Begin function - AWS S3 uploader
+    // const handleFileInput = (event) => {
+    //     event.preventDefault();
+    //     setSelectedFile(event.target.files[0]);
+    //     // console.log(config);
+    //     uploadFile(event.target.files[0], config)
+    //         .then(data => {
+    //             // console.log(data.location)
+    //             setReadyImage(data.location)
+    //             reactImageSize(data.location)
+    //                 .then(({ width, height }) => {
+    //                     setWidth(width);
+    //                     setHeight(height);
+    //                     if (width > height) {
+    //                         setWidthRatio(Math.round(width / height))
+    //                         setHeightRatio(1)
+    //                     } else {
+    //                         setHeightRatio(Math.round(height / width))
+    //                         setWidthRatio(1)
+    //                     }
+    //                 })
+    //                 .catch(errorMessage => {
+    //                     console.error(errorMessage)
+    //                 })
+    //         })
+    //         .catch(errorMessage => {
+    //             console.error(errorMessage)
+    //         })
+    // }
     // ... End Function
 
     // Begin Function - Form Submit, Rest API

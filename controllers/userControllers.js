@@ -6,7 +6,7 @@ module.exports = {
 
     findAllUsers: function (req, res) {
         db.User
-            .find(req.query)
+            .find(req.query, {password:0})
             .sort({ date: -1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -14,7 +14,7 @@ module.exports = {
 
     findUserById: function (req, res) {
         db.User
-            .findById({_id:req.params.id})
+            .findById({_id:req.params.id},{password:0})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

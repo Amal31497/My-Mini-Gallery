@@ -16,6 +16,7 @@ const CommentSection = () => {
     const [responseBox,setResponseBox] = useState(false);
 
     const commentRef = useRef();
+    const responseRef = useRef();
 
     useEffect(() => {
         getArtist(_.user)
@@ -60,7 +61,7 @@ const CommentSection = () => {
         event.preventDefault();
 
         const response = {
-            content: document.querySelector(".responseText").value,
+            content: responseRef.current.value,
             userInfo: artist,
             date: Date.now(),
             user: _.user
@@ -140,7 +141,7 @@ const CommentSection = () => {
             }
             <div className="col-12">
                 {comments && comments.length > 0 ?
-                    comments.map(comment => {
+                    comments.map((comment,index) => {
                         return (
                             <>
                                 <div className="row">
@@ -169,21 +170,23 @@ const CommentSection = () => {
                                                     <p>{comment.responses.length} Replies</p>
                                                     &nbsp;|&nbsp;
                                                     <p className="reportButtons">Report</p>
-                                                </div>                                                                                                                                                 
-                                                {responseBox == true ?
-                                                    <>
-                                                        <div className="responseBox">
-                                                            <textarea className="row responseText" type="text" rows={1} />
-                                                            <div className="row responseButtonGroup">
-                                                                <p className="responseButtons" onClick={handleResponseSubmit} value={comment._id}>Respond</p>&nbsp;
-                                                                <p className="responseButtons" onClick={closeReponseBox}>CANCEL</p>
+                                                </div>   
+                                                <div>
+                                                    {responseBox == true ?
+                                                        <>
+                                                            <div className="responseBox">
+                                                                <textarea className="row responseText" type="text" rows={1} ref={responseRef}/>
+                                                                <div className="row responseButtonGroup">
+                                                                    <p className="responseButtons" onClick={handleResponseSubmit} value={comment._id}>Respond</p>&nbsp;
+                                                                    <p className="responseButtons" onClick={closeReponseBox}>CANCEL</p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <br />
-                                                    </>
-                                                    :
-                                                    null
-                                                }
+                                                            <br />
+                                                        </>
+                                                        :
+                                                        null
+                                                    }
+                                                </div>                                                                                                                                              
                                                 {comment.responses.length > 0 ?
                                                     comment.responses.map(response => {
                                                         return(
