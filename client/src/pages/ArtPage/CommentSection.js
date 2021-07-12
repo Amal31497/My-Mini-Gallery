@@ -147,7 +147,7 @@ const CommentSection = () => {
                                 <div className="row">
                                     <div className="col-1">
                                         {comment ? 
-                                            <img className="commentArtistThumbnail"src={comment.userInfo.avatar.avatarSrc}  alt={comment.userInfo.username}/>
+                                            <img className="commentArtistThumbnail" src={comment.userInfo.avatar.avatarSrc||null}  alt={comment.userInfo.username}/>
                                             :
                                             <Spinner animation="grow" variant="dark" />
                                         }
