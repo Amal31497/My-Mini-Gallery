@@ -155,6 +155,7 @@ window.env = {
   "npm_config_loglevel": "notice",
   "npm_config_ca": "",
   "npm_package_scripts_serve": "react-dotenv && serve build",
+  "npm_package_dependencies_dotenv": "^10.0.0",
   "npm_config_save_exact": "",
   "npm_config_group": "20",
   "npm_config_fetch_retry_factor": "10",

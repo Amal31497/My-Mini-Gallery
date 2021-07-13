@@ -5,7 +5,19 @@ const path = require("path");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+require('dotenv').config()
 const PORT = process.env.PORT || 3001;
+
+
+const config = {
+    accessKey:process.env.REACT_APP_ACCESS_KEY,
+    secretAccessKEY:process.env.REACT_APP_SECRET_ACCESS_KEY
+};
+
+// send the config variable
+app.get('/getconfig', (req, res) => {
+    res.json(config);
+});
 
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",

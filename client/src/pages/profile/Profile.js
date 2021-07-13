@@ -8,19 +8,38 @@ import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
 
 import { Button, Spinner } from 'react-bootstrap'
-// import { uploadFile } from 'react-s3';
-// import env from "react-dotenv";
+import { uploadFile } from 'react-s3';
+import env from "react-dotenv";
 import uuid from 'react-uuid';
 import Moment from 'react-moment';
-
-// const config = {
-//     bucketName: 'myminigallery',
-//     region: 'us-east-2',
-//     accessKeyId: env.REACT_APP_ACCESS_KEY,
-//     secretAccessKey: env.REACT_APP_SECRET_ACCESS_KEY
-// }
+import axios from 'axios';
 
 function Profile() {
+
+    const [keyA, setKeyA] = useState();
+    const [keyB, setKeyB] = useState();
+
+    const getConfig = () => {
+        axios.get('/getconfig')
+            .then(res => {
+                setKeyA(res.data.accessKey);
+                setKeyB(res.data.secretAccessKEY);
+            })
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        getConfig();
+    },[])
+
+    const config = {
+        bucketName: 'myminigallery',
+        region: 'us-east-2',
+        accessKeyId: keyA,
+        secretAccessKey: keyB
+    }
+
+
     var query = window.location.search.split("?")[1];
     const [personalProfile, setPersonalProfile] = useState();
     const [images, setImages] = useState([]);
@@ -61,73 +80,73 @@ function Profile() {
     }
 
 
-    const handleFileInput = event => {
-        event.preventDefault();
-        const data = new FormData();
-        data.append('image', event.target.files[0]);
-        // setSelectedFile(event.target.files[0]);
-        const postImage = async () => {
-            try {
-                const res = await fetch('/api/image-upload', {
-                    mode: 'cors',
-                    method: 'POST',
-                    body: data
-                })
-                if (!res.ok) throw new Error(res.statusText);
-                
-                const postResponse = await res.json();
-                
-                setReadyImage(postResponse.Location)
-                reactImageSize(postResponse.Location)
-                    .then(({ width, height }) => {
-                        setWidth(width);
-                        setHeight(height);
-                        if (width > height) {
-                            setWidthRatio(Math.round(width / height))
-                            setHeightRatio(1)
-                        } else {
-                            setHeightRatio(Math.round(height / width))
-                            setWidthRatio(1)
-                        }
-                    })
-                    .catch(errorMessage => {
-                        console.error(errorMessage)
-                    })
-                // setFormState({ ...formState, image: postResponse.Location })
-                console.log("postImage: ", postResponse.Location)
-                return postResponse.Location;
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        postImage();
-    };
-
-
-    // const handleFileInput = (event) => {
+    // const handleFileInput = event => {
     //     event.preventDefault();
-    //     uploadFile(event.target.files[0], config)
-    //         .then(data => {
-    //             console.log(data.location)
-    //             setReadyImage(data.location)
-    //             reactImageSize(data.location)
-    //             .then(({ width, height }) => {
-    //                 setWidth(width);
-    //                 setHeight(height);
-    //                 // console.log(height/width)
-    //                 if (width > height) {
-    //                     setWidthRatio((width / height))
-    //                     setHeightRatio(1)
-    //                 } else {
-    //                     setHeightRatio((height / width))
-    //                     setWidthRatio(1)
-    //                 }
+    //     const data = new FormData();
+    //     data.append('image', event.target.files[0]);
+    //     // setSelectedFile(event.target.files[0]);
+    //     const postImage = async () => {
+    //         try {
+    //             const res = await fetch('/api/image-upload', {
+    //                 mode: 'cors',
+    //                 method: 'POST',
+    //                 body: data
     //             })
-    //             .catch(errorMessage => {
-    //                 console.error(errorMessage)
-    //             })
-    //         })
-    // }
+    //             if (!res.ok) throw new Error(res.statusText);
+                
+    //             const postResponse = await res.json();
+                
+    //             setReadyImage(postResponse.Location)
+    //             reactImageSize(postResponse.Location)
+    //                 .then(({ width, height }) => {
+    //                     setWidth(width);
+    //                     setHeight(height);
+    //                     if (width > height) {
+    //                         setWidthRatio(Math.round(width / height))
+    //                         setHeightRatio(1)
+    //                     } else {
+    //                         setHeightRatio(Math.round(height / width))
+    //                         setWidthRatio(1)
+    //                     }
+    //                 })
+    //                 .catch(errorMessage => {
+    //                     console.error(errorMessage)
+    //                 })
+    //             // setFormState({ ...formState, image: postResponse.Location })
+    //             console.log("postImage: ", postResponse.Location)
+    //             return postResponse.Location;
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     postImage();
+    // };
+
+
+    const handleFileInput = (event) => {
+        event.preventDefault();
+        uploadFile(event.target.files[0], config)
+            .then(data => {
+                console.log(data.location)
+                setReadyImage(data.location)
+                reactImageSize(data.location)
+                .then(({ width, height }) => {
+                    setWidth(width);
+                    setHeight(height);
+                    // console.log(height/width)
+                    if (width > height) {
+                        setWidthRatio((width / height))
+                        setHeightRatio(1)
+                    } else {
+                        setHeightRatio((height / width))
+                        setWidthRatio(1)
+                    }
+                })
+                .catch(errorMessage => {
+                    console.error(errorMessage)
+                })
+            })
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault()
