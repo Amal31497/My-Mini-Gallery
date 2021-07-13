@@ -78,8 +78,6 @@ const CommentSection = () => {
         }
     }
 
-
-
     const openResponseBox = (event) => {
         event.preventDefault();
         setResponseBox(true)
@@ -112,7 +110,7 @@ const CommentSection = () => {
     }
     useEffect(() => {
         showComments();
-    },[])
+    },[artId])
 
 
     return(
@@ -191,25 +189,25 @@ const CommentSection = () => {
                                                     comment.responses.map(response => {
                                                         return(
                                                             <>
-                                                            <div className="row">
-                                                                <div className="col-1">
-                                                                    {response ?
-                                                                        <img className="commentArtistThumbnail" src={response.userInfo.avatar.avatarSrc} alt={response.userInfo.username} />
-                                                                        :
-                                                                        <img className="commentArtistThumbnail" src={placeholder} alt="artist" />
-                                                                    }
-                                                                </div>
-                                                                <div className="col-11 responseBox">
-                                                                    <h6>
-                                                                        {response.userInfo.username} replied&nbsp;&nbsp;
+                                                                <div className="row">
+                                                                    <div className="col-1">
+                                                                        {response ?
+                                                                            <img className="commentArtistThumbnail" src={response.userInfo.avatar.avatarSrc} alt={response.userInfo.username} />
+                                                                            :
+                                                                            <img className="commentArtistThumbnail" src={placeholder} alt="artist" />
+                                                                        }
+                                                                    </div>
+                                                                    <div className="col-11 responseBox">
+                                                                        <h6>
+                                                                            {response.userInfo.username} replied&nbsp;&nbsp;
                                                                         <strong><i><Moment fromNow>{response.date}</Moment></i></strong>
-                                                                    </h6>
+                                                                        </h6>
                                                                     &nbsp;
                                                                     <p>-&nbsp;{response.content}</p>
+                                                                    </div>
+                                                                    <div className="col-1" />
+                                                                    <p className="col-1 reportButtons" id="responseReportButton">Report</p>
                                                                 </div>
-                                                                <div className="col-1" />
-                                                                <p className="col-1 reportButtons" id="responseReportButton">Report</p>
-                                                            </div>
                                                             </>
                                                         )
                                                     })

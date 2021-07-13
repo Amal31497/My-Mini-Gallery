@@ -132,16 +132,18 @@ function Profile() {
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const update = {
-            firstName: nameRef.current.value||document.querySelector(".firstNameInput").getAttribute("name"),
-            username: userNameRef.current.value||document.querySelector(".userNameInput").getAttribute("name"),
-            email: emailRef.current.value||document.querySelector(".emailInput").getAttribute("name"),
-            description: descriptionRef.current.value||document.querySelector(".descriptionInput").getAttribute("name"),
+            firstName: nameRef.current.value||document.querySelector(".artistName").getAttribute("name"),
+            username: userNameRef.current.value||document.querySelector(".username").getAttribute("name"),
+            email: emailRef.current.value||artist.email,
+            description: descriptionRef.current.value||document.querySelector(".descriptionText").getAttribute("name")||`${this.firstName} does not have a description yet`,
             avatar: {
                 avatarSrc:readyImage,
                 avatarWidthRatio:widthRatio,
                 avatarHeightRatio:heightRatio
             }
         }
+
+        console.log(update)
 
         if (readyImage && _.user) {
             updateUser(_.user, update)
@@ -160,11 +162,13 @@ function Profile() {
     
     useEffect(() => {
         var targetLookUp;
+
         if(query){
             targetLookUp = query;
         } else {
             targetLookUp = _.user;
         }
+
         if(targetLookUp){
             getArtist(targetLookUp)
                 .then(response => {
@@ -262,13 +266,11 @@ function Profile() {
                                 {(artist && artist.avatar) ?
                                     <img className="artistPic" src={artist.avatar.avatarSrc} style={{ height: `${artist.avatar.avatarHeightRatio * 130}px`, width: `${artist.avatar.avatarWidthRatio * 130}px` }} alt="profile pic" />
                                     :
-                                    <img className="artistPic" src={artistPic} alt="profile pic" />
+                                    <img className="artistPic" src={artistPic} alt="profile pic" style={{height:"130px",width:"130px"}} />
                                 }
                             </div>                          
-                        {/* </div>
-                        <div className="profileInfo col-lg-3 col-md-6 col-sm-4 col-xs-12"> */}
-                            <div className="username">{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
-                            <div className="artistName">{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
+                            <div className="username" name={artist ? artist.username : null}>{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
+                            <div className="artistName" name={artist ? artist.firstName : null}>{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName">User since: {artist?<Moment format="MMMM D / YYYY">{artist.date}</Moment>:<Spinner animation="grow" variant="dark" />}</div>
                             <div className="row contact">
                                 <button type="button" className="btn btn-dark">Contact Me</button>
@@ -276,7 +278,7 @@ function Profile() {
                         </div>
                         <div className="aboutMe col-lg-6 col-md-7 col-sm-12 col-xs-12">
                             <h2>About me</h2>
-                            <p>{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
+                            <p className="descriptionText" name={artist ? artist.description : null} >{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
                         </div>
                     </div>
                     {/* Begin Modal */}

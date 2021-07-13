@@ -26,7 +26,6 @@ const GenrePage = () => {
     const history = useHistory();
     const selectedGenre = window.location.search.split("?")[1].split("%20").join(" ")||window.location.search.split("?")[1];
     const [artWork, setArtwork] = useState();
-    console.log(selectedGenre.split(" ").join(""))
 
     var src;
     if(selectedGenre === "3D") {
@@ -58,7 +57,7 @@ const GenrePage = () => {
     const takeMeBack = () => {
         history.push("/genre")
     }
-    console.log(state.user)
+    
     const uploadArt = () => {
         if(state.user.length > 0){
             history.push("/post")
