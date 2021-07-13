@@ -32,7 +32,7 @@ import { useHistory } from 'react-router-dom';
 // }
 
 const FormPost = ({ submitForm }) => {
-    console.log(process.env.REACT_APP_SECRET_ACCESS_KEY)
+    
     // eslint-disable-next-line no-unused-vars
     const { handleChange, handleSubmit, values, errors } = useForm(
         submitForm,
