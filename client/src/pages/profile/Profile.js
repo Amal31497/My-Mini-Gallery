@@ -2,7 +2,8 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import './Profile.css';
 import Gallery from "react-photo-gallery";
 import { useArtContext } from "../../utils/GlobalState";
-import { updateUser, getAllArt, getArtist } from "../../utils/API";
+import { LOGOUT } from "../../utils/actions";
+import { updateUser, getAllArt, getArtist, dropArtistArt, deleteArtist, dropUserComments, logout } from "../../utils/API";
 import { useHistory } from 'react-router-dom';
 import reactImageSize from 'react-image-size';
 import artistPic from "../assets/artist.jpg";
@@ -43,6 +44,7 @@ function Profile() {
     var query = window.location.search.split("?")[1];
     const [personalProfile, setPersonalProfile] = useState();
     const [images, setImages] = useState([]);
+    const [deleteModal, setDeleteModal] = useState(false);
     const [favorites, setFavorites] = useState([]);
     const [openedImage, setOpenedImage] = useState({});
     const [selection, setSelection] = useState("gallery");
@@ -154,7 +156,7 @@ function Profile() {
             firstName: nameRef.current.value||document.querySelector(".artistName").getAttribute("name"),
             username: userNameRef.current.value||document.querySelector(".username").getAttribute("name"),
             email: emailRef.current.value||artist.email,
-            description: descriptionRef.current.value||document.querySelector(".descriptionText").getAttribute("name")||`${this.firstName} does not have a description yet`,
+            description: descriptionRef.current.value||document.querySelector(".descriptionText").getAttribute("name")||`This user does not have a description yet`,
             avatar: {
                 avatarSrc:readyImage,
                 avatarWidthRatio:widthRatio,
@@ -258,6 +260,41 @@ function Profile() {
         setSelection("favorites")
     }
 
+    const deleteOpen = (event) => {
+        event.preventDefault();
+        setDeleteModal(true);
+    }
+
+    const deleteClose = (event) => {
+        event.preventDefault();
+        setDeleteModal(false);
+    }
+
+    const deleteAccount = (event) => {
+        event.preventDefault();
+        if(_.user){
+            dropArtistArt(_.user)
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
+            dropUserComments(_.user)
+                .then(response => console.log(response))
+                .catch(error => console.log(error))
+            deleteArtist(_.user)
+                .then(response => {
+                    deleteClose(event);
+                    logout()
+                        .then(response => {
+                            dispatch({
+                                type: LOGOUT
+                            });
+                            history.push("/");
+                        })
+                        .catch(error => console.log(error))
+                })
+                .catch(error => console.log(error))
+        }
+    }
+
     return (
         <div className="background2">
             {personalProfile === true ?
@@ -268,29 +305,37 @@ function Profile() {
             <div id="about" className="container py-5">
                 <div>
                     <div className="mainProfile row">
-                        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                            {personalProfile === true ? 
-                                <Button variant="outline-light" onClick={showModal}
-                                    style={{ width: "2rem", height: "100%", display: "flex", textAlign: "center", justifyContent: "center" }}>
-                                    <p style={{ textOrientation: "mixed", writingMode: "vertical-rl", alignSelf: "center", padding: "0", letterSpacing: "2px" }}>
-                                        Edit
-                                </p>
-                                </Button>
-                                :
-                                null
-                            }
-                        </div>
-                        <div className="photo-wrap aboutArtistSection mb-5c col-lg-4 col-md-4 col-sm-11 col-xs-11">
+                        <div className="photo-wrap aboutArtistSection mb-5c col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                            <div>
+                                {personalProfile === true ?
+                                    <div style={{ height: "100%" }}>
+                                        <Button variant="outline-light" className="col-6" onClick={deleteOpen}
+                                            style={{ width: "50%", height: "40px", display: "flex", textAlign: "center", justifyContent: "center", marginBottom:"5px" }}>
+                                            <p>
+                                                Delete
+                                            </p>
+                                        </Button>
+                                        <Button variant="outline-light" className="col-6" onClick={showModal}
+                                            style={{ width: "50%", height: "40px", display: "flex", textAlign: "center", justifyContent: "center", marginBottom:"5px" }}>
+                                            <p>
+                                                Edit
+                                            </p>
+                                        </Button>
+                                    </div>
+                                    :
+                                    null
+                                }
+                            </div>
                             <div className="artistPicWrapper">
                                 {(artist && artist.avatar) ?
                                     <img className="artistPic" src={artist.avatar.avatarSrc} style={{ height: `${artist.avatar.avatarHeightRatio * 130}px`, width: `${artist.avatar.avatarWidthRatio * 130}px` }} alt="profile pic" />
                                     :
-                                    <img className="artistPic" src={artistPic} alt="profile pic" style={{height:"130px",width:"130px"}} />
+                                    <img className="artistPic" src={artistPic} alt="profile pic" style={{ height: "130px", width: "130px" }} />
                                 }
-                            </div>                          
-                            <div className="username" name={artist ? artist.username : null}>{artist?artist.username:<Spinner animation="grow" variant="dark" />}</div>
-                            <div className="artistName" name={artist ? artist.firstName : null}>{artist?artist.firstName:<Spinner animation="grow" variant="dark" />}</div>
-                            <div className="artistName">User since: {artist?<Moment format="MMMM D / YYYY">{artist.date}</Moment>:<Spinner animation="grow" variant="dark" />}</div>
+                            </div>
+                            <div className="username" name={artist ? artist.username : null}>{artist ? artist.username : <Spinner animation="grow" variant="dark" />}</div>
+                            <div className="artistName" name={artist ? artist.firstName : null}>{artist ? artist.firstName : <Spinner animation="grow" variant="dark" />}</div>
+                            <div className="artistName">User since: {artist ? <Moment format="MMMM D / YYYY">{artist.date}</Moment> : <Spinner animation="grow" variant="dark" />}</div>
                             <div className="row contact">
                                 <button type="button" className="btn btn-dark">Contact Me</button>
                             </div>
@@ -300,7 +345,7 @@ function Profile() {
                             <p className="descriptionText" name={artist ? artist.description : null} >{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
                         </div>
                     </div>
-                    {/* Begin Modal */}
+                    {/* Begin Edit Modal */}
                     {display === "show" ?
                         <div className="modal" tabIndex="-1" style={{ display: "block" }}>
                             <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -386,7 +431,26 @@ function Profile() {
                                 </div>
                             </div>
                         </div> : null}
-                    {/* End Modal */}
+                    {/* End Edit Modal */}
+
+                    {/* Begin Delete Modal */}
+                    {deleteModal === true ?
+                        <div className="modal" tabIndex="-1" style={{ display: "block" }}>
+                            <div className="modal-dialog modal-md modal-dialog-centered">
+                                <div className="modal-content">
+                                    <h4 style={{marginLeft:"auto", marginRight:"auto"}}>Are you sure you want to delete your account?</h4>
+                                    <p style={{marginLeft:"auto", marginRight:"auto"}}>All your art and comments will be deleted too.</p>
+                                    <div className="row" style={{width:"80%", marginLeft:"auto", marginRight:"auto"}}>
+                                        <button onClick={deleteClose} type="button" className="col-6 btn btn-light">No!</button>
+                                        <button onClick={deleteAccount} type="button" className="col-6 btn btn-danger">Yes, Delete my Account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        :
+                        null
+                    }
+                    {/* End Delete Modal */}
                 </div>
                 <div className="profileArt row">
                     {images?
@@ -432,37 +496,3 @@ function Profile() {
 }
 
 export default Profile;
-
-
-// eslint-disable-next-line no-lone-blocks
-{/* <div className="modal-body" style={{ height: "69vh" }}>
-    <div className="row" style={{ display: "flex", justifyContent: "center", alignContent: "center" }}>
-        <div className="col-lg-2 col-md-12 col-sm-12 col-xs-12">
-            {readyImage ?
-                <img className="artistPicModal" src={readyImage} alt="profile pic" id="avatar" style={{ width: `${widthRatio * 130}px`, height: `${heightRatio * 130}px` }} />
-                :
-                <img className="artistPic" src={(artist && artist.avatar) ? artist.avatar.avatarSrc : artistPic} alt="profile pic" id="avatar" />
-            }
-            <div>Change Avatar</div>
-            <input type="file" onChange={handleFileInput} />
-        </div>
-        <br />
-        <div className="col-lg-5 col-md-9 col-sm-9">
-            <div style={{ marginBottom: "4px" }}><span><strong>Name - </strong></span><input type="text" className="firstNameInput" name={artist ? artist.firstName : null} placeholder={artist ? artist.firstName : null} ref={nameRef}></input></div>
-            <div style={{ marginBottom: "4px" }}><span><strong>Username - </strong></span><input type="text" className="userNameInput" name={artist ? artist.username : null} placeholder={artist ? artist.username : null} ref={userNameRef}></input></div>
-        </div>
-        <div className="col-lg-5 col-md-9 col-sm-9">
-            <div style={{ marginBottom: "4px" }}><span><strong>Email - </strong></span><input type="text" className="emailInput" name={artist ? artist.email : null} placeholder={artist ? artist.email : null} ref={emailRef}></input></div>
-        </div>
-    </div>
-    <div className="row">
-        <div style={{ display: "flex", justifyContent: "center", paddingTop: "10px" }}>
-            <p className="row"><strong>Description</strong></p>
-        </div>
-    </div>
-    <div className="row">
-        <div style={{ display: "flex", justifyContent: "center", width: "100%", height: "6rem" }}>
-            <textarea type="text" classnName="descriptionInput" name={artist ? artist.description : null} placeholder={artist ? artist.description : null} style={{ width: "90%", height: "100%" }} ref={descriptionRef}></textarea>
-        </div>
-    </div>
-</div> */}

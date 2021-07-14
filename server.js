@@ -7,7 +7,8 @@ const routes = require("./routes");
 const app = express();
 require('dotenv').config()
 const PORT = process.env.PORT || 3001;
-
+// const cors = require('cors');
+// app.use(cors());
 
 const config = {
     accessKey:process.env.REACT_APP_ACCESS_KEY,
@@ -68,6 +69,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
         useFindAndModify: false
     }
 );
+
 
 // Start the API server
 app.listen(PORT, function () {

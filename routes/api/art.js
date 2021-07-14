@@ -14,5 +14,8 @@ router
     .put(artController.updateArt)
     .delete(artController.removeArt);
 
+router
+    .route("/emptyUserArt/:user")
+    .delete(artController.removeUserArt)
 
 module.exports = router;

@@ -16,7 +16,6 @@ const ArtConsole = (props) => {
     const [added, setAdded] = useState(false);
     var author = props.author;
     var targetArt = window.location.search.split("?")[1];
-    console.log(_.user)
 
     const addFavorite = (event) => {
         event.preventDefault();
