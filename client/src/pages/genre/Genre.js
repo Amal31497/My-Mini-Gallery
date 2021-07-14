@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import './Genre.css';
 
 import threeD from './pics/3d.jpg';
@@ -14,7 +14,7 @@ import fanart from './pics/fanart.jpg';
 import photoManipulation from './pics/photomanipulation.jpg';
 import photography from './pics/photography.jpg';
 import traditional from './pics/traditional.jpg';
-
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 const Genre = () => {
     const history = useHistory();
@@ -23,7 +23,6 @@ const Genre = () => {
 
         history.push(`/genresearch?${option}`)
     }
-
 
     return (
         <div className="background">

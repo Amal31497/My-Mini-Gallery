@@ -14,6 +14,14 @@ router
     .put(commentController.updateComment)
     .delete(commentController.removeComment);
 
+router
+    .route("/emptyArtComments/:art")
+    .delete(commentController.removeArtComments)
+
+router
+    .route("/emptyUserComments/:user")
+    .delete(commentController.removeUserComments);
+
 module.exports = router;
 
 

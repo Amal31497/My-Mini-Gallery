@@ -51,5 +51,13 @@ module.exports = {
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+
+    removeUserArt: function (req,res) {
+        db.Art
+            .deleteMany({ user: req.params.user })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
     }
+
 };

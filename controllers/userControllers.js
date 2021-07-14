@@ -100,7 +100,7 @@ module.exports = {
             }
     },
 
-    removeUser: function (req, res) {
+    removeUser: function (req, res) { 
         db.User
             .findById({ _id: req.params.id })
             .then(dbModel => dbModel.remove())
@@ -114,6 +114,7 @@ module.exports = {
         } else {
             res.status(204).end();
         }
-    }
+    },
+
 }
 

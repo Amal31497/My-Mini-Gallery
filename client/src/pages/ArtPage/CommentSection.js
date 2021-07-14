@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useArtContext } from "../../utils/GlobalState";
 import { FiSend } from 'react-icons/fi';
-import { addComment, updateArt, loadComments, getOneArt, getArtist, updateComment } from '../../utils/API';
+import { addComment, updateArt, loadComments, getOneArt, getArtist, updateComment, deleteComment } from '../../utils/API';
 import placeholder from '../assets/artist.jpg';
 import { Spinner } from 'react-bootstrap';
 import Moment from 'react-moment';
@@ -39,7 +39,8 @@ const CommentSection = () => {
             content: commentRef.current.value,
             userInfo: artist,
             date: Date.now(),
-            user: _.user
+            user: _.user,
+            art: artId
         }
         // console.log(comment)
         if(artId){
@@ -88,6 +89,19 @@ const CommentSection = () => {
         setResponseBox(false);
     }
 
+    const commentDelete = (event) => {
+        event.preventDefault();
+        // var selectedCommentId = event.target.name;
+        // console.log(event.target.name)
+        if(event.target.name){
+            deleteComment(event.target.name)
+                .then(response => {
+                    console.log(response)
+                    showComments();
+                })
+                .catch(error => console.log(error))
+        }
+    }
 
     const showComments = () => {
         getOneArt(artId)
@@ -115,7 +129,6 @@ const CommentSection = () => {
 
     return(
         <>
-
             { _.user ? 
                 <div className="addOrJoin col-12">
                     <div className="row" style={{ width: "100%" }}>
@@ -145,7 +158,7 @@ const CommentSection = () => {
                                 <div className="row">
                                     <div className="col-1">
                                         {comment ? 
-                                            <img className="commentArtistThumbnail" src={comment.userInfo.avatar.avatarSrc||null}  alt={comment.userInfo.username}/>
+                                            <img className="commentArtistThumbnail" src={comment.userInfo.avatar ? comment.userInfo.avatar.avatarSrc:placeholder}  alt={comment.userInfo.username}/>
                                             :
                                             <Spinner animation="grow" variant="dark" />
                                         }
@@ -159,6 +172,11 @@ const CommentSection = () => {
                                                         &nbsp;
                                                         &nbsp;
                                                         <strong><i><Moment fromNow>{comment.date}</Moment></i></strong>
+                                                        {comment.user === _.user ? 
+                                                            <button onClick={commentDelete} style={{float:"right"}}  name={comment._id} type="button" className="btn btn-danger commentDelete">delete [x]</button>
+                                                            :
+                                                            null
+                                                        }
                                                     </h6>
                                                     &nbsp;<p>-&nbsp;{comment.content}</p>
                                                 </div>
@@ -170,7 +188,7 @@ const CommentSection = () => {
                                                     <p className="reportButtons">Report</p>
                                                 </div>   
                                                 <div>
-                                                    {responseBox == true ?
+                                                    {responseBox === true ?
                                                         <>
                                                             <div className="responseBox">
                                                                 <textarea className="row responseText" type="text" rows={1} ref={responseRef}/>
@@ -192,9 +210,9 @@ const CommentSection = () => {
                                                                 <div className="row">
                                                                     <div className="col-1">
                                                                         {response ?
-                                                                            <img className="commentArtistThumbnail" src={response.userInfo.avatar.avatarSrc} alt={response.userInfo.username} />
+                                                                            <img className="commentArtistThumbnail" src={response.userInfo.avatar ? response.userInfo.avatar.avatarSrc:placeholder} alt={response.userInfo.username} />
                                                                             :
-                                                                            <img className="commentArtistThumbnail" src={placeholder} alt="artist" />
+                                                                            null
                                                                         }
                                                                     </div>
                                                                     <div className="col-11 responseBox">

@@ -28,6 +28,7 @@ const commentSchema = new Schema({
     userInfo: { type: Object, required: true },
     date: { type: Date, required: true },
     assetSrc: { type: String },
+    art: { type: String },
     responses: [new Schema([{
         content: { type: String, required:true },
         user: { type: String, required: true },

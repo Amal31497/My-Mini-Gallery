@@ -6,6 +6,17 @@
     height:320%;
 }
 
+.artDeleteOrUpdate{
+    color:white;
+    display:block;
+}
+
+.artDeleteOrUpdate>*{
+    display:flex;
+    justify-content: center;
+    margin-left:auto;
+    margin-right:auto;
+}
 
 /* Left - Right */
 /* ... */
@@ -168,6 +179,11 @@
 
 .commentReply:hover{
     text-decoration: underline;
+    cursor:pointer;
+}
+
+.commentDelete:hover{
+    color:red;
     cursor:pointer;
 }
 

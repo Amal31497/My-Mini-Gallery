@@ -5,7 +5,7 @@ import Particles from 'react-particles-js';
 import { getAllArt } from "../utils/API";
 import { useArtContext } from "../utils/GlobalState";
 import { GET_ALL_ART } from "../utils/actions";
-
+import axios from 'axios';
 
 function Home() {
 
@@ -77,3 +77,4 @@ function Home() {
 }
 
 export default Home;
+
