@@ -16,13 +16,16 @@ import photography from './pics/photography.jpg';
 import traditional from './pics/traditional.jpg';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+
+
 const Genre = () => {
     const history = useHistory();
     const getArt = (event, option) => {
         event.preventDefault()
-
         history.push(`/genresearch?${option}`)
     }
+
+
 
     return (
         <div className="background">
@@ -40,7 +43,6 @@ const Genre = () => {
                             <h5 className="card-title">Anime and Manga</h5>
                         </div>
                     </a>
-
                     <a href="/genresearch?ArtisanCraft" className="card" onClick={(event) => getArt(event, "Artisan Craft")}>
                         <img src={crafts} className="card-img" alt="3D thumbnail" />
                         <div className="card-img-overlay">

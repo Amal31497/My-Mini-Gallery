@@ -12,7 +12,8 @@ const PORT = process.env.PORT || 3001;
 
 const config = {
     accessKey:process.env.REACT_APP_ACCESS_KEY,
-    secretAccessKEY:process.env.REACT_APP_SECRET_ACCESS_KEY
+    secretAccessKEY:process.env.REACT_APP_SECRET_ACCESS_KEY,
+    flickrKey:process.env.REACT_APP_FLICKR_KEY
 };
 
 // send the config variable
