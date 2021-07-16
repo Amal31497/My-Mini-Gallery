@@ -28,7 +28,7 @@ const GalleryFlickr = () => {
             .then(res => {
                 console.log(res.data.flickrKey)
                 if(res.data.flickrKey) {
-                    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${res.data.flickrKey}&tags=${currentSearch}&per_page=4000&page=1&format=json&nojsoncallback=1&content_type=1&safe_search=1&extras=description,owner_name,o_dims,date_upload,tags,license,url_m,url_l`)
+                    axios.get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${res.data.flickrKey}&tags=${currentSearch}&per_page=100&page=1&format=json&nojsoncallback=1&content_type=1&safe_search=1&extras=description,owner_name,o_dims,date_upload,tags,license,url_m,url_l`)
                         .then(response => {
                             // console.log(response.data.photos.photo)
                             var results = [];
