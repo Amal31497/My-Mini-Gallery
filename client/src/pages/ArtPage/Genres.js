@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import threeD from '../genre/pics/3d.jpg';
-import AnimeManga from '../genre/pics/AnimeManga.jpg';
-import crafts from '../genre/pics/crafts.jpg';
-import comics from '../genre/pics/comics.jpg';
-import customization from '../genre/pics/customization.jpg';
-import cosplay from '../genre/pics/cosplay.jpg';
-import digital from '../genre/pics/digital.jpg';
-import fantasy from '../genre/pics/fantasy.jpg';
-import fanart from '../genre/pics/fanart.jpg';
-import photoManipulation from '../genre/pics/photomanipulation.jpg';
-import photography from '../genre/pics/photography.jpg';
-import traditional from '../genre/pics/traditional.jpg';
+import threeD from '../Genre/pics/3d.jpg';
+import AnimeManga from '../Genre/pics/AnimeManga.jpg';
+import crafts from '../Genre/pics/crafts.jpg';
+import comics from '../Genre/pics/comics.jpg';
+import customization from '../Genre/pics/customization.jpg';
+import cosplay from '../Genre/pics/cosplay.jpg';
+import digital from '../Genre/pics/digital.jpg';
+import fantasy from '../Genre/pics/fantasy.jpg';
+import fanart from '../Genre/pics/fanart.jpg';
+import photoManipulation from '../Genre/pics/photomanipulation.jpg';
+import photography from '../Genre/pics/photography.jpg';
+import traditional from '../Genre/pics/traditional.jpg';
 
 import Gallery from "react-photo-gallery";
 import Carousel, { slidesToShowPlugin, autoplayPlugin } from '@brainhubeu/react-carousel';

@@ -19,37 +19,37 @@ export default function ContactUs() {
 
   return (
     <div>
-<h5>You can contact me here</h5>
-    
-    <form className=" col-8 contact-form  py-5 "  onSubmit={sendEmail}>
+      <h5>You can contact me here</h5>
 
-      <div className="col-10 form-group pt-2 flex-row ms-auto" >
-      <label>Name</label>
-      <br/>
-      <input type="text" name="name" />
-      </div>
-      
-      
-      <div className="col-10 form-group pt-2 flex-row ms-auto" >
-      <label>Email</label>
-      <br/>
-      <input type="email" name="email" />
+      <form className=" col-8 contact-form  py-5 " onSubmit={sendEmail}>
 
-      </div>
-      
-      
-      <div className="col-10 form-group pt-2 ms-auto" >
-      <label>Message</label>
-      <br/>
-      <textarea name="message" />
-      </div>
-      <div className=" col-10 ms-auto " >
-      <input type="submit" value="Send Message" />
+        <div className="col-10 form-group pt-2 flex-row ms-auto" >
+          <label>Name</label>
+          <br />
+          <input type="text" name="name" />
+        </div>
 
-      </div>
-      
-    </form>
+
+        <div className="col-10 form-group pt-2 flex-row ms-auto" >
+          <label>Email</label>
+          <br />
+          <input type="email" name="email" />
+
+        </div>
+
+
+        <div className="col-10 form-group pt-2 ms-auto" >
+          <label>Message</label>
+          <br />
+          <textarea name="message" />
+        </div>
+        <div className=" col-10 ms-auto " >
+          <input type="submit" value="Send Message" />
+
+        </div>
+
+      </form>
     </div>
-      );
+  );
 }
 

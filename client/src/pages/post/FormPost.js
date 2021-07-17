@@ -3,31 +3,28 @@ import validate from './validateInfo';
 
 // Global Context
 import { useArtContext } from "../../utils/GlobalState";
-import { ADD_ART } from "../../utils/actions";
 import { createArt, updateUser, getArtist } from "../../utils/API";
-// ...
 
 // Styling imports
 import useForm from './useForm';
 import './Post.css';
 import { Spinner } from 'react-bootstrap';
-// ...
 
 // Image Uploader and Environment vars
 import { uploadFile } from 'react-s3';
-import env from "react-dotenv";
+
 // Image processer(Width and Height)
 import reactImageSize from 'react-image-size';
-// ...
 
 // Dom reloader
 import { useHistory } from 'react-router-dom';
-// ...
+
 import axios from 'axios';
 
 
 const FormPost = ({ submitForm }) => {
     
+    // Rest API endpoint to get secret keys from backend
     const [keyA, setKeyA] = useState();
     const [keyB, setKeyB] = useState();
 
@@ -44,6 +41,8 @@ const FormPost = ({ submitForm }) => {
         getConfig();
     },[])
 
+
+    // AWS S3 config
     const config = {
         bucketName: 'myminigallery',
         region: 'us-east-2',
@@ -75,62 +74,15 @@ const FormPost = ({ submitForm }) => {
     const [imgheight, setHeight] = useState();
     const [widthRatio, setWidthRatio] = useState();
     const [heightRatio, setHeightRatio] = useState();
-    const [artIds, setArtIds] = useState();
+    // const [artIds, setArtIds] = useState();
     
-
-
-    // const handleFileInput = event => {
-    //     event.preventDefault();
-    //     const data = new FormData();
-    //     data.append('image', event.target.files[0]);
-    //     setSelectedFile(event.target.files[0]);
-    //     const postImage = async () => {
-    //         try {
-    //             const res = await fetch('/api/image-upload', {
-    //                 mode: 'cors',
-    //                 method: 'POST',
-    //                 body: data
-    //             })
-    //             if (!res.ok) throw new Error(res.statusText);
-                
-    //             const postResponse = await res.json();
-                
-    //             setReadyImage(postResponse.Location)
-    //             reactImageSize(postResponse.Location)
-    //                 .then(({ width, height }) => {
-    //                     setWidth(width);
-    //                     setHeight(height);
-    //                     if (width > height) {
-    //                         setWidthRatio(Math.round(width / height))
-    //                         setHeightRatio(1)
-    //                     } else {
-    //                         setHeightRatio(Math.round(height / width))
-    //                         setWidthRatio(1)
-    //                     }
-    //                 })
-    //                 .catch(errorMessage => {
-    //                     console.error(errorMessage)
-    //                 })
-    //             // setFormState({ ...formState, image: postResponse.Location })
-    //             console.log("postImage: ", postResponse.Location)
-    //             return postResponse.Location;
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //     postImage();
-    // };
-
-    // console.log(readyImage)
 
     // Begin function - AWS S3 uploader
     const handleFileInput = (event) => {
         event.preventDefault();
         setSelectedFile(event.target.files[0]);
-        // console.log(config);
         uploadFile(event.target.files[0], config)
             .then(data => {
-                // console.log(data.location)
                 setReadyImage(data.location)
                 reactImageSize(data.location)
                     .then(({ width, height }) => {
@@ -156,7 +108,6 @@ const FormPost = ({ submitForm }) => {
 
     // Begin Function - Form Submit, Rest API
     const handleFormSubmit = () => {
-        // console.log(_)
         const art = {
             src: readyImage,
             title: titleRef.current.value,
@@ -179,22 +130,16 @@ const FormPost = ({ submitForm }) => {
                         .then(response => {
                             getArtist(_.user)
                                 .then(response => {
-                                    dispatch({
-                                        type: ADD_ART,
-                                        art: response.data.art
-                                    })
                                 })
-                                // Catch block
+                                .catch(error => console.log(error))
                         })
                         .catch(error => console.log(error))
                 }
-                // console.log(_)
                 formRef.current.reset();
                 history.push("/postSuccess");
             })
             .catch(error => console.log(error))
         }
-
     }
     // ... End Function
 
@@ -202,6 +147,7 @@ const FormPost = ({ submitForm }) => {
     return (
         <form onSubmit={handleSubmit} className='submit-form' ref={formRef} noValidate>
             <div className="row">
+                {/* Photo Uploader */}
                 <div className="col-lg-6 col-md-12 photoUploader">
                     <div>
                         {readyImage ? <img src={readyImage} alt="" style={{ width: `${widthRatio * 40}%`, height: `${heightRatio * 40}%` }} /> : <Spinner animation="grow" variant="dark" />}
@@ -212,6 +158,7 @@ const FormPost = ({ submitForm }) => {
                     </div>
                 </div>
 
+                {/* Input uploader : (Title, tags, description, genre) */}
                 <div className='form-inputs col-lg-6 col-md-12 justify-content-center'>
                     <label className='form-label2'>Art Title</label>
                     <div className='col-6'>
@@ -267,6 +214,7 @@ const FormPost = ({ submitForm }) => {
                         </div>
                         {errors.genre && <p>{errors.genre}</p>}
                     </div>
+                    {/* Submit button */}
                     {
                         (selectedFile && imgheight && imgwidth) &&
                         <button className='form-input-btn' type='submit' onClick={handleFormSubmit}>

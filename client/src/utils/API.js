@@ -33,25 +33,34 @@ const deleteComment = (id) => axios.delete("/api/comment/" + id);
 const queryArt = (query) => axios.get("/api/query/" + query);
 
 export {
+    // User authentication
     signup,
     login,
     logout,
     authenticatedUser,
+
+    // Art routes
     createArt,
     getAllArt,
-    getArtist,
-    updateUser,
     getOneArt,
-    addComment,
-    loadComments,
     updateArt,
-    updateComment,
-    updateUserFavorites,
-    queryArt,
+    dropArtComments,
+    deleteArt,
     dropArtistArt,
+
+    // Artist/User routes
+    getArtist,
+    updateUser,  
     deleteArtist,
+    updateUserFavorites,
+
+    // Comment routes
+    addComment,
+    loadComments,   
+    updateComment,
     dropUserComments,
     deleteComment,
-    dropArtComments,
-    deleteArt
+
+    // Search routes
+    queryArt  
 }

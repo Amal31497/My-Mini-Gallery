@@ -1,6 +1,6 @@
 .formBackground{
   position: relative;
-  background: url(./assets/signup.jpg) no-repeat;
+  background: url(../assets/backgroundsAndEssentials/signup.jpg) no-repeat;
   background-size: cover;
   background-position: center;
   height: 90vh;
@@ -8,7 +8,7 @@
 
 .formBackground2{
   position: relative;
-  background: url(./assets/login.jpg) no-repeat;
+  background: url(../assets/backgroundsAndEssentials/login.jpg) no-repeat;
   background-size: cover;
   background-position: center;
   height: 90vh;

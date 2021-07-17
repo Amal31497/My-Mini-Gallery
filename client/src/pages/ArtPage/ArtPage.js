@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+
+// Global context
 import { getArtist, getOneArt, deleteArt, dropArtComments } from "../../utils/API";
 import { useArtContext } from "../../utils/GlobalState";
 import { useHistory } from 'react-router-dom';
+
 // Sub-components
 import ArtConsole from './ArtConsole';
 import AboutAuthor from './AboutAuthor';
 import MoreByArtist from './MoreByArtist';
 import CommentSection from './CommentSection';
-import Genres from './Genres';
+
 // Styling
 import { Spinner } from 'react-bootstrap';
 import './ArtPage.css';
@@ -15,13 +18,21 @@ import './ArtPage.css';
 
 
 const ArtPage = () => {
+    // Global context
+    const [state, dispatch] = useArtContext();
+
+    // useHistory Dom Hook
     const history = useHistory();
+
+    // Window related vars
     var targetArt = window.location.search.split("?")[1];
+
+    // States
     const [art, setArt] = useState();
-    const [artist, setArtist] = useState({});
-    const [state,dispatch] = useArtContext();
+    const [artist, setArtist] = useState({});   
     const [deleteModal, setDeleteModal] = useState(false);
 
+    // Return targeted art when page loads
     useEffect(() => {
         getOneArt(targetArt)
             .then(artData => {
@@ -35,21 +46,25 @@ const ArtPage = () => {
             .catch(err => console.log(err))
     }, [targetArt])
 
-    
+    // Open Modal listener
     const openDeleteModal = (event) => {
         event.preventDefault();
         setDeleteModal(true);
     }   
 
+    // Close Modal listener
     const closeDeleteModal = (event) => {
         event.preventDefault();
         setDeleteModal(false);
     }
 
+    // Delete targeted art listener
     const deleteThisArt = (event) => {
         event.preventDefault();
+        // First drop all comments related to this art from the database
         dropArtComments(targetArt)
             .then(response => {
+                // Then delete the art itself
                 deleteArt(targetArt)
                     .then(response => {
                         console.log(response);
@@ -59,12 +74,14 @@ const ArtPage = () => {
             })
             .catch(error => console.log(error))
     }
-
+    // Two separate routes for art deletion because comments have their own schema 
+    // and will result in orphaned data if not deleted accordingly
 
     return (
         <div className="artPage">
             {(art && artist) ?
                 <div className="row">
+                    {/* Art image and information whether it is current user's post or not */}
                     <div className="art col-12">
                         <img
                             className="actualImage"
@@ -76,6 +93,7 @@ const ArtPage = () => {
                             }}
                         />
                     </div>
+                    {/* If current user's posting that they are given option to delete */}
                     {art.user === state.user ?
                         <div className="artDeleteOrUpdate col-12">
                             <p>This is your posting</p>
@@ -102,6 +120,8 @@ const ArtPage = () => {
                         null
                     }
                     {/* Delete Modal End */}
+
+                    {/* About Author section */}
                     <div className="artistInfo col-12" style={{ height: `50%`, width: "100%" }}>
                         <div className="col-12"><ArtConsole author={artist} className="artConsole" /></div>
                         <br /><br />
@@ -111,7 +131,9 @@ const ArtPage = () => {
                             className="aboutAuthor"
                         />
                     </div>
+                    {/* End About Author Section */}
 
+                    {/* More by author Section */}
                     <div className="moreByAuthor col-12">
                         <div className="row">
                             <h4 className="col-12 moreByAuthorTitle" style={{ color: "white" }}>
@@ -124,12 +146,15 @@ const ArtPage = () => {
                             </div>
                         </div>
                     </div>
-                    
+                    {/* End More by Author Section */}
+
+                    {/* Comment Section */}
                     <div className="commentSection col-12">
                         <div className="row" style={{ width: "100%", height: "25px" }}>
                             <CommentSection />
                         </div>
                     </div>
+                    {/* End Comment Section */}
                 </div>
                 :
                 null

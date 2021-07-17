@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Post.css';
 import FormPost from './FormPost';
-import Home from "../Home";
+import Home from "../Home/Home";
 
 const Post = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);

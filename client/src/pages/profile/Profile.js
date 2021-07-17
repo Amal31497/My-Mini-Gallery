@@ -6,7 +6,7 @@ import { LOGOUT } from "../../utils/actions";
 import { updateUser, getAllArt, getArtist, dropArtistArt, deleteArtist, dropUserComments, logout } from "../../utils/API";
 import { useHistory } from 'react-router-dom';
 import reactImageSize from 'react-image-size';
-import artistPic from "../assets/artist.jpg";
+import artistPic from "../../assets/backgroundsAndEssentials/artist.jpg";
 
 import { Button, Spinner } from 'react-bootstrap'
 import { uploadFile } from 'react-s3';
@@ -14,6 +14,10 @@ import env from "react-dotenv";
 import uuid from 'react-uuid';
 import Moment from 'react-moment';
 import axios from 'axios';
+import { BiEditAlt } from 'react-icons/bi';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { IoMdContact } from 'react-icons/io';
+
 
 function Profile() {
 
@@ -80,49 +84,6 @@ function Profile() {
         event.preventDefault();
         setDisplay("show")
     }
-
-
-    // const handleFileInput = event => {
-    //     event.preventDefault();
-    //     const data = new FormData();
-    //     data.append('image', event.target.files[0]);
-    //     // setSelectedFile(event.target.files[0]);
-    //     const postImage = async () => {
-    //         try {
-    //             const res = await fetch('/api/image-upload', {
-    //                 mode: 'cors',
-    //                 method: 'POST',
-    //                 body: data
-    //             })
-    //             if (!res.ok) throw new Error(res.statusText);
-                
-    //             const postResponse = await res.json();
-                
-    //             setReadyImage(postResponse.Location)
-    //             reactImageSize(postResponse.Location)
-    //                 .then(({ width, height }) => {
-    //                     setWidth(width);
-    //                     setHeight(height);
-    //                     if (width > height) {
-    //                         setWidthRatio(Math.round(width / height))
-    //                         setHeightRatio(1)
-    //                     } else {
-    //                         setHeightRatio(Math.round(height / width))
-    //                         setWidthRatio(1)
-    //                     }
-    //                 })
-    //                 .catch(errorMessage => {
-    //                     console.error(errorMessage)
-    //                 })
-    //             // setFormState({ ...formState, image: postResponse.Location })
-    //             console.log("postImage: ", postResponse.Location)
-    //             return postResponse.Location;
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-    //     postImage();
-    // };
 
 
     const handleFileInput = (event) => {
@@ -306,42 +267,24 @@ function Profile() {
                 <div>
                     <div className="mainProfile row">
                         <div className="photo-wrap aboutArtistSection mb-5c col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                            <div>
-                                {personalProfile === true ?
-                                    <div style={{ height: "100%" }}>
-                                        <Button variant="outline-light" className="col-6" onClick={deleteOpen}
-                                            style={{ width: "50%", height: "40px", display: "flex", textAlign: "center", justifyContent: "center", marginBottom:"5px" }}>
-                                            <p>
-                                                Delete
-                                            </p>
-                                        </Button>
-                                        <Button variant="outline-light" className="col-6" onClick={showModal}
-                                            style={{ width: "50%", height: "40px", display: "flex", textAlign: "center", justifyContent: "center", marginBottom:"5px" }}>
-                                            <p>
-                                                Edit
-                                            </p>
-                                        </Button>
-                                    </div>
-                                    :
-                                    null
-                                }
-                            </div>
                             <div className="artistPicWrapper">
                                 {(artist && artist.avatar) ?
-                                    <img className="artistPic" src={artist.avatar.avatarSrc} style={{ height: `${artist.avatar.avatarHeightRatio * 130}px`, width: `${artist.avatar.avatarWidthRatio * 130}px` }} alt="profile pic" />
+                                    <img className="artistPic" src={artist.avatar.avatarSrc} style={{ height: `${artist.avatar.avatarHeightRatio * 100}px`, width: `${artist.avatar.avatarWidthRatio * 100}px` }} alt="profile pic" />
                                     :
-                                    <img className="artistPic" src={artistPic} alt="profile pic" style={{ height: "130px", width: "130px" }} />
+                                    <img className="artistPic" src={artistPic} alt="profile pic" style={{ height: "100px", width: "100px" }} />
                                 }
                             </div>
                             <div className="username" name={artist ? artist.username : null}>{artist ? artist.username : <Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName" name={artist ? artist.firstName : null}>{artist ? artist.firstName : <Spinner animation="grow" variant="dark" />}</div>
                             <div className="artistName">User since: {artist ? <Moment format="MMMM D / YYYY">{artist.date}</Moment> : <Spinner animation="grow" variant="dark" />}</div>
-                            <div className="row contact">
-                                <button type="button" className="btn btn-dark">Contact Me</button>
+                            <div className="row" style={{width:"30%",marginLeft:"10px",display:"flex", justifyContent:"space-between"}}>
+                                <IoMdContact size={26} style={{ color: "white" }} className="contactProfileButton" />
+                                {personalProfile === true ? <BiEditAlt size={26} style={{ color: "white" }} className="updateProfileButton" onClick={showModal} /> : null}
+                                {personalProfile === true ? <RiDeleteBin6Line size={26} style={{ color: "white" }} className="deleteProfileButton" onClick={deleteOpen} /> : null}
                             </div>
                         </div>
                         <div className="aboutMe col-lg-6 col-md-7 col-sm-12 col-xs-12">
-                            <h2>About me</h2>
+                            <p style={{fontWeight:"600"}}>About me</p>
                             <p className="descriptionText" name={artist ? artist.description : null} >{artist?artist.description:<Spinner animation="grow" variant="dark" />}</p>
                         </div>
                     </div>

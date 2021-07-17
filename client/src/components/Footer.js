@@ -1,51 +1,51 @@
-import React from "react";
-import Amal from "../assets/Amal.jpg";
-import Jasur from "../assets/Jasur.jpg";
-import Jenni from "../assets/Jenni.jpg";
-import Greg from "../assets/Greg.jpg";
-import Hanh from "../assets/Hanh.jpg";
+// import React from "react";
+// import Amal from "../assets/Amal.jpg";
+// import Jasur from "../assets/Jasur.jpg";
+// import Jenni from "../assets/Jenni.jpg";
+// import Greg from "../assets/Greg.jpg";
+// import Hanh from "../assets/Hanh.jpg";
 
-const Footer = () => {
+// const Footer = () => {
 
-    const currentYear = new Date().getFullYear();
+//     const currentYear = new Date().getFullYear();
 
-    return (
+//     return (
 
-        <footer className="mt-auto text-white-50 footer">
-            <footer className="container">
-                <div className="row row-cols-auto align-items-center copyright">
-                    <div className="col">
-                        <a href="https://github.com/Amal31497"><img className="profilePic" src={Amal} alt="Amal Janabayev" /></a>
-                        <p>Amal Janabayev</p>
-                    </div>
+//         <footer className="mt-auto text-white-50 footer">
+//             <footer className="container">
+//                 <div className="row row-cols-auto align-items-center copyright">
+//                     <div className="col">
+//                         <a href="https://github.com/Amal31497"><img className="profilePic" src={Amal} alt="Amal Janabayev" /></a>
+//                         <p>Amal Janabayev</p>
+//                     </div>
 
-                    <div className="col">
-                        <a href="https://github.com/jamirov"><img className="profilePic" src={Jasur} alt="Jasur Amirov" /></a>
-                        <p>Jasur Amirov</p>
-                    </div>
+//                     <div className="col">
+//                         <a href="https://github.com/jamirov"><img className="profilePic" src={Jasur} alt="Jasur Amirov" /></a>
+//                         <p>Jasur Amirov</p>
+//                     </div>
 
-                    <div className="col">
-                        <a href="https://github.com/kodiakshuksan"><img className="profilePic" src={Jenni} alt="Jenny Detmering" /></a>
-                        <p>Jenny Detmering</p>
-                    </div>
+//                     <div className="col">
+//                         <a href="https://github.com/kodiakshuksan"><img className="profilePic" src={Jenni} alt="Jenny Detmering" /></a>
+//                         <p>Jenny Detmering</p>
+//                     </div>
 
-                    <div className="col">
-                        <a href="https://github.com/GregHarris90"><img className="profilePic" src={Greg} alt="Greg Harris" /></a>
-                        <p>Greg Harris</p>
-                    </div>
+//                     <div className="col">
+//                         <a href="https://github.com/GregHarris90"><img className="profilePic" src={Greg} alt="Greg Harris" /></a>
+//                         <p>Greg Harris</p>
+//                     </div>
 
-                    <div className="col">
-                        <a href="https://github.com/hanhle1989"><img className="profilePic" src={Hanh} alt="Hanh Le" /></a>
-                        <p>Hanh Le</p>
-                    </div>
+//                     <div className="col">
+//                         <a href="https://github.com/hanhle1989"><img className="profilePic" src={Hanh} alt="Hanh Le" /></a>
+//                         <p>Hanh Le</p>
+//                     </div>
 
-                </div>
-                <div className="row copyright">
-                    © {currentYear} My Mini Gallery
-                </div>
-            </footer>
-        </footer>
-    )
-}
+//                 </div>
+//                 <div className="row copyright">
+//                     © {currentYear} My Mini Gallery
+//                 </div>
+//             </footer>
+//         </footer>
+//     )
+// }
 
-export default Footer
+// export default Footer

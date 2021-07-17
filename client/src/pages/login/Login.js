@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../Form.css';
 import FormLogin from './FormLogin';
-import Home from "../Home";
+import Home from "../Home/Home";
 
 const Login = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);

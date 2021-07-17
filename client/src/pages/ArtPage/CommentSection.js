@@ -1,23 +1,44 @@
 import React, { useRef, useEffect, useState } from 'react';
+
+// Global Context
 import { useArtContext } from "../../utils/GlobalState";
+
+// Api endpoints
+import {addComment, 
+        updateArt, 
+        loadComments, 
+        getOneArt, 
+        getArtist, 
+        updateComment, 
+        deleteComment } 
+from '../../utils/API';
+
+// Styling
 import { FiSend } from 'react-icons/fi';
-import { addComment, updateArt, loadComments, getOneArt, getArtist, updateComment, deleteComment } from '../../utils/API';
-import placeholder from '../assets/artist.jpg';
+import placeholder from '../../assets/backgroundsAndEssentials/artist.jpg';
 import { Spinner } from 'react-bootstrap';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
 
+
 const CommentSection = () => {
+    // Global context
     const [_, dispatch] = useArtContext();
+
+    // Window related vars
     const artId = window.location.search.split("?")[1];
+
+    // States
     const [artist, setArtist] = useState();
     const [comments, setComments] = useState();
     const [responseBox,setResponseBox] = useState(false);
 
+    // Refs
     const commentRef = useRef();
     const responseRef = useRef();
 
+    // Load current user (setup for comment submission)
     useEffect(() => {
         getArtist(_.user)
             .then(response => {
@@ -32,23 +53,25 @@ const CommentSection = () => {
             .catch(error => console.log(error))
     },[_.user])
 
-
+    // Comment submit listener
     const handleCommentSubmit = (event) => {
-        event.preventDefault();          
+        event.preventDefault();  
+
+        // Comment
         const comment = {
             content: commentRef.current.value,
+            // Nesting descriptive artist info in comment schema
             userInfo: artist,
             date: Date.now(),
             user: _.user,
             art: artId
         }
-        // console.log(comment)
+
         if(artId){
             addComment(comment)
                 .then(response => {
                     updateArt(artId,{_id:response.data._id})
                         .then(response => {
-                            // console.log(response)
                             commentRef.current.value = null;
                             showComments();
                         })
@@ -58,15 +81,19 @@ const CommentSection = () => {
         }
     }
 
+    // Response submit listener
     const handleResponseSubmit = (event) => {
         event.preventDefault();
 
+        // Response
         const response = {
             content: responseRef.current.value,
+            // Nesting descriptive artist info in response schema
             userInfo: artist,
             date: Date.now(),
             user: _.user
         }
+
         console.log(response)
         if (response.content && event.target.getAttribute("value")) {
             updateComment(event.target.getAttribute("value"), { response: response })
@@ -79,20 +106,22 @@ const CommentSection = () => {
         }
     }
 
+    // Open response box listener
     const openResponseBox = (event) => {
         event.preventDefault();
         setResponseBox(true)
     }
 
+    // Close response box listener
     const closeReponseBox = (event) => {
         event.preventDefault();
         setResponseBox(false);
     }
 
+    // Delete Comment listener
     const commentDelete = (event) => {
         event.preventDefault();
-        // var selectedCommentId = event.target.name;
-        // console.log(event.target.name)
+
         if(event.target.name){
             deleteComment(event.target.name)
                 .then(response => {
@@ -103,11 +132,10 @@ const CommentSection = () => {
         }
     }
 
+    // Show all comments when page loads
     const showComments = () => {
         getOneArt(artId)
             .then(response => {
-                // console.log(response.data)
-                // setComments(response.data.comments)
                 var targetedComments = response.data.comments;
                 loadComments()
                     .then(response => {
@@ -129,7 +157,8 @@ const CommentSection = () => {
 
     return(
         <>
-            { _.user ? 
+            {(_.user&&_.user.length === 0) ? 
+                // Comments or Login
                 <div className="addOrJoin col-12">
                     <div className="row" style={{ width: "100%" }}>
                         <div className="col-12">
@@ -141,16 +170,18 @@ const CommentSection = () => {
                 </div>
                 :
                 <div className="addOrJoin col-12">
-                    <h5 className="col-12">Join My-Mini-Gallery to add your comment or
+                    <p className="col-12" style={{ display: "flex", justifyContent: "center" }}><a href="/signup">Join</a> &nbsp; My-Mini-Gallery to add your comment or
+                        &nbsp;
                         <span>
                             <a href="/login">
                                 LogIn
                             </a>
                         </span>
-                    </h5>
+                    </p>
                 </div>
             }
             <div className="col-12">
+                {/* Main comment section */}
                 {comments && comments.length > 0 ?
                     comments.map((comment,index) => {
                         return (
@@ -202,7 +233,8 @@ const CommentSection = () => {
                                                         :
                                                         null
                                                     }
-                                                </div>                                                                                                                                              
+                                                </div>
+                                                {/* Responses */}
                                                 {comment.responses.length > 0 ?
                                                     comment.responses.map(response => {
                                                         return(
@@ -244,7 +276,7 @@ const CommentSection = () => {
                         )
                     })
                     :
-                    <h3>No comments added yet.</h3>
+                    <p style={{display:"flex", justifyContent:"center"}}>No comments added yet.</p>
                 }
             </div>
         </>
