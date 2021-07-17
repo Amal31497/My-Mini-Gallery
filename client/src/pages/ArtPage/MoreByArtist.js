@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
-// import Gallery from "react-photo-gallery";
+
+// Api Endpoints
 import { getAllArt } from '../../utils/API'
+
+// Styling
 import { Spinner } from 'react-bootstrap';
 import Carousel, { slidesToShowPlugin, autoplayPlugin } from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
+
+// React DOM
 import { useHistory } from 'react-router-dom';
 
 const MoreByArtist = (props) => {
+
+    // Window Related vars
     const currentArt = window.location.search.split("?")[1];
+
+    // UseHistory DOM hook
     const history = useHistory();
+
+    // States
     const [artwork, setArtwork] = useState();
 
-
+    // Load all art when page loads a filter out only author's art except the one already on the screen
     useEffect(() => {
         if(props.artist){
             getAllArt()
@@ -28,6 +39,7 @@ const MoreByArtist = (props) => {
         }
     },[props.artist,currentArt])
 
+    // Open art listener
     const openArt = (event) => {
         event.preventDefault();
         history.push(`/artPage?${event.target.getAttribute("value")}`)
@@ -37,7 +49,8 @@ const MoreByArtist = (props) => {
     return(
         <>
             {artwork ?
-                // <Gallery style={{width:"60%"}} key={artwork._id} photos={artwork} />
+                artwork.length > 0 ?
+                // Third party carousel component
                 <div className="moreByArtistWrapper">
                     <Carousel
                         plugins={[
@@ -131,6 +144,8 @@ const MoreByArtist = (props) => {
                         })}
                     </Carousel>
                 </div>
+                :
+                <p style={{color:"white",display:"flex",justifyContent:"center"}}>This artist hasn't posted anything else yet</p>
                 :
                 <Spinner animation="grow" variant="dark" />
             }

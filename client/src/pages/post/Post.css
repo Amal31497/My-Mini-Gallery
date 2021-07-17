@@ -1,6 +1,6 @@
 .formBackground3{
   position: relative;
-  background: url(../assets/post.jpeg) no-repeat;
+  background: url(../../assets/backgroundsAndEssentials/post.jpeg) no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -9,7 +9,7 @@
 @media screen and (max-width: 1000px){
   .formBackground3{
     position: relative;
-    background: url(../assets/post.jpeg) no-repeat;
+    background: url(../../assets/backgroundsAndEssentials/post.jpeg) no-repeat;
     background-size: cover;
     background-position: center;
     height: 1100px;

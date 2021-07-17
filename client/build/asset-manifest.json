@@ -1,23 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.a8ec0ff0.chunk.css",
-    "main.js": "/static/js/main.559a97bc.chunk.js",
-    "main.js.map": "/static/js/main.559a97bc.chunk.js.map",
+    "main.css": "/static/css/main.9470ee81.chunk.css",
+    "main.js": "/static/js/main.04d3c0b8.chunk.js",
+    "main.js.map": "/static/js/main.04d3c0b8.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.25909659.js",
     "runtime-main.js.map": "/static/js/runtime-main.25909659.js.map",
     "static/css/2.8d017c6e.chunk.css": "/static/css/2.8d017c6e.chunk.css",
-    "static/js/2.71211233.chunk.js": "/static/js/2.71211233.chunk.js",
-    "static/js/2.71211233.chunk.js.map": "/static/js/2.71211233.chunk.js.map",
+    "static/js/2.1d150f41.chunk.js": "/static/js/2.1d150f41.chunk.js",
+    "static/js/2.1d150f41.chunk.js.map": "/static/js/2.1d150f41.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.8d017c6e.chunk.css.map": "/static/css/2.8d017c6e.chunk.css.map",
-    "static/css/main.a8ec0ff0.chunk.css.map": "/static/css/main.a8ec0ff0.chunk.css.map",
-    "static/js/2.71211233.chunk.js.LICENSE.txt": "/static/js/2.71211233.chunk.js.LICENSE.txt",
+    "static/css/main.9470ee81.chunk.css.map": "/static/css/main.9470ee81.chunk.css.map",
+    "static/js/2.1d150f41.chunk.js.LICENSE.txt": "/static/js/2.1d150f41.chunk.js.LICENSE.txt",
     "static/media/3d.ea649753.jpg": "/static/media/3d.ea649753.jpg",
-    "static/media/Amal.644c30e6.jpg": "/static/media/Amal.644c30e6.jpg",
     "static/media/AnimeManga.e4f0963b.jpg": "/static/media/AnimeManga.e4f0963b.jpg",
-    "static/media/Greg.0b13168d.jpg": "/static/media/Greg.0b13168d.jpg",
-    "static/media/Hanh.f040ed9c.jpg": "/static/media/Hanh.f040ed9c.jpg",
-    "static/media/Jasur.0f282639.jpg": "/static/media/Jasur.0f282639.jpg",
     "static/media/artist.efbeeb08.jpg": "/static/media/artist.efbeeb08.jpg",
     "static/media/App.css": "/static/media/background.8a7338fd.jpg",
     "static/media/comics.97e35a7e.jpg": "/static/media/comics.97e35a7e.jpg",
@@ -36,8 +32,8 @@
   "entrypoints": [
     "static/js/runtime-main.25909659.js",
     "static/css/2.8d017c6e.chunk.css",
-    "static/js/2.71211233.chunk.js",
-    "static/css/main.a8ec0ff0.chunk.css",
-    "static/js/main.559a97bc.chunk.js"
+    "static/js/2.1d150f41.chunk.js",
+    "static/css/main.9470ee81.chunk.css",
+    "static/js/main.04d3c0b8.chunk.js"
   ]
 }

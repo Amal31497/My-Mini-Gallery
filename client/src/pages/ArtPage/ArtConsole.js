@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import logo from '../../logo.png'
+
+// Styling
+import logo from '../../assets/logo/logo.png'
 import { FaRegStar } from 'react-icons/fa';
 import { AiOutlineMessage } from 'react-icons/ai';
 import { FcHighPriority } from 'react-icons/fc';
 import { FcRating } from 'react-icons/fc';
 
+// Global context
 import { updateUserFavorites, updateArt, getArtist } from "../../utils/API";
 import { useArtContext } from "../../utils/GlobalState";
+
+// React DOM
 import { useHistory } from 'react-router-dom';
 
 
 const ArtConsole = (props) => {
+
+    // Global context
     const [_,dispatch] = useArtContext();
+
+    // UseHistory Hook
     const history = useHistory();
+
+    // States
     const [added, setAdded] = useState(false);
+
+    // Props
     var author = props.author;
+
+    // Window related vars
     var targetArt = window.location.search.split("?")[1];
 
+
+    // Adding to the favorite collection function
     const addFavorite = (event) => {
         event.preventDefault();
 
@@ -42,7 +59,7 @@ const ArtConsole = (props) => {
             })
     }   
     
-
+    // Find current user when page loads
     useEffect(() => {
         findCurrentUser();
     },[])
@@ -50,20 +67,22 @@ const ArtConsole = (props) => {
     return(
         <>
             <img className="logoSmall consoleElement" src={logo} alt="logo" />
-            {added === true ? 
+            {/* Favorite or not */}
+            {added === true ?
                 <>
-                    <p className="consoleElement" style={{paddingLeft:"50px"}} >Added | </p> &nbsp;
-                    <FcRating className="consoleElement" size={17} style={{marginBottom:"3px"}}/>
+                    <p className="consoleElement" style={{ paddingLeft: "50px" }} >Added | </p> &nbsp;
+                    <FcRating className="consoleElement" size={17} style={{ marginBottom: "3px" }} />
                 </>
                 :
                 <>
                     <p className="consoleElement" id="favoriteHoverElement" onClick={addFavorite}>Add to favorites | </p> &nbsp;
-                    <FaRegStar className="consoleElement" size={14} style={{marginBottom:"3px"}}/>
+                    <FaRegStar className="consoleElement" size={14} style={{ marginBottom: "3px" }} />
                 </>
             }
-            <a href="#" class="cross_line">BUY</a>
-            <p className="dmArtist consoleElement">DM {author.username} | <AiOutlineMessage style={{marginBottom:"3px"}} size={14}/></p>
-            <p className="flagThis">Flag | <FcHighPriority style={{marginBottom:"3px"}} size={14}/></p>
+            {/* DM artist - IN DEVELOPMENT */}
+            <p className="dmArtist consoleElement">DM {author.username} | <AiOutlineMessage style={{ marginBottom: "3px" }} size={14} /></p>
+            {/* Flag artist for inappropriate use - IN DEVELOPMENT */}
+            <p className="flagThis">Flag | <FcHighPriority style={{ marginBottom: "3px" }} size={14} /></p>
         </>
     )
 }

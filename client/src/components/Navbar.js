@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import LoginOrOut from "./LoginOrOut";
-import logo from "../logo.png";
+import logo from "../assets/logo/logo.png";
 import { useHistory } from 'react-router-dom';
 
 

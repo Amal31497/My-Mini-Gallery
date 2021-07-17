@@ -22,6 +22,20 @@
     width:40%;
 }
 
+.updateProfileButton:hover{
+    opacity:80%;
+    cursor: pointer;
+}
+
+.deleteProfileButton:hover{
+    opacity:80%;
+    cursor: pointer;
+}
+
+.contactProfileButton:hover{
+    opacity:80%;
+    cursor: pointer;
+}
 
 .username{
     color: white;

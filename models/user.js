@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+
+// Email validation config using regex
 var validateEmail = function(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email)
 };
 
+
+// Art schema
 const artSchema = new Schema([{
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -22,6 +26,8 @@ const artSchema = new Schema([{
     savedFavorite: { type: Number }
 }]);
 
+
+// Comment schema
 const commentSchema = new Schema({
     content: { type: String, required: true },
     user: { type: String, required: true },
@@ -38,12 +44,16 @@ const commentSchema = new Schema({
     }])]
 });
 
+
+//Avatar (User) schema
 const avatarSchema = new Schema({
     avatarSrc: { type: String },
     avatarWidthRatio: { type: Number },
     avatarHeightRatio: { type: Number }
 })
 
+
+// User schema
 const userSchema = new Schema({
     firstName: { type: String },
     username: { type: String, required: true },
@@ -70,6 +80,7 @@ const userSchema = new Schema({
 });
 
 
+// Shcemas modelling
 const User = mongoose.model("User", userSchema);
 const Art = mongoose.model("Art", artSchema);
 const Comment = mongoose.model("Comment", commentSchema);
