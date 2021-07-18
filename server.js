@@ -20,7 +20,6 @@ app.get('/getconfig', (req, res) => {
     res.json(config);
 });
 
-app.use(cors())
 
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
@@ -53,6 +52,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add routes, both API and view
+app.options(routes, cors())
 app.use(routes);
 
 // Send every request to the React app
