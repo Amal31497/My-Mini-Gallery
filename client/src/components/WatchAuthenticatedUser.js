@@ -9,16 +9,16 @@ function WatchAuthenticatedUser() {
     // console.log(state)
     useEffect(() => {
         authenticatedUser()
-        .then(response => {
-            // console.log(response)
-            if (response.data) {
-                dispatch({
-                    type: LOGIN,
-                    user: response.data.user_id
-                });
-            }
-        })
-        .catch(err => console.error(err))
+            .then(response => {
+                // console.log(response)
+                if (response.data) {
+                    dispatch({
+                        type: LOGIN,
+                        user: response.data.user_id
+                    });
+                }
+            })
+            .catch(err => console.error(err))
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return <></>;
