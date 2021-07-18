@@ -52,8 +52,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Add routes, both API and view
-app.options(routes, cors())
-app.use(routes);
+app.use(routes, cors());
 
 // Send every request to the React app
 // Define any API routes before this runs
