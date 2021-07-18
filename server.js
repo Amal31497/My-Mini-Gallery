@@ -5,6 +5,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+var cors = require('cors')
 require('dotenv').config()
 const PORT = process.env.PORT || 3001;
 
@@ -19,6 +20,8 @@ app.get('/getconfig', (req, res) => {
     res.json(config);
 });
 
+app.use(cors())
+
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI || "mongodb://localhost/myMiniGallery",
     collection: "sessions"
@@ -26,14 +29,6 @@ const store = new MongoDBStore({
 
 store.on("error", (error) => {
     console.log(error);
-});
-
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
 });
 
 app.use(session({
