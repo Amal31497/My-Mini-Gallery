@@ -9,6 +9,8 @@ var cors = require('cors')
 require('dotenv').config()
 const PORT = process.env.PORT || 3001;
 
+app.use(cors());
+
 const config = {
     accessKey:process.env.REACT_APP_ACCESS_KEY,
     secretAccessKEY:process.env.REACT_APP_SECRET_ACCESS_KEY,
@@ -51,16 +53,8 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
-
-var corsOptions = {
-    origin: 'http://localhost19006',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
 // Add routes, both API and view
-app.use(routes, cors(corsOptions), function (req, res, next) {
-    res.json({ msg: 'This is CORS-enabled for only example.com.' })
-});
+app.use(routes);
 
 // Send every request to the React app
 // Define any API routes before this runs
