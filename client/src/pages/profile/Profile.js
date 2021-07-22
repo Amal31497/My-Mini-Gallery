@@ -88,7 +88,7 @@ function Profile() {
       setPersonalProfile(true);
     }
     if (_.user.length) {
-      getArtist(_.user)
+      getArtist(personalProfile === true ? _.user : query)
         .then(response => {
           setArtist(response.data);
           getAllArt()
