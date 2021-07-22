@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Gallery from "react-photo-gallery";
-import { useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-import { useArtContext } from "../utils/GlobalState";
-import { getAllArt } from "../utils/API";
 import uuid from 'react-uuid';
 import axios from 'axios';
 import "./gallery.css";

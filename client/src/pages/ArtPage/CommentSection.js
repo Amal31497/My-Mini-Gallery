@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from 'react';
 
 // Global Context
@@ -40,17 +42,19 @@ const CommentSection = () => {
 
     // Load current user (setup for comment submission)
     useEffect(() => {
-        getArtist(_.user)
-            .then(response => {
-                // console.log(response.data)
-                setArtist({
-                    username:response.data.username,
-                    avatar: response.data.avatar,
-                    description: response.data.description,
-                    firstName: response.data.firstName
+        if(_.user.length > 0){
+            getArtist(_.user)
+                .then(response => {
+                    // console.log(response.data)
+                    setArtist({
+                        username: response.data.username,
+                        avatar: response.data.avatar,
+                        description: response.data.description,
+                        firstName: response.data.firstName
+                    })
                 })
-            })
-            .catch(error => console.log(error))
+                .catch(error => console.log(error))
+        }
     },[_.user])
 
     // Comment submit listener
@@ -152,12 +156,13 @@ const CommentSection = () => {
     }
     useEffect(() => {
         showComments();
-    },[artId])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
 
     return(
         <>
-            {(_.user&&_.user.length === 0) ? 
+            {_.user.length ? 
                 // Comments or Login
                 <div className="addOrJoin col-12">
                     <div className="row" style={{ width: "100%" }}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { login } from "../../utils/API";
 import { useArtContext } from '../../utils/GlobalState';
@@ -44,53 +44,55 @@ const FormLogin = ({ submitForm }) => {
 
   return (
     <div className='row'>
-      <form onSubmit={handleSubmit} className='form' noValidate>
-        <h1> Welcome Back!</h1>
-        <div className='col-5'>
-          <div className='form-inputs'>
-            <label className='form-label'>Username</label>
-            <input
-              className='form-input'
-              type='text'
-              name='username'
-              placeholder='Enter your username'
-              value={values.username}
-              onChange={handleChange}
-              ref={usernameRef}
-            />
-            {errors.username && <p>{errors.username}</p>}
+      <div className="container">
+        <form onSubmit={handleSubmit} className='form' noValidate>
+          <h1> Welcome Back!</h1>
+          <div className='col-5'>
+            <div className='form-inputs'>
+              <label className='form-label'>Username</label>
+              <input
+                className='form-input'
+                type='text'
+                name='username'
+                placeholder='Enter your username'
+                value={values.username}
+                onChange={handleChange}
+                ref={usernameRef}
+              />
+              {errors.username && <p>{errors.username}</p>}
+            </div>
           </div>
-        </div>
 
-        <div className='col-5'>
-          <div className='form-inputs'>
-            <label className='form-label'>Password</label>
-            <input
-              className='form-input'
-              type='password'
-              name='password'
-              placeholder='Enter your password'
-              value={values.password}
-              onChange={handleChange}
-              ref={passwordRef}
-            />
-            {errors.password && <p>{errors.password}</p>}
+          <div className='col-5'>
+            <div className='form-inputs'>
+              <label className='form-label'>Password</label>
+              <input
+                className='form-input'
+                type='password'
+                name='password'
+                placeholder='Enter your password'
+                value={values.password}
+                onChange={handleChange}
+                ref={passwordRef}
+              />
+              {errors.password && <p>{errors.password}</p>}
+            </div>
           </div>
-        </div>
 
-        <div className='col-5'>
-          <button className='form-input-btn' type='submit' onClick={handleLogin}>
-            Login
+          <div className='col-5'>
+            <button className='form-input-btn' type='submit' onClick={handleLogin}>
+              Login
         </button>
-          <span className='form-input-login'>
-            Forgot your password? Reset your password <a href='/'>here</a>
-          </span>
-          <br></br>
-          <span className='form-input-login'>
-            Don't have an account? Signup <a href='/signup'>here</a>
-          </span>
-        </div>
-      </form>
+            <span className='form-input-login'>
+              Forgot your password? Reset your password <a href='/'>here</a>
+            </span>
+            <br></br>
+            <span className='form-input-login'>
+              Don't have an account? Signup <a href='/signup'>here</a>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

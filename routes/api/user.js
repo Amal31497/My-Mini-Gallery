@@ -22,7 +22,7 @@ router
 
 router
     .route("/authenticatedUser")
-    .get(userController.authenticatedUser)
+    .get(userController.authenticatedUser);
 
 // Matches with "/api/user/:id"
 router
@@ -30,5 +30,13 @@ router
     .get(userController.findUserById)
     .put(userController.updateUser)
     .delete(userController.removeUser);
+
+router
+    .route("/addNewArt/:id")
+    .put(userController.addNewArtToUser);
+
+router
+    .route("/addNewFavorite/:id")
+    .put(userController.addNewFavoriteArtToUser);
 
 module.exports = router;

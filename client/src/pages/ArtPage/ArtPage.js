@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 
 // Global context
@@ -13,6 +14,9 @@ import CommentSection from './CommentSection';
 
 // Styling
 import { Spinner } from 'react-bootstrap';
+import { AiOutlineImport } from 'react-icons/ai';
+import { RiDeleteBinLine } from 'react-icons/ri';
+
 import './ArtPage.css';
 
 
@@ -79,86 +83,88 @@ const ArtPage = () => {
 
     return (
         <div className="artPage">
-            {(art && artist) ?
-                <div className="row">
-                    {/* Art image and information whether it is current user's post or not */}
-                    <div className="art col-12">
-                        <img
-                            className="actualImage"
-                            src={art.src}
-                            alt={art.title}
-                            style={{
-                                height: `${art.heightRatio * 450}px`,
-                                width: `${art.widthRatio * 450}px`
-                            }}
-                        />
-                    </div>
-                    {/* If current user's posting that they are given option to delete */}
-                    {art.user === state.user ?
-                        <div className="artDeleteOrUpdate col-12">
-                            <p>This is your posting</p>
-                            <button type="button" class="btn btn-danger btn-xs" onClick={openDeleteModal}>Delete</button>
+            <div className="container">
+                {(art && artist) ?
+                    <div className="row">
+                        {/* Art image and information whether it is current user's post or not */}
+                        <div className="art col-12">
+                            <img
+                                className="actualImage"
+                                src={art.src}
+                                alt={art.title}
+                                style={{
+                                    height: `${art.heightRatio * 450}px`,
+                                    width: `${art.widthRatio * 450}px`
+                                }}
+                            />
                         </div>
-                        :
-                        null
-                    }
-                    {/* Delete Modal Begin */}
-                    {deleteModal === true ?
-                        <div className="modal" tabIndex="-1" style={{ display: "block" }}>
-                            <div className="modal-dialog modal-md modal-dialog-centered">
-                                <div className="modal-content">
-                                    <h4 style={{marginLeft:"auto", marginRight:"auto"}}>Are you sure you want to delete this art?</h4>
-                                    <p style={{marginLeft:"auto", marginRight:"auto"}}>All comments for this art will be deleted too.</p>
-                                    <div className="row" style={{width:"80%", marginLeft:"auto", marginRight:"auto"}}>
-                                        <button onClick={closeDeleteModal} type="button" className="col-6 btn btn-light">No!</button>
-                                        <button onClick={deleteThisArt} type="button" className="col-6 btn btn-danger">Yes, Delete my Account</button>
+                        {/* If current user's posting that they are given option to delete */}
+                        {art.user === state.user ?
+                            <div className="artDeleteOrUpdate col-12">
+                                <p>This is your posting</p>
+                                <button type="button" className="btn btn-danger btn-xs" onClick={openDeleteModal}>Delete</button>
+                            </div>
+                            :
+                            null
+                        }
+                        {/* Delete Modal Begin */}
+                        {deleteModal === true ?
+                            <div className="modal deleteModal" tabIndex="-1">
+                                <div className="modal-dialog modal-md modal-dialog-centered">
+                                    <div className="modal-content">
+                                        <h4 style={{ marginLeft: "auto", marginRight: "auto" }}>Are you sure you want to delete this art?</h4>
+                                        <p style={{ marginLeft: "auto", marginRight: "auto" }}>All comments for this art will be deleted too.</p>
+                                        <div className="row" style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
+                                            <AiOutlineImport onClick={closeDeleteModal} type="button" size={40} className="col-6 exitButtonDeleteModal" />
+                                            <RiDeleteBinLine onClick={deleteThisArt} type="button" size={40} color="#ff6961" className="col-6 deleteButtonDeleteModal" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            :
+                            null
+                        }
+                        {/* Delete Modal End */}
+
+                        {/* About Author section */}
+                        <div className="artistInfo col-12" style={{ height: `50%`, width: "100%" }}>
+                            <div className="col-12"><ArtConsole author={artist} className="artConsole" /></div>
+                            <br /><br />
+                            <AboutAuthor
+                                art={art}
+                                author={artist}
+                                className="aboutAuthor"
+                            />
                         </div>
-                        :
-                        null
-                    }
-                    {/* Delete Modal End */}
+                        {/* End About Author Section */}
 
-                    {/* About Author section */}
-                    <div className="artistInfo col-12" style={{ height: `50%`, width: "100%" }}>
-                        <div className="col-12"><ArtConsole author={artist} className="artConsole" /></div>
-                        <br /><br />
-                        <AboutAuthor
-                            art={art}
-                            author={artist}
-                            className="aboutAuthor"
-                        />
-                    </div>
-                    {/* End About Author Section */}
-
-                    {/* More by author Section */}
-                    <div className="moreByAuthor col-12">
-                        <div className="row">
-                            <h4 className="col-12 moreByAuthorTitle" style={{ color: "white" }}>
-                                More by {artist.username}
-                            </h4>
-                            <div className="col-12" style={{ height: "112vh" }}>
-                                <MoreByArtist
-                                    artist={artist}
-                                />
+                        {/* More by author Section */}
+                        <div className="moreByAuthor col-12">
+                            <div className="row">
+                                <h4 className="col-12 moreByAuthorTitle" style={{ color: "white" }}>
+                                    More by {artist.username}
+                                </h4>
+                                <div className="col-12" style={{ height: "112vh" }}>
+                                    <MoreByArtist
+                                        artist={artist}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {/* End More by Author Section */}
+                        {/* End More by Author Section */}
 
-                    {/* Comment Section */}
-                    <div className="commentSection col-12">
-                        <div className="row" style={{ width: "100%", height: "25px" }}>
-                            <CommentSection />
+                        {/* Comment Section */}
+                        <div className="commentSection col-12">
+                            <div className="row" style={{ width: "100%", height: "25px" }}>
+                                <CommentSection />
+                            </div>
                         </div>
+                        {/* End Comment Section */}
                     </div>
-                    {/* End Comment Section */}
-                </div>
-                :
-                null
-            }
+                    :
+                    null
+                }
+            </div>
         </div>
     )
 }

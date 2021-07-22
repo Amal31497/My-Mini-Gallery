@@ -7,7 +7,7 @@ import Moment from 'react-moment'; // Moment.js date formatting
 // React DOM
 import { useHistory } from 'react-router-dom';
 
-
+import uuid from 'react-uuid';
 
 const AboutAuthor = (props) => {
 
@@ -24,7 +24,7 @@ const AboutAuthor = (props) => {
         history.push(`/search?${event.target.getAttribute("value")}`)
         window.scrollTo(0, 0)
     }
-    
+
     // Go to artist personal page
     const checkoutArtist = (event) => {
         event.preventDefault();
@@ -34,7 +34,7 @@ const AboutAuthor = (props) => {
 
     return (
         <>
-            <div className="row" style={{marginBottom:"30px", scrollBehavior:"smooth"}}>
+            <div className="row" style={{ marginBottom: "30px", scrollBehavior: "smooth" }}>
                 {/* Artist Avatar */}
                 {artist ?
                     <div className="artistImage col-lg-1 col-md-3 col-sm-4 col-xs-1">
@@ -53,15 +53,15 @@ const AboutAuthor = (props) => {
                     :
                     <Spinner animation="grow" variant="dark" />
                 }
-                
+
                 {/* Artist/Art info : (Art title, name, genre, length and width, description) */}
                 <div className="artistInfo col-lg-3 col-md-9 col-sm-8 col-xs-11">
                     {art ? <h3>{art.title}</h3> : <Spinner animation="grow" variant="dark" />}
                     {art ?
                         // Id attribute use int find artist function to view profile
                         <h6 className="artistLink" id={artist._id} onClick={checkoutArtist}>
-                            by <span id={artist._id} onClick={checkoutArtist} >{artist.username}</span>
-                            on <Moment format="MMMM D / YYYY" id={artist._id} onClick={checkoutArtist}>{art.date}</Moment>
+                            by  <span id={artist._id} onClick={checkoutArtist} >{artist.username}</span>{" "}
+                            on  <Moment format="MMMM D / YYYY" id={artist._id} onClick={checkoutArtist}>{art.date}</Moment>
                         </h6>
                         :
                         <Spinner animation="grow" variant="dark" />
@@ -81,24 +81,22 @@ const AboutAuthor = (props) => {
             {/* Tags -> Links to search based on tag value */}
             <div className="row justify-content-center">
                 {art.tags.map(tag => {
-                    return(
-                        <>
-                            {/* Tag button, each is a link to quick search */}
-                            <button 
-                                type="button" 
-                                class="btn btn-outline-secondary" 
-                                value={tag} 
-                                onClick={runQuery}>
-                                {tag}
-                            </button>
+                    return (<div key={JSON.stringify(uuid())}>
+                        {/* Tag button, each is a link to quick search */}
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            value={tag}
+                            onClick={runQuery}>
+                            {tag}
+                        </button>
                             &nbsp;&nbsp;
-                        </>
-                    )
+                        </div>)
                 })}
             </div>
-            
+
         </>
     )
-} 
+}
 
 export default AboutAuthor;

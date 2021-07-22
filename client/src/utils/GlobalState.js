@@ -2,8 +2,7 @@ import React, { createContext, useReducer, useContext } from 'react';
 // Actions
 import {
     LOGIN,
-    LOGOUT,
-    RUN_QUERY
+    LOGOUT
 } from "./actions"
 
 // Global context init
@@ -22,11 +21,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: {}
-            }
-        case RUN_QUERY:
-            return {
-                ...state,
-                art: action.art
             }
         default:
             return state

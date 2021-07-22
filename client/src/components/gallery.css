@@ -1,3 +1,7 @@
 .flickrGallery{
     display:block;
 }
+
+.galleryImage{
+    display:"relative"
+}

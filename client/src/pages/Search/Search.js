@@ -14,7 +14,7 @@ const Search = () => {
     var query = window.location.search.split("?")[1];
 
     const [searchResult,setSearchResult] = useState();
-    const [openedImage, setOpenedImage] = useState({});
+    // const [openedImage, setOpenedImage] = useState({});
     const history = useHistory();
 
     const searchRef = useRef();
@@ -22,7 +22,7 @@ const Search = () => {
     const selectImage = (event) => {
         event.preventDefault();
         var selected = {id:event.target.getAttribute("id")}
-        setOpenedImage(selected);
+        // setOpenedImage(selected);
         history.push(`artPage?${selected.id}`)
     }
 
@@ -56,17 +56,18 @@ const Search = () => {
         .catch(error => console.log(error.message))
     },[query])
     
-    return(
-        <div className="mainSearch" >
-            <div className="searchBar row" style={{width:"100%"}}>
-                <p className="col-12 searchBarElement" id="searchTitleTag">Search <BsSearch size={15}  /></p>
-                <input className="col-lg-11 col-md-10 col-sm-9 col-xs-8 searchBarElement" id="input" ref={searchRef} defaultValue={query}></input><BsSearch className="col-lg-1 col-md-2 col-sm-3 col-xs-4" id="searchButtonMain" onClick={runQuery}  size={20} />
-                <p className="col-12 searchBarElement" id="searchResultNumber" >{searchResult?searchResult.length : null} &nbsp; results</p>
+    return (
+        <div className="mainSearch">
+            
+            <div className="searchBar row" style={{ width: "100%" }}>
+                <p className="col-12 searchBarElement" id="searchTitleTag">Search <BsSearch size={15} /></p>
+                <input className="col-lg-11 col-md-10 col-sm-9 col-xs-8 searchBarElement" id="input" ref={searchRef} defaultValue={query}></input><BsSearch className="col-lg-1 col-md-2 col-sm-3 col-xs-4" id="searchButtonMain" onClick={runQuery} size={20} />
+                <p className="col-12 searchBarElement" id="searchResultNumber" >{searchResult ? searchResult.length : null} &nbsp; results</p>
             </div>
             <div className="resultsWrapper">
-                {searchResult?
-                    (searchResult.length > 0)?
-                        <div className={searchResult.length ===1? "galleryWrapperSingle":"galleryWrapperMultiple"}>
+                {searchResult ?
+                    (searchResult.length > 0) ?
+                        <div className={searchResult.length === 1 ? "galleryWrapperSingle" : "galleryWrapperMultiple"}>
                             <Gallery className="galleryResult" key={searchResult.key} photos={searchResult} onClick={selectImage} />
                         </div>
                         :
@@ -78,6 +79,7 @@ const Search = () => {
                     <Spinner animation="grow" variant="dark" />
                 }
             </div>
+
         </div>
     )
 }

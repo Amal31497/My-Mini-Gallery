@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import Gallery from "react-photo-gallery";
 import { useHistory } from 'react-router-dom';
@@ -71,6 +72,7 @@ const GenrePage = () => {
         getAllArt()
             .then(response => {
                 var selectedArt = [];
+                // eslint-disable-next-line array-callback-return
                 response.data.map(art => {
                     if(art.genre === selectedGenre) {
                         selectedArt.push(
@@ -91,7 +93,7 @@ const GenrePage = () => {
                 })
                 setArtwork(selectedArt)
             })
-    },[])
+    },[selectedGenre])
 
     const selectImage = (event) => {
         event.preventDefault();
@@ -101,16 +103,18 @@ const GenrePage = () => {
 
     return(
         <div className="genreSearchPageMain">
-            <p className="backToGenres" onClick={takeMeBack}><span><TiChevronLeftOutline size={20} /></span> Back to Genres</p>
-            <h4 className="titleGenre">{window.location.search.split("?")[1].replace("%20", " ")}</h4>
-            <div className="galleryPart">
-                {artWork&&artWork.length > 0 ? 
-                    <div className="gallery">
-                        <Gallery key={artWork.key} photos={artWork} onClick={selectImage} />
-                    </div>
-                    :
-                    <h3 onClick={uploadArt} className="addGenreText" style={{color:"rgb(231,233,235)"}}>Be the first one to add to this genre! <BiRightArrow size={24}/> </h3>
-                }
+            <div className="container">
+                <p className="backToGenres" onClick={takeMeBack}><span><TiChevronLeftOutline size={20} /></span> Back to Genres</p>
+                <h4 className="titleGenre">{window.location.search.split("?")[1].replace("%20", " ")}</h4>
+                <div className="galleryPart">
+                    {artWork && artWork.length > 0 ?
+                        <div className="gallery">
+                            <Gallery key={artWork.key} photos={artWork} onClick={selectImage} />
+                        </div>
+                        :
+                        <h3 onClick={uploadArt} className="addGenreText" style={{ color: "rgb(231,233,235)" }}>Be the first one to add to this genre! <BiRightArrow size={24} /> </h3>
+                    }
+                </div>
             </div>
         </div>
     )

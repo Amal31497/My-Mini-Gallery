@@ -14,7 +14,8 @@ function LoginOrOut(){
         logout()
             .then(response => {
                 dispatch({
-                    type: LOGOUT
+                    type: LOGOUT,
+                    user:{}
                 });
                 history.push("/");
             })
