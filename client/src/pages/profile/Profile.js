@@ -82,13 +82,23 @@ function Profile() {
 
   useEffect(() => {
 
-    if (query) {
-      setPersonalProfile(query === _.user);
+    if(_.user.length > 0 && query){
+      setPersonalProfile(query === _.user)
+    } else if(_.user.length > 0 && !query){
+      setPersonalProfile(true)
     } else {
-      setPersonalProfile(true);
+      setPersonalProfile(false)
     }
-    if (_.user.length) {
-      getArtist(personalProfile === true ? _.user : query)
+    
+    let whichProfile;
+    if(personalProfile === true){
+      whichProfile = _.user
+    } else {
+      whichProfile = query
+    }
+
+    if (_.user.length > 0||query) {
+      getArtist(whichProfile)
         .then(response => {
           setArtist(response.data);
           getAllArt()
