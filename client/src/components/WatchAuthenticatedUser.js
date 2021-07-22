@@ -15,11 +15,6 @@ function WatchAuthenticatedUser() {
                         type: LOGIN,
                         user: response.data.user_id
                     });
-                } else {
-                    dispatch({
-                        type: LOGOUT,
-                        user: {}
-                    });
                 }
             })
             .catch(err => console.error(err))
