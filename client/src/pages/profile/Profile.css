@@ -85,6 +85,12 @@
     margin-bottom:20px;
 }
 
+.deleteModal{
+    display:block;
+    height:100%;
+    width:100%;
+}
+
 .modal{
     background-color: rgba(0,0,0, 0.6); 
     color:white;
@@ -109,7 +115,6 @@
     margin-bottom:35px;
 }
 
-
 .modalLabelInfoLeftElement,
 .modalTextInfoLeftElement,
 .modalLabelInfoRightElement,
@@ -118,6 +123,9 @@
     margin:auto;
 }
 
+.descriptionText{
+    word-wrap: break-word;
+}
 
 .modalTextInfoLeftElement{
     border:none; 
@@ -143,4 +151,14 @@
 
 .aboutArtistSection>*{
     width:50%;
+}
+
+.selectedOptionGalleryOrFavorites{
+    background: white;
+    color:black;
+    font-weight: 800;
+}
+
+.optionGalleryOrFavorites{
+    padding:10px 30px
 }

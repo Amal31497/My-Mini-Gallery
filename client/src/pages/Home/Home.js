@@ -1,10 +1,9 @@
 // React
-import React, { useState } from "react";
+import React from "react";
 
 // Components
 import Header from "../../components/Header";
 import Gallery from "../../components/Gallery";
-import GalleryFlickr from '../../components/GalleryFlickr';
 
 // Third Party Dependencies
 import Particles from 'react-particles-js';
@@ -16,19 +15,6 @@ import { useArtContext } from "../../utils/GlobalState";
 function Home() {
     // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useArtContext();
-    const [selectedGallery, setSelectedGallery] = useState('flickr-gallery')
-
-    // Toggle to My Mini Gallery Function
-    const selectMyMiniGallery = (event) => {
-        event.preventDefault();
-        setSelectedGallery("my-mini-gallery");
-    }
-
-    // Toggle to Flickr API gallery function
-    const selectFlickrGallery = (event) => {
-        event.preventDefault();
-        setSelectedGallery("flickr-gallery");
-    }
 
     return (
         <div style={{height:"400vh", background:"black" }}>
@@ -87,29 +73,13 @@ function Home() {
                 }}
             />
             {/* End Particles */}
+            
             {/* Main */}
             <div style={{ background: "black" }}>
-                {/* Header Component */}
                 <Header />
-                {/* Gallery Section (Main gallery or Flickr - both Components) */}
                 <div className="gallery">
-                    <div className="homeConsole">
-                        {/* Event click -> open main gallery */}
-                        <div className="homeConsoleElement" onClick={selectMyMiniGallery}>
-                            <p>My Mini Gallery</p>
-                        </div>
-                         {/* Event click -> open Flickr gallery */}
-                        <div className="homeConsoleElement" onClick={selectFlickrGallery}>
-                            <p>Flickr API Gallery</p>
-                        </div>
-                    </div>
-                    {selectedGallery === "my-mini-gallery" ? 
-                        <Gallery />
-                        :
-                        <GalleryFlickr />
-                    }
+                    <Gallery />
                 </div>
-                {/* End Gallery Section */}
             </div>
             {/* End Main */}
         </div>

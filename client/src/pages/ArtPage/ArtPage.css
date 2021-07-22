@@ -19,6 +19,16 @@
     margin-right:auto;
 }
 
+.smallLogo{
+    height: 27px;
+}
+
+.smallLogo:hover{
+    cursor:pointer;
+    box-shadow: 0px 0px 80px 10px #abd7eb;
+    background-color:#424343;
+}
+
 /* Left - Right */
 /* ... */
 
@@ -274,8 +284,15 @@
 .moreByArtistWrapper{
     margin-left:auto;
     margin-right:auto;
-    width:80vw;
+    width:75vw;
     color:white;
+}
+
+.moreByArtistImage{
+    max-width: 300px;
+    max-height: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .moreByArtistImage:hover{
@@ -360,42 +377,13 @@
     padding-left:20px;
 }
 
+.deleteModal{
+    display: block;
+    height:100%; 
+    width:100%;
+}
 
-
-/* Purchase Button */
-.cross_line{
-    float:right;
-    display: inline-block;
-    position: relative;
-    padding: 0.25em 1em;
-    margin-left:15px;
-    border-top: solid 2px black;
-    border-bottom: solid 2px black;
-    text-decoration: none;
-    font-weight: bold;
-    color: #03A9F4;
+.modal-content{
+    padding:40px;
 }
-.cross_line:before, .cross_line:after{
-    content: '';
-    position: absolute;
-    top: -7px;
-    width: 2px;
-    height: -webkit-calc(100% + 14px);
-    height: calc(100% + 14px);
-    background-color: black !important;
-    transition: .3s;
-}
-.cross_line:before {left: 7px;}
-.cross_line:after {right: 7px;}
-.cross_line:hover:before{
-    top: 0px;
-    left:0;
-    height: 100%;
-}
-.cross_line:hover:after{
-    top: 0px;
-    right: 0;
-    height: 100%;
-}
-/* ... */
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 
 // Styling
@@ -8,7 +9,7 @@ import { FcHighPriority } from 'react-icons/fc';
 import { FcRating } from 'react-icons/fc';
 
 // Global context
-import { updateUserFavorites, updateArt, getArtist } from "../../utils/API";
+import { addNewFavoriteArt, updateArt, getArtist } from "../../utils/API";
 import { useArtContext } from "../../utils/GlobalState";
 
 // React DOM
@@ -32,45 +33,55 @@ const ArtConsole = (props) => {
     // Window related vars
     var targetArt = window.location.search.split("?")[1];
 
+    const findCurrentUser = () => {
+        if (_.user.length > 0) {
+            getArtist(_.user)
+                .then(response => {
+                    if (response.data.favorites.includes(targetArt)) {
+                        setAdded(true);
+                    }
+                })
+                .catch(error => console.log(error))
+        }
+    }
+
+    // Find current user when page loads
+    useEffect(() => {
+        findCurrentUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [_.user])
+
 
     // Adding to the favorite collection function
     const addFavorite = (event) => {
         event.preventDefault();
 
         if(_.user.length > 0){
-            updateUserFavorites(_.user, { favorite: targetArt })
+            addNewFavoriteArt(_.user, { favorite: targetArt })
                 .then(response => {
                     findCurrentUser();
+                    updateArt(targetArt, { savedFavorite: 1 })
                     window.location.reload();
+                    window.scrollTo(300,0)
                 })
-            updateArt(targetArt, { savedFavorite: 1 })
         } else {
             history.push("/login")
             window.scrollTo(0, 0)
         }
     }
 
-    const findCurrentUser = () => {
-        getArtist(_.user)
-            .then(response => {
-                if(response.data.favorites.includes(targetArt)){
-                    setAdded(true);
-                }
-            })
-    }   
-    
-    // Find current user when page loads
-    useEffect(() => {
-        findCurrentUser();
-    },[])
+    const takeMeHome = (event) => {
+        event.preventDefault();
+        history.push("/")
+    }
 
     return(
         <>
-            <img className="logoSmall consoleElement" src={logo} alt="logo" />
+            <img className="smallLogo" src={logo} alt="logo" onClick={takeMeHome} />
             {/* Favorite or not */}
             {added === true ?
                 <>
-                    <p className="consoleElement" style={{ paddingLeft: "50px" }} >Added | </p> &nbsp;
+                    <p className="consoleElement" style={{ marginLeft: "50px" }} >Added | </p> &nbsp;
                     <FcRating className="consoleElement" size={17} style={{ marginBottom: "3px" }} />
                 </>
                 :

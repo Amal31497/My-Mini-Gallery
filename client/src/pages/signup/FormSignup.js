@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { signup } from '../../utils/API';
 import { useArtContext } from '../../utils/GlobalState';
-import { CREATE_ARTIST, LOGIN } from "../../utils/actions";
+import { LOGIN } from "../../utils/actions";
 import { useHistory } from 'react-router-dom';
 import validate from './validateInfo';
 import useForm from './useForm';

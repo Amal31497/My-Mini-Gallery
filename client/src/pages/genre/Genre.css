@@ -1,13 +1,25 @@
+@media screen and (max-width: 576px){
+  .background{
+    padding-top:30px;
+    position: relative;
+    background-color: black;
+    background-size: cover;
+    background-position: center;
+    height: 510vh !important;
+  }
+}
+
 .background{
     position: relative;
     background-color: black;
     background-size: cover;
     background-position: center;
     height: 100vh;
+    padding-top:30px;
   }
 
   .card {
-    margin-top: 3vh;
+    /* margin-top: 3vh; */
     margin-left: 20px;
     margin-right: 20px;
     border-radius: 10% !important;

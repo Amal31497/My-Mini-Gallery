@@ -6,16 +6,6 @@
   height: 100vh;
 }
 
-@media screen and (max-width: 1000px){
-  .formBackground3{
-    position: relative;
-    background: url(../../assets/backgroundsAndEssentials/post.jpeg) no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 1100px;
-  }
-}
-
 .form-label2 {
   display: inline-block;
   font-size: 16px;
@@ -24,15 +14,15 @@
 }
 
 .form-input{
-  width:26rem !important;
+  width:100% !important;
 }
 
 .form-inputs{
-  justify-content: center;
+  display:block;
 }
 
 #artDescription, #genreSelects{
-  width:26rem !important;
+  width:100% !important;
 }
 
 .form-input::placeholder {
@@ -47,7 +37,7 @@
 }
 
 .form-input-btn {
-  width: 26rem !important;
+  width: 100% !important;
   height: 40px;
   margin-top: 10px;
   border-radius: 2px;
@@ -83,5 +73,5 @@
 }
 
 .form-container{
-  width:100% !important;
+  width:74vw !important;
 }

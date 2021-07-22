@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Gallery from "react-photo-gallery";
 import { useHistory } from 'react-router-dom';
@@ -22,6 +23,7 @@ const Gallery2 = () => {
                 if (response.data) {
                     var allPhotos = response.data.map(art => {
                         return {
+                            className:"galleryImage",
                             key: JSON.stringify(uuid()),
                             id: art._id,
                             title: art.title,
@@ -53,7 +55,7 @@ const Gallery2 = () => {
     return (
         <div className="gallery" style={{ width:"100%" }}>
             {images?
-                <Gallery key={images.key} photos={images} onClick={selectImage} />
+                <Gallery key={images.key} photos={images} onClick={selectImage}  />
                 :
                 <Spinner animation="grow" variant="dark" />
             }

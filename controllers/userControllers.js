@@ -19,21 +19,39 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
-    updateUser: async (req, res) => {
+    addNewArtToUser: async (req,res) => {
         try {
-            var user;
-            if(req.body._id){
-                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{art:req.body._id}}, {upsert:true});
-            } else if(req.body.favorite){
-                user = await db.User.findOneAndUpdate({ _id: req.params.id}, {$push:{favorites:req.body.favorite}}, {upsert:true});
-            } else {
-                user = await db.User.findOneAndUpdate({ _id: req.params.id }, req.body);
-            }
+            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { art: req.body._id } }, { upsert: true });
+
             await user.save();
             res.json(user)
         } catch (error) {
             console.error(error);
-            res.status(400).json(error);
+            res.status(422).json(error);
+        }
+    },
+
+    addNewFavoriteArtToUser: async (req,res) => {
+        try {
+            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { favorites: req.body.favorite } }, { upsert: true });
+
+            await user.save();
+            res.json(user)
+        } catch (error) {
+            console.error(error);
+            res.status(422).json(error);
+        }
+    },
+
+    updateUser: async (req, res) => {
+        try {
+            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
+
+            await user.save();
+            res.json(user)
+        } catch (error) {
+            console.error(error);
+            res.status(422).json(error);
         }
     },
 
