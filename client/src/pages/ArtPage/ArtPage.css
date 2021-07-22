@@ -25,7 +25,7 @@
 
 .smallLogo:hover{
     cursor:pointer;
-    box-shadow: 0px 0px 80px 10px #abd7eb;
+    box-shadow: 0px 0px 90px 9px #abd7eb;
     background-color:#424343;
 }
 
@@ -67,6 +67,7 @@
 .dmArtist:hover{
     text-decoration:underline;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .flagThis{
@@ -76,6 +77,7 @@
 .flagThis:hover{
     text-decoration:underline;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .consoleElement{
@@ -95,6 +97,7 @@
 #favoriteHoverElement:hover{
     text-decoration:underline;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .artDescription{
@@ -152,10 +155,16 @@
 
 /* ... */
 
+
+.authorAvatar:hover{
+    cursor:pointer;
+    filter:brightness(1.2) !important;
+}
+
 .artistLink:hover{
     text-decoration: underline;
-    opacity:80%;
     cursor:pointer;
+    filter:brightness(1.2);
 }
 
 /* BOTTOM */
@@ -165,7 +174,7 @@
     display:flex;
     justify-content: center;
     padding:30px;
-    margin-top: 120px;
+    margin-top: 250px;
     width:70%;
     color:white;
     height:85vh
@@ -191,23 +200,26 @@
 .commentReply:hover{
     text-decoration: underline;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .commentDelete:hover{
     color:red;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .responseBox{
     background: #4d4d52 !important;
-    width:90%;
+    width:80%;
     padding-top:13px;
-    padding-left: 10px;
-    padding-bottom:5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom:10px;
 }
 
 .responseText{
-    width:90%;
+    width:80%;
     margin-left:15px;
 }
 
@@ -218,6 +230,7 @@
 .responseButtons:hover{
     text-decoration:underline;
     cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .vl {
@@ -298,6 +311,7 @@
 .moreByArtistImage:hover{
     cursor:pointer;
     opacity:80%;
+    filter:brightness(1.2)
 }
 
 .moreByAuthor{
@@ -328,6 +342,7 @@
 .genreWrapper>h4:hover{
     color:rgb(105, 87, 224);
     cursor:pointer;
+    
 }
 
 .addGenreText:hover{
@@ -335,7 +350,6 @@
     opacity:40% !important;
     cursor:pointer;
 }
-
 
 /* ... */
 
@@ -345,19 +359,32 @@
     width:90%;
 }
 
+.sendCommentButtonIcon:hover{
+    color:rgb(116,96,226);
+    cursor:pointer;
+    filter:brightness(1.2)
+}
+
+
 .addComment{
     width:90%;
 }
 
 .commentArtistThumbnail{
-    height:60px;
-    width:44px;
+    height:45px;
+    width:34px;
+}
+
+.commentArtistThumbnail:hover{
+    cursor:pointer;
+    filter:brightness(1.2)
 }
 
 .mainComment{
     word-break: break-all;
     white-space: normal;
     background: #4d4d52 !important;
+    width:80%;
     padding-top:13px;
     padding-left: 20px;
     padding-right: 20px;
@@ -373,8 +400,8 @@
     cursor:pointer;
 }
 
-.responseReportButton{
-    padding-left:20px;
+#responseReportButton{
+    margin-left:15%;
 }
 
 .deleteModal{
