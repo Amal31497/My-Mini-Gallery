@@ -23,7 +23,7 @@ module.exports = {
         try {
             let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { art: req.body._id } }, { upsert: true }, { new: true });
 
-            await user.save();
+            // await user.save();
             res.json(user)
         } catch (error) {
             console.error(error);
@@ -35,7 +35,7 @@ module.exports = {
         try {
             let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { favorites: req.body.favorite } }, { upsert: true }, { new: true });
 
-            await user.save();
+            // await user.save();
             res.json(user)
         } catch (error) {
             console.error(error);
