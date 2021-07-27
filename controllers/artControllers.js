@@ -20,11 +20,11 @@ module.exports = {
         try {
             var art;
             if(req.body._id){
-                art = await db.Art.findOneAndUpdate({ _id: req.params.id}, {$push:{comments:req.body}}, {upsert:true});
+                art = await db.Art.findOneAndUpdate({ _id: req.params.id }, { $push: { comments: req.body } }, { upsert: true }, { new: true });
             } else if(req.body.savedFavorite){
-                art = await db.Art.findOneAndUpdate({ _id: req.params.id}, {$inc:{savedFavorite:1}}).exec();
+                art = await db.Art.findOneAndUpdate({ _id: req.params.id }, { $inc: { savedFavorite: 1 } }, { new: true }).exec();
             } else {
-                art = await db.Art.findOneAndUpdate({ _id:req.params.id }, req.body);
+                art = await db.Art.findOneAndUpdate({ _id: req.params.id }, { new: true }, req.body);
             }
             await art.save();
             res.json(art)
