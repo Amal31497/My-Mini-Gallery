@@ -21,7 +21,7 @@ module.exports = {
 
     addNewArtToUser: async (req,res) => {
         try {
-            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { art: req.body._id } }, { upsert: true });
+            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { art: req.body._id } }, { upsert: true, new: true });
 
             await user.save();
             res.json(user)
@@ -33,7 +33,7 @@ module.exports = {
 
     addNewFavoriteArtToUser: async (req,res) => {
         try {
-            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { favorites: req.body.favorite } }, { upsert: true });
+            let user = await db.User.findOneAndUpdate({ _id: req.params.id }, { $push: { favorites: req.body.favorite } }, { upsert: true, new: true });
 
             await user.save();
             res.json(user)
