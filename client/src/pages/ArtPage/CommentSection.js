@@ -125,7 +125,7 @@ const CommentSection = () => {
         if(event.target.name){
             deleteComment(event.target.name)
                 .then(response => {
-                    console.log(response)
+                    // console.log(response)
                     showComments();
                 })
                 .catch(error => console.log(error))
@@ -153,7 +153,6 @@ const CommentSection = () => {
     
     useEffect(() => {
         showComments();
-        
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[artId])
 
