@@ -18,7 +18,7 @@ module.exports = {
 
     updateComment: async function (req, res) {
         try {
-            var comment = await db.Comment.findOneAndUpdate({ _id: req.params.id }, { $push: { responses: req.body.response } }, { upsert: true }, { new: true })
+            var comment = await db.Comment.findOneAndUpdate({ _id: req.params.id }, { $push: { responses: req.body.response } }, { upsert: true, new: true })
             
             console.log(req.body)
             // await comment.save();
