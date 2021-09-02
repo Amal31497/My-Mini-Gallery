@@ -117,9 +117,9 @@ https://my-mini-gallery.herokuapp.com/
 # Contributing
   To contribute to this repo:
 
-  Fork the repo
-  Make changes to forked repo
-  Submit a pull request to this repo
+ - Fork the repo
+ - Make changes to forked repo
+ - Submit a pull request to this repo
 
 # Team-Members
 
