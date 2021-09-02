@@ -6,6 +6,7 @@
 * [Technology Used](#Technology-Used) 
 * [User Story](#User-Story)
 * [Main Application](#Main-Application)
+* [Contributing](#Contributing)
 * [Team Members](#Team-Members)
 * [Conclusion](#Conclusion)
 
@@ -112,6 +113,13 @@ https://my-mini-gallery.herokuapp.com/
 ![MMG-14](https://user-images.githubusercontent.com/73864182/120915317-db61b480-c657-11eb-888e-00cc426c75d8.png)
 
 *END OF APPLICATION*
+
+# Contributing
+  To contribute to this repo:
+
+  Fork the repo
+  Make changes to forked repo
+  Submit a pull request to this repo
 
 # Team-Members
 
